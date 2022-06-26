@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        console.log(localStorage.getItem("user"));
+        if (localStorage.getItem("user") !== "GOST") {
+           $(location).attr('href', 'index.html');
+        }
+        $(document).ready(function () {
+            $("#nalog").hide();
+            $(".loader").hide();
+            $("#loginBtn").click(function () {
+                let korisnik = {
+                    KorisnickoIme: `${$('#username').val()}`,
+                    Lozinka: `${$('#password').val()}`,
+                };
+
+                if (!CheckLoginInput(korisnik.KorisnickoIme, korisnik.Lozinka))
+                    return;
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Login',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('.loader').show();
+                    },
+                    success: function (data) {
+                        $('.loader').hide()
+                        localStorage.setItem("user", korisnik.KorisnickoIme);
+                        $(location).attr('href', 'index.html');
+                    },
+                    error: function (data) {
+                        $('.loader').hide()
+                        $("#errorLogovanje").html("Pogrešno korisničko ime i/ili lozinka!");
+                    }
+
+                })
+            });
+        })
+
+        function CheckLoginInput(username, password) {
+            var boolean = true
+            $("#errorLogovanje").html("");
+            if (username === null || username.length === 0) {
+                $("#errorIme").html("Korisničko ime je obavezno!");
+                $("#username").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#errorIme").html("");
+                $("#username").css("background-color", "white");
+            }
+            if (password === null || password.length === 0) {
+                $("#errorLozinka").html("Lozinka je obavezna!");
+                $("#password").css("background-color", "#FF8484");
+                boolean = false
+            }
+            else {
+                $("#errorLozinka").html("");
+                $("#password").css("background-color", "white");
+            }
+            return boolean;
+        }
+    </script>
+    <div class="header">
+        <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
+        <span class="navbar">
+            <a href="index.html">POČETNA</a>
+            <a href="login.html">PRIJAVA</a>
+            <a href="registration.html">REGISTRACIJA</a>
+            <a href="#account" id="nalog">NALOG</a>
+        </span>
+        <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
+    </div>
+    <hr id="hr">
+    <table id="loginTable">
+        <tr>
+            <td> <i class="fa fa-user icon"></i> </td>
+            <td> <input type="text" name="username" id="username" placeholder="Korisničko ime"> </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorIme"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-key icon"></i></td>
+            <td> <input type="password" name="password" id="password" placeholder="Lozinka"> </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorLozinka"></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorLogovanje"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><div class="loader"></div></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="loginBtn">Prijavi se</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

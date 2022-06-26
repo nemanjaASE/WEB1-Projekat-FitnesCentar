@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        console.log(localStorage.getItem("user"));
+        if (localStorage.getItem("user") !== "GOST") {
+            $(location).attr('href', 'index.html');
+        }
+        $(document).ready(function () {
+            $("#nalog").hide();
+            $(".loader").hide();
+            $("#registerBtn").click(function () {
+                let korisnik = {
+                    KorisnickoIme: `${$('#username').val()}`,
+                    Lozinka: `${$('#password').val()}`,
+                    Ime: `${$('#firstName').val()}`,
+                    Prezime: `${$('#lastName').val()}`,
+                    DatumRodjenja: `${$('#date').val()}`,
+                    Email: `${$('#email').val()}`
+                };
+                console.log(korisnik.DatumRodjenja)
+                if (!CheckRegistrationInput(korisnik))
+                    return;
+                var initial = korisnik.DatumRodjenja.split('-');
+                korisnik.DatumRodjenja = [initial[2], initial[1], initial[0]].join('/');
+               
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Register',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $('.loader').show();
+                    },
+                    success: function (data) {
+                        $('.loader').hide()
+                        localStorage.setItem("user", korisnik.KorisnickoIme);
+                        $(location).attr('href', 'index.html');
+                    },
+                    error: function (data) {
+                        $('.loader').hide()
+                        $("#errorRegistracija").html("Neuspešna registracija!");
+                    }
+
+                })
+            });
+        })
+
+        function CheckRegistrationInput(korisnik) {
+            var boolean = true
+            $("#errorLogovanje").html("");
+            if (korisnik.KorisnickoIme === null || korisnik.KorisnickoIme.length === 0) {
+                $("#errorUsername").html("Korisničko ime je obavezno!");
+                $("#username").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#errorUsername").html("");
+                $("#username").css("background-color", "white");
+            }
+            if (korisnik.Lozinka === null || korisnik.Lozinka.length === 0) {
+                $("#errorLozinka").html("Lozinka je obavezna!");
+                $("#password").css("background-color", "#FF8484");
+                boolean = false
+            }
+            else {
+                $("#errorLozinka").html("");
+                $("#password").css("background-color", "white");
+            }
+            if (korisnik.Ime === null || korisnik.Ime.length === 0) {
+                $("#errorIme").html("Ime je obavezno!");
+                $("#firstName").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#errorIme").html("");
+                $("#firstName").css("background-color", "white");
+            }
+            if (korisnik.Prezime === null || korisnik.Prezime.length === 0) {
+                $("#errorPrezime").html("Prezime je obavezno!");
+                $("#lastName").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#errorPrezime").html("");
+                $("#lastName").css("background-color", "white");
+            }
+            if (korisnik.Email === null || korisnik.Email.length === 0) {
+                $("#errorEmail").html("Email je obavezan!");
+                $("#email").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                var mail_format = /\S+@\S+\.\S+/;
+                if (!(mail_format.test(korisnik.Email))) {
+                    $("#errorEmail").html("Pogrešan format E-mail adrese!");
+                    $("#email").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#errorEmail").html("");
+                    $("#email").css("background-color", "white");
+                }
+            }
+            
+            
+            return boolean;
+        }
+    </script>
+    <div class="header">
+        <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
+        <span class="navbar">
+            <a href="index.html">POČETNA</a>
+            <a href="login.html">PRIJAVA</a>
+            <a href="registration.html">REGISTRACIJA</a>
+            <a href="#account" id="nalog">NALOG</a>
+        </span>
+        <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
+    </div>
+    <hr id="hr">
+    <table id="registrationTable">
+        <tr>
+            <td> <i class="fa fa-user icon"></i> </td>
+            <td> <input type="text" name="username" id="username" placeholder="Korisničko ime"> </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorUsername"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-key icon"></i></td>
+            <td> <input type="password" name="password" id="password" placeholder="Lozinka"> </td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorLozinka"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-user-o icon"></i></td>
+            <td colspan="2">
+                <input type="text" name="firstName" id="firstName" placeholder="Ime">
+                <input type="text" name="lastName" id="lastName" placeholder="Prezime">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <span id="errorIme"></span>
+                <span id="errorPrezime"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-envelope-o icon"></i></td>
+            <td> <input type="text" name="email" id="email" placeholder="E-mail"> </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" id="errorEmail"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td><i class="fa fa-calendar icon"></i></td>
+            <td> <input type="date" name="date" id="date" placeholder="Datum rođenja"> </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" id="errorDate"></td>
+        </tr>
+        <tr>
+            <td colspan="2" id="errorRegistracija"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><div class="loader"></div></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="registerBtn">Registruj se</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

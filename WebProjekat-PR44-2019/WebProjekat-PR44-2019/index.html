@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script> 
+        $(document).ready(function () {
+            if (localStorage.getItem("user") === "GOST") {
+                $("#nalog").hide();
+                $("#odjavaBtn").hide();
+            } else {
+                $("#korisnik").html(localStorage.getItem("user"));
+                $("#nalog").show();
+                $("#odjavaBtn").click(function () {
+                    localStorage.setItem("user", "GOST")
+                    $(location).attr('href', 'login.html');
+                });
+            }
+        });
+    </script>
+    <div class="header">
+        <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
+        <span class="navbar">
+            <a href="index.html">POČETNA</a>
+            <a href="login.html">PRIJAVA</a>
+            <a href="registration.html">REGISTRACIJA</a>
+            <a href="#account" id="nalog">NALOG</a>
+        </span>
+        <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
+        <span><button id="odjavaBtn">ODJAVA</button></span>
+    </div>
+    <hr id="hr">
+</body>
+</html>

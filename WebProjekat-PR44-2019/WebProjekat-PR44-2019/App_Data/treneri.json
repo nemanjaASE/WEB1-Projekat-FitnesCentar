@@ -1,0 +1,64 @@
+[
+  {
+    "KorisnickoIme": "trenerYoge",
+    "Lozinka": "qwerty",
+    "Ime": "Adam",
+    "Prezime": "Milosevic",
+    "Email": "adam@yahoo.com",
+    "DatumRodjenja": "11/06/1986",
+    "Uloga": "Trener",
+    "FitnesCentar": {
+      "Naziv": "Apolon",
+      "Adresa": {
+        "Ulica": "Svetog Save",
+        "Broj": 12,
+        "Grad": "Srbobran",
+        "PostanskiBroj": 21480
+      },
+      "GodinaOtvaranja": "2010",
+      "Vlasnik": "marko123",
+      "CenaMC": 8000,
+      "CenaJT": 1000,
+      "CenaJGT": 1500,
+      "CenaJTP": 2000
+    },
+    "GrupniTrening": [
+      {
+        "Naziv": "Grupni trening",
+        "Tip": "Yoga",
+        "FitnesCentarr": {
+          "Naziv": "Apolon",
+          "Adresa": {
+            "Ulica": "Svetog Save",
+            "Broj": 12,
+            "Grad": "Srbobran",
+            "PostanskiBroj": 21480
+          },
+          "GodinaOtvaranja": "2010",
+          "Vlasnik": "marko123",
+          "CenaMC": 8000,
+          "CenaJT": 1000,
+          "CenaJGT": 1500,
+          "CenaJTP": 2000
+        },
+        "TrajanjeTreninga": 120,
+        "DatumIVreme": "20/07/2022 21:45",
+        "MaxPosetilaca": 30,
+        "Posetioci": [
+          "posetilac1",
+          "posetilac2"
+        ]
+      }
+    ]
+    
+  },
+  {
+    "KorisnickoIme": "trener123",
+    "Lozinka": "1234",
+    "Ime": "Pera",
+    "Prezime": "Jovanovic",
+    "Email": "pera123@gmail.com",
+    "DatumRodjenja": "12/02/1992",
+    "Uloga": "Trener"
+  }
+]

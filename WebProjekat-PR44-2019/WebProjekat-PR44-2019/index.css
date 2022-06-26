@@ -1,0 +1,67 @@
+﻿body {
+    background-color: white;
+}
+
+.navbar {
+    margin-left: 10%;
+}
+
+    .navbar a {
+        font-size: 25px;
+        color: black;
+        text-align: center;
+        padding: 20px 20px;
+        text-decoration: solid;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+
+.navbar a:hover {
+            border-radius: 100px;
+            background-color: crimson;
+            color: white;
+            font-size: 26px;
+}
+
+#naslov {
+    font-size: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 40px;
+}
+
+    #naslov #prvo, #drugo {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 55px;
+        color: red;
+    }
+
+#welcome {
+    margin-left: 10%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+#korisnik {
+    font-weight: bolder;
+    font-style: italic;
+}
+
+#odjavaBtn {
+    margin-left: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: 0px;
+}
+
+#odjavaBtn:hover {
+    color: crimson;
+    font-size: 21px;
+}
+
+#hr {
+    color: crimson;
+    margin-left: 10px;
+    width: 400px;
+}

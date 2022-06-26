@@ -7,29 +7,22 @@ namespace WebProjekat_PR44_2019.Models
 {
     public class FitnesCentar
     {
-        private string naziv;
-        private Adresa adresa;
-        private string godinaOtvaranja;
-        private Vlasnik vlasnik;
-        private double cenaMC;
-        private double cenaJT;
-        private double cenaJGT;
-        private double cenaJTP;
+ 
 
-        public string Naziv { get => naziv; set => naziv = value; }
+        public string Naziv { get; set; }
 
-        public Adresa Adresa { get => adresa; set => adresa = value; }
+        public Adresa Adresa { get; set; }
 
-        public string GodinaOtvaranja { get => godinaOtvaranja; set => godinaOtvaranja = value; }
+        public string GodinaOtvaranja { get; set; }
 
-        public Vlasnik Vlasnik { get => vlasnik; set => vlasnik = value; }
+        public string Vlasnik { get; set; }
 
-        public double CenaMC { get => cenaMC; set => cenaMC = value; }
+        public double CenaMC { get; set; }
 
-        public double CenaJT { get => cenaJT; set => cenaJT = value; }
+        public double CenaJT { get; set; }
 
-        public double CenaJGT { get => cenaJGT; set => cenaJGT = value; }
+        public double CenaJGT { get; set; }
 
-        public double CenaJTP { get => cenaJTP; set => cenaJTP = value; }
+        public double CenaJTP { get; set; }
     }
 }

@@ -156,12 +156,25 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Adresa.cs" />
+    <Compile Include="Models\FitnesCentar.cs" />
+    <Compile Include="Models\GrupniTrening.cs" />
+    <Compile Include="Models\Komentar.cs" />
     <Compile Include="Models\Korisnik.cs" />
+    <Compile Include="Models\Posetilac.cs" />
+    <Compile Include="Models\PosetilacRepo.cs" />
+    <Compile Include="Models\TipTreninga.cs" />
+    <Compile Include="Models\Trener.cs" />
+    <Compile Include="Models\TrenerRepo.cs" />
     <Compile Include="Models\Uloga.cs" />
+    <Compile Include="Models\Vlasnik.cs" />
+    <Compile Include="Models\VlasnikRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +186,12 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="index.css" />
+    <Content Include="index.html" />
+    <Content Include="login.css" />
+    <Content Include="login.html" />
+    <Content Include="registration.css" />
+    <Content Include="registration.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -194,6 +213,11 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="App_Data\fitnesCentri.json" />
+    <Content Include="App_Data\vlasnici.json" />
+    <Content Include="App_Data\posetioci.json" />
+    <Content Include="App_Data\grupniTreninzi.json" />
+    <Content Include="App_Data\treneri.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -215,9 +239,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>

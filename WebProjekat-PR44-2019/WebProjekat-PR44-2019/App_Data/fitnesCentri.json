@@ -1,0 +1,18 @@
+[
+  {
+    "Naziv": "Apolon",
+    "Adresa": {
+      "Ulica": "Svetog Save",
+      "Broj": 12,
+      "Grad": "Srbobran",
+      "PostanskiBroj": 21480
+    },
+    "GodinaOtvaranja": "2010",
+    "Vlasnik": "marko123",
+    "CenaMC": 8000,
+    "CenaJT": 1000,
+    "CenaJGT": 1500,
+    "CenaJTP": 2000
+  }
+]
+

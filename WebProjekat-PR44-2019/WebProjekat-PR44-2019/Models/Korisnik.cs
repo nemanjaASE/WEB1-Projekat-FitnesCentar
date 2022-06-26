@@ -5,31 +5,24 @@ using System.Web;
 
 namespace WebProjekat_PR44_2019.Models
 {
-    public abstract class Korisnik
+    public class Korisnik
     {
-        private string korisnickoIme;
-        private string lozinka;
-        private string ime;
-        private string prezime;
-        private string email;
-        private string datumRodjenja;
-        private Uloga uloga;
 
-        protected string KorisnickoIme { get => korisnickoIme; set => korisnickoIme = value; }
+        public string KorisnickoIme { get; set; }
 
-        protected string Lozinka { get => lozinka; set => lozinka = value; }
+        public string Lozinka { get; set; }
 
-        protected string Ime { get => ime; set => ime = value; }
+        public string Ime { get; set; }
 
-        protected string Prezime { get => prezime; set => prezime = value; }
+        public string Prezime { get; set; }
 
-        protected string Email { get => email; set => email = value; }
+        public string Email { get; set; }
 
-        protected string DatumRodjenja { get => datumRodjenja; set => datumRodjenja = value; }
+        public string DatumRodjenja { get; set; }
 
-        protected Uloga Uloga { get => uloga; set => uloga = value; }
+        public Uloga Uloga { get; set; }
 
-        protected Korisnik(string korisnickoIme, 
+        public Korisnik(string korisnickoIme, 
                            string lozinka, 
                            string ime, 
                            string prezime, 

@@ -7,26 +7,20 @@ namespace WebProjekat_PR44_2019.Models
 {
     public class GrupniTrening
     {
-        private string naziv;
-        private TipTreninga tipTreninga;
-        private FitnesCentar fitnesCentar;
-        private int trajanjeTreninga;
-        private string datumIVreme;
-        private int maxPosetilaca;
-        private List<Posetilac> posetioci;
+        
 
-        public string Naziv { get => naziv; set => naziv = value; }
+        public string Naziv { get; set; }
 
-        public TipTreninga TipTreninga { get => tipTreninga; set => tipTreninga = value; }
+        public TipTreninga TipTreninga { get; set; }
 
-        public FitnesCentar FitnesCentar { get => fitnesCentar; set => fitnesCentar = value; }
+        public FitnesCentar FitnesCentarr { get; set; }
 
-        public int TrajanjeTreninga { get => trajanjeTreninga; set => trajanjeTreninga = value; }
+        public int TrajanjeTreninga { get; set; }
 
-        public string DatumIVreme { get => datumIVreme; set => datumIVreme = value; }
+        public string DatumIVreme { get; set; }
 
-        public int MaxPosetilaca { get => maxPosetilaca; set => maxPosetilaca = value; }
+        public int MaxPosetilaca { get; set; }
 
-        public List<Posetilac> Posetioci { get => posetioci; set => posetioci = value; }
+        public List<string> Posetioci { get; set; }
     }
 }

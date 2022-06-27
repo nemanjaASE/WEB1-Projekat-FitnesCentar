@@ -4,11 +4,37 @@
     <meta charset="utf-8" />
     <title>Home</title>
     <link rel="stylesheet" href="index.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../Scripts/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <script> 
+    <script>
         $(document).ready(function () {
+            var fitnesCentri = [];
+            var filteredList = [];
+
+            var ascSortNaziv = false;
+            var descSortNaziv = true;
+            var ascSortAdresa = false;
+            var descSortAdresa = true;
+            var ascSortGodina = false;
+            var descSortGodina = true;
+
+            var nazivCheckBtn = false;
+            var adresaCheckBtn = false;
+            var godinaCheckBtn = false;
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/FitnesCentri/',
+                success: function (data) {
+                    fitnesCentri = data;
+
+                    DodajFitnesCentreUTabelu(fitnesCentri);
+                }
+            })
+
             if (localStorage.getItem("user") === "GOST") {
                 $("#nalog").hide();
                 $("#odjavaBtn").hide();
@@ -20,7 +46,283 @@
                     $(location).attr('href', 'login.html');
                 });
             }
+            $(document).on("click", "#sortBtnNaziv", function () {
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    SortByName(filteredList, ascSortNaziv, descSortNaziv);
+                else
+                    SortByName(fitnesCentri, ascSortNaziv, descSortNaziv);
+                
+                $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja <button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    DodajFitnesCentreUTabelu(filteredList);
+                else
+                    DodajFitnesCentreUTabelu(fitnesCentri);
+
+                if (ascSortNaziv == true)
+                    ascSortNaziv = false;
+                else
+                    ascSortNaziv = true
+
+                if (descSortNaziv == true)
+                    descSortNaziv = false;
+                else
+                    descSortNaziv = true
+            });
+            $(document).on("click", "#sortBtnAdresa", function () {
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    SortByAddress(filteredList, ascSortAdresa, descSortAdresa);
+                else
+                    SortByAddress(fitnesCentri, ascSortAdresa, descSortAdresa);
+
+                $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja<button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    DodajFitnesCentreUTabelu(filteredList);
+                else
+                    DodajFitnesCentreUTabelu(fitnesCentri);
+
+                if (ascSortAdresa == true)
+                    ascSortAdresa = false;
+                else
+                    ascSortAdresa = true
+
+                if (descSortAdresa == true)
+                    descSortAdresa = false;
+                else
+                    descSortAdresa = true
+            });
+            $(document).on("click", "#sortBtnGodina", function () {
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    SortByGodina(filteredList, ascSortGodina, descSortGodina);
+                else
+                    SortByGodina(fitnesCentri, ascSortGodina, descSortGodina);
+
+                $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja <button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
+                if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
+                    DodajFitnesCentreUTabelu(filteredList);
+                else
+                    DodajFitnesCentreUTabelu(fitnesCentri);
+
+                if (ascSortGodina == true)
+                    ascSortGodina = false;
+                else
+                    ascSortGodina = true
+
+                if (descSortGodina == true)
+                    descSortGodina = false;
+                else
+                    descSortGodina = true
+            });
+            $("#nazivPretraga").change(function () {
+                if (this.checked) {
+                    nazivCheckBtn = true;
+                } else {
+                    nazivCheckBtn = false;
+                    $("#nazivInput").val("");
+                    filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
+                }
+            });
+            $("#adresaPretraga").change(function () {
+                if (this.checked) {
+                    adresaCheckBtn = true;
+                } else {
+                    adresaCheckBtn = false;
+                    $("#adresaInput").val("");
+                    filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
+                }
+            });
+            $("#godinaPretraga").change(function () {
+                if (this.checked) {
+                    godinaCheckBtn = true;
+                } else {
+                    godinaCheckBtn = false;
+                    $("#minInput").val("");
+                    $("#maxInput").val("");
+                    filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
+                }
+            });
+            $(document).on("click", "#pretragaBtn", function () {
+                filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
+            });
         });
+        function Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri) {
+            var tempList = [];
+            if (nazivCheckBtn == true && adresaCheckBtn == false && godinaCheckBtn == false) {
+                let val = $("#nazivInput").val();
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Naziv === val) {
+                        tempList.push(fitnesCentri[i]);
+                    }
+                }
+            }
+            if (nazivCheckBtn == false && adresaCheckBtn == false && godinaCheckBtn == false) {
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                        tempList.push(fitnesCentri[i]);
+                }
+            }
+            if (nazivCheckBtn == true && adresaCheckBtn == true && godinaCheckBtn == false) {
+                let val = $("#nazivInput").val();
+                let val2 = $("#adresaInput").val();
+                let ulica = val2.split(':')[0];
+                let broj = val2.split(':')[1];
+                let grad = val2.split(':')[2];
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Naziv === val
+                        || fitnesCentri[i].Adresa.Ulica === ulica
+                        && fitnesCentri[i].Adresa.Broj == broj
+                        && fitnesCentri[i].Adresa.Grad == grad) {
+                        tempList.push(fitnesCentri[i]);
+                    }
+                }
+            }
+            if (nazivCheckBtn == true && adresaCheckBtn == true && godinaCheckBtn == true) {
+                let val = $("#nazivInput").val();
+                let val2 = $("#adresaInput").val();
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+
+                let ulica = val2.split(':')[0];
+                let broj = val2.split(':')[1];
+                let grad = val2.split(':')[2];
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Naziv === val
+                        ||( fitnesCentri[i].Adresa.Ulica === ulica
+                        && fitnesCentri[i].Adresa.Broj == broj
+                        && fitnesCentri[i].Adresa.Grad == grad)
+                        ||( fitnesCentri[i].GodinaOtvaranja >= min
+                        && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                        tempList.push(fitnesCentri[i]);
+                    }
+                }
+            }
+            if (nazivCheckBtn == false && adresaCheckBtn == true && godinaCheckBtn == false) {
+                let val2 = $("#adresaInput").val();
+                let ulica = val2.split(':')[0];
+                let broj = val2.split(':')[1];
+                let grad = val2.split(':')[2];
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Adresa.Ulica === ulica
+                        && fitnesCentri[i].Adresa.Broj == broj
+                        && fitnesCentri[i].Adresa.Grad == grad) {
+                        tempList.push(fitnesCentri[i]);
+                    }
+                }
+            }
+                if (nazivCheckBtn == false && adresaCheckBtn == false && godinaCheckBtn == true) {
+                    let min = $("#minInput").val();
+                    let max = $("#maxInput").val();
+
+                    for (let i = 0; i < fitnesCentri.length; i++) {
+                        if (fitnesCentri[i].GodinaOtvaranja >= min
+                            && fitnesCentri[i].GodinaOtvaranja <= max) {
+                            tempList.push(fitnesCentri[i]);
+                        }
+                    }
+                }
+                    if (nazivCheckBtn == true && adresaCheckBtn == false && godinaCheckBtn == true) {
+                        let val = $("#nazivInput").val();
+                        let min = $("#minInput").val();
+                        let max = $("#maxInput").val();
+                        for (let i = 0; i < fitnesCentri.length; i++) {
+                            if (fitnesCentri[i].Naziv === val
+                                ||( fitnesCentri[i].GodinaOtvaranja >= min
+                                && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                                tempList.push(fitnesCentri[i]);
+                            }
+                        }
+                    }
+
+                    if (nazivCheckBtn == false && adresaCheckBtn == true && godinaCheckBtn == true) {
+                        let val2 = $("#adresaInput").val();
+                        let min = $("#minInput").val();
+                        let max = $("#maxInput").val();
+
+                        let ulica = val2.split(':')[0];
+                        let broj = val2.split(':')[1];
+                        let grad = val2.split(':')[2];
+                        for (let i = 0; i < fitnesCentri.length; i++) {
+                            if (fitnesCentri[i].Adresa.Ulica === ulica
+                                && fitnesCentri[i].Adresa.Broj == broj
+                                && fitnesCentri[i].Adresa.Grad == grad
+                                || (fitnesCentri[i].GodinaOtvaranja >= min
+                                && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                                tempList.push(fitnesCentri[i]);
+                            }
+                        }
+                    }
+                
+            $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja <button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
+            DodajFitnesCentreUTabelu(tempList);
+            return tempList;
+        }
+        function DodajFitnesCentreUTabelu(fitnesCentri) {
+            var id = 1;
+            for (let key in fitnesCentri) {
+                $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
+                    + "<td>" + fitnesCentri[key].Adresa.Ulica + " " + fitnesCentri[key].Adresa.Broj + " " + fitnesCentri[key].Adresa.Grad + "</td>"
+                    + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
+                    + "<td> <button id=\"detalji\">Detalji</button></td></tr>");
+                id = id + 1;
+            }
+        }
+
+        function SortByName(fitnesCentri, ascSortNaziv, descSortNaziv){
+            let n = fitnesCentri.length
+            for (let i = 0; i < n; i++) {
+                let min = i;
+                for (let j = i + 1; j < n; j++) {
+                    if (ascSortNaziv == true && fitnesCentri[j].Naziv.localeCompare(fitnesCentri[min].Naziv) == -1) {
+                        min = j;
+                    }
+                    if (descSortNaziv == true && fitnesCentri[min].Naziv.localeCompare(fitnesCentri[j].Naziv) == -1) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    let tmp = fitnesCentri[i];
+                    fitnesCentri[i] = fitnesCentri[min];
+                    fitnesCentri[min] = tmp;
+                }
+            }
+        }
+        function SortByAddress(fitnesCentri, ascSortAdresa, descSortAdresa) {
+            let n = fitnesCentri.length
+            for (let i = 0; i < n; i++) {
+                let min = i;
+                for (let j = i + 1; j < n; j++) {
+                    if (ascSortAdresa == true && fitnesCentri[j].Adresa.Ulica.localeCompare(fitnesCentri[min].Adresa.Ulica) == -1) {
+                        min = j;
+                    }
+                    if (descSortAdresa == true && fitnesCentri[min].Adresa.Ulica.localeCompare(fitnesCentri[j].Adresa.Ulica) == -1) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    let tmp = fitnesCentri[i];
+                    fitnesCentri[i] = fitnesCentri[min];
+                    fitnesCentri[min] = tmp;
+                }
+            }
+        }
+        function SortByGodina(fitnesCentri, ascSortGodina, descSortGodina) {
+            let n = fitnesCentri.length
+            for (let i = 0; i < n; i++) {
+                let min = i;
+                for (let j = i + 1; j < n; j++) {
+                    if (ascSortGodina == true && fitnesCentri[j].GodinaOtvaranja.localeCompare(fitnesCentri[min].GodinaOtvaranja) == -1) {
+                        min = j;
+                    }
+                    if (descSortGodina == true && fitnesCentri[min].GodinaOtvaranja.localeCompare(fitnesCentri[j].GodinaOtvaranja) == -1) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    let tmp = fitnesCentri[i];
+                    fitnesCentri[i] = fitnesCentri[min];
+                    fitnesCentri[min] = tmp;
+                }
+            }
+
+        }
     </script>
     <div class="header">
         <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
@@ -34,5 +336,49 @@
         <span><button id="odjavaBtn">ODJAVA</button></span>
     </div>
     <hr id="hr">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="pretraga">
+        <span>
+            Naziv:
+            <input type="checkbox" id="nazivPretraga">
+        </span>
+        <span>
+            Adresa:
+            <input type="checkbox" id="adresaPretraga">
+        </span>
+        <span>
+            Godina:
+            <input type="checkbox" id="godinaPretraga">
+        </span>
+        <input type="text" id="nazivInput" placeholder="Naziv">
+        <input type="text" id="adresaInput" placeholder="Ulica:Broj:Grad">
+        <input type="number" id="minInput" min="2000" max="2022" placeholder="2000">
+        <input type="number" id="maxInput" min="2000" max="2022" placeholder="2022">
+        <button id="pretragaBtn">Pretraži</button>
+    </div>
+
+    <div class="fitnesCentri">
+        <table id="fitnesCentriTable">
+            <tr>
+                <th></th>
+                <th>
+                    Naziv
+                    <button id="sortBtnNaziv"><i class="fa fa-sort"></i></button>
+                </th>
+                <th>
+                    Adresa
+                    <button id="sortBtnAdresa"><i class="fa fa-sort"></i></button>
+                </th>
+                <th>
+                    Godina otvaranja
+                    <button id="sortBtnGodina"><i class="fa fa-sort"></i></button>
+                </th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

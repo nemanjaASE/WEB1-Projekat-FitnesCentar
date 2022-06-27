@@ -1,4 +1,34 @@
-[
+﻿[
+  {
+    "Naziv": "Try Hard",
+    "Adresa": {
+      "Ulica": "Bulevar Oslobođenja",
+      "Broj": 2,
+      "Grad": "Novi Sad",
+      "PostanskiBroj": 21101
+    },
+    "GodinaOtvaranja": "2006",
+    "Vlasnik": "marko123",
+    "CenaMC": 10000,
+    "CenaJT": 1300,
+    "CenaJGT": 1800,
+    "CenaJTP": 2400
+  },
+  {
+    "Naziv": "Mars",
+    "Adresa": {
+      "Ulica": "Kralja Petra",
+      "Broj": 101,
+      "Grad": "Novi Sad",
+      "PostanskiBroj": 21101
+    },
+    "GodinaOtvaranja": "2012",
+    "Vlasnik": "marko123",
+    "CenaMC": 11000,
+    "CenaJT": 1500,
+    "CenaJGT": 2000,
+    "CenaJTP": 2800
+  },
   {
     "Naziv": "Apolon",
     "Adresa": {
@@ -13,6 +43,51 @@
     "CenaJT": 1000,
     "CenaJGT": 1500,
     "CenaJTP": 2000
+  },
+  {
+    "Naziv": "Mars",
+    "Adresa": {
+      "Ulica": "Pap Pavla",
+      "Broj": 55,
+      "Grad": "Srbobran",
+      "PostanskiBroj": 21480
+    },
+    "GodinaOtvaranja": "2020",
+    "Vlasnik": "marko123",
+    "CenaMC": 6000,
+    "CenaJT": 900,
+    "CenaJGT": 1300,
+    "CenaJTP": 1500
+  },
+  {
+    "Naziv": "Athletic Gym",
+    "Adresa": {
+      "Ulica": "Nodilova",
+      "Broj": 9,
+      "Grad": "Beograd",
+      "PostanskiBroj": 11000
+    },
+    "GodinaOtvaranja": "2008",
+    "Vlasnik": "marko123",
+    "CenaMC": 7500,
+    "CenaJT": 1600,
+    "CenaJGT": 2800,
+    "CenaJTP": 2300
+  },
+  {
+    "Naziv": "Beosport",
+    "Adresa": {
+      "Ulica": "Mihajla Pupina",
+      "Broj": 23,
+      "Grad": "Beograd",
+      "PostanskiBroj": 11000
+    },
+    "GodinaOtvaranja": "2018",
+    "Vlasnik": "marko123",
+    "CenaMC": 7000,
+    "CenaJT": 1300,
+    "CenaJGT": 2400,
+    "CenaJTP": 2100
   }
 ]
 

@@ -65,3 +65,119 @@
     margin-left: 10px;
     width: 400px;
 }
+
+#fitnesCentriTable {
+    min-width: 900px;
+    border: collapse;
+    margin-left: 5%;
+    margin-top: 1%;
+    font-size: 16px;
+    color: white;
+    background-color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+}
+
+    #fitnesCentriTable th {
+        padding: 6px;
+        padding-right: 40px;
+        padding-left: 40px;
+        background-color: crimson;
+    }
+
+    #fitnesCentriTable td {
+        text-align: center;
+        padding: 10px;
+        background-color: white;
+        color: black;
+        word-wrap: break-word;
+    }
+
+    #fitnesCentriTable tr.item:hover {
+        font-weight: bolder;
+    }
+
+
+#detalji {
+    font-weight: bold;
+    font-size: 16px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+    #detalji:hover {
+        color: black;
+    }
+
+
+#sortBtnNaziv, #sortBtnAdresa, #sortBtnGodina {
+    margin-left: 2%;
+    color: white;
+    background-color: crimson;
+    border: 1px solid crimson;
+}
+
+#pretraga {
+    margin-left: 5.5%;
+}
+
+input[type='checkbox'] {
+    cursor: pointer;
+    margin-right: 10px;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.0em;
+    margin-bottom: -3px;
+}
+
+#pretragaBtn {
+    width: 80px;
+    margin-left: 5px;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    background-color: white;
+    height: 30px;
+    color: crimson;
+    font-size: 16px;
+}
+
+#searchInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 400px;
+    height: 25px;
+    text-align: center;
+}
+
+#pretragaBtn:hover {
+    color: black;
+}
+
+#nazivInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 160px;
+    height: 30px;
+    text-align: center;
+}
+
+#adresaInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+}
+
+#minInput, #maxInput {
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+}

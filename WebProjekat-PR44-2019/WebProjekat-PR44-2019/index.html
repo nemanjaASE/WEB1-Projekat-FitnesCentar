@@ -143,6 +143,23 @@
             $(document).on("click", "#pretragaBtn", function () {
                 filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
             });
+            $(document).on("click", "#detalji", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+
+                localStorage.setItem("naziv", fitnesCentri[col1 - 1].Naziv);
+                localStorage.setItem("ulica", fitnesCentri[col1 - 1].Adresa.Ulica);
+                localStorage.setItem("broj", fitnesCentri[col1 - 1].Adresa.Broj);
+                localStorage.setItem("grad", fitnesCentri[col1 - 1].Adresa.Grad);
+                localStorage.setItem("postanskiBroj", fitnesCentri[col1 - 1].Adresa.PostanskiBroj);
+                localStorage.setItem("cenaJT", fitnesCentri[col1 - 1].CenaJT);
+                localStorage.setItem("cenaMC", fitnesCentri[col1 - 1].CenaMC);
+                localStorage.setItem("cenaJGT", fitnesCentri[col1 - 1].CenaJGT);
+                localStorage.setItem("cenaJTP", fitnesCentri[col1 - 1].CenaJTP);
+                localStorage.setItem("vlasnik", fitnesCentri[col1 - 1].Vlasnik);
+
+                $(location).attr('href', 'detalji.html');
+            });
         });
         function Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri) {
             var tempList = [];

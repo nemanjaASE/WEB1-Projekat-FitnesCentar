@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Detalji</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="detalji.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../../Scripts/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+
+            var grupniTreninzi = [];
+
+            var naziv = localStorage.getItem("naziv");
+            var ulica = localStorage.getItem("ulica");
+            var broj = localStorage.getItem("broj");
+            var grad = localStorage.getItem("grad");
+
+            $("#nazivFC").val(naziv);
+            $("#ulicaFC").val(ulica);
+            $("#brojFC").val(broj);
+            $("#gradFC").val(grad);
+            $("#postanskiKodFC").val(localStorage.getItem("postanskiBroj"));
+            $("#cenaJTFC").val(localStorage.getItem("cenaJT"));
+            $("#cenaMCFC").val(localStorage.getItem("cenaMC"));
+            $("#cenaJPTFC").val(localStorage.getItem("cenaJTP"));
+            $("#cenaGTFC").val(localStorage.getItem("cenaJGT"));
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/GrupniTrening/',
+                data: {
+                    naziv,
+                    ulica,
+                    broj,
+                    grad
+                },
+                success: function (data) {
+                    grupniTreninzi = data;
+                    DodajGrupneTreningeUTabelu(grupniTreninzi);
+                }
+            })
+
+            if (localStorage.getItem("user") === "GOST") {
+                $("#nalog").hide();
+                $("#odjavaBtn").hide();
+            } else {
+                $("#korisnik").html(localStorage.getItem("user"));
+                $("#nalog").show();
+                $("#odjavaBtn").click(function () {
+                    localStorage.setItem("user", "GOST")
+                    $(location).attr('href', 'login.html');
+                });
+            }
+        });
+
+        function DodajGrupneTreningeUTabelu(grupniTreninzi) {
+            if (grupniTreninzi.length == 0) {
+                $("#grupniTreninziTable").append("<tr class=\"polje\"><td colspan=\"8\"> Nema zakazanih treninga!</td></tr>");
+            }
+            var id = 1;
+            let tipTreninga = "Yoga";
+            for (let key in grupniTreninzi) {
+                if (grupniTreninzi[key].TipTreninga == 0) {
+                    tipTreninga = "Yoga";
+                } else if (grupniTreninzi[key].TipTreninga == 1) {
+                    tipTreninga = "Les Mills Tone";
+                } else if (grupniTreninzi[key].TipTreninga == 2) {
+                    tipTreninga = "Body Pump";
+                }
+           
+                $("#grupniTreninziTable").append("<tr class=\"polje\"><td>" + id + "</td><td>" + grupniTreninzi[key].Naziv + "</td>"
+                    + "<td>" + tipTreninga + "</td>"
+                    + "<td>" + grupniTreninzi[key].TrajanjeTreninga + "</td>"
+                    + "<td>" + grupniTreninzi[key].DatumIVreme + "</td>"
+                    + "<td>" + grupniTreninzi[key].MaxPosetilaca + "</td>"
+                    + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>"
+                    + "<td> <button id=\"prijava\">Prijava</button></td></tr>");
+                id = id + 1;
+            }
+        }
+    </script>
+    <div class="header">
+        <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
+        <span class="navbar">
+            <a href="index.html">POČETNA</a>
+            <a href="login.html">PRIJAVA</a>
+            <a href="registration.html">REGISTRACIJA</a>
+            <a href="#account" id="nalog">NALOG</a>
+        </span>
+        <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
+        <span><button id="odjavaBtn">ODJAVA</button></span>
+    </div>
+    <hr id="hr">
+    <br>
+    <br>
+
+    <table id="detaljiTable">
+        <caption id="detaljiFC">DETALJI O FITNES CENTRU</caption>
+        <tr>
+            <td class="polje">Naziv: </td>
+            <td><input type="text" id="nazivFC" readonly value="Apolon"></td>
+        </tr>
+        <tr>
+            <td class="polje">Adresa: </td>
+            <td><input type="text" id="ulicaFC" readonly value="Svetog Save"></td>
+            <td><input type="text" id="brojFC" readonly value="13"></td>
+            <td><input type="text" id="gradFC" readonly value="Srbobran"></td>
+            <td><input type="text" id="postanskiKodFC" readonly value="21480"></td>
+        </tr>
+        <tr>
+            <td class="polje">Vlasnik: </td>
+            <td><input type="text" id="vlasnikFC" readonly value="marko123"></td>
+            <td class="polje">God. otvaranja: </td>
+            <td><input type="text" id="godinaFC" readonly value="2010"></td>
+        </tr>
+        <tr>
+            <td class="polje">Mesečna članarina: </td>
+            <td><input type="text" id="cenaMCFC" readonly value="8000.00 din"></td>
+            <td class="polje">Jedan trening: </td>
+            <td><input type="text" id="cenaJTFC" readonly value="8000.00 din"></td>
+        </tr>
+        <tr>
+            <td class="polje">Jedan per. trening: </td>
+            <td><input type="text" id="cenaJPTFC" readonly value="8000.00 din"></td>
+            <td class="polje">Grupni trening: </td>
+            <td><input type="text" id="cenaGTFC" readonly value="8000.00 din"></td>
+        </tr>
+    </table>
+
+    <div>
+        <table id="grupniTreninziTable">
+            <caption id="grupniTreninzi">GRUPNI TRENINZI</caption>
+            <tr>
+                <th></th>
+                <th>
+                    Naziv
+                </th>
+                <th>Tip</th>
+                <th>Trajanje</th>
+                <th>Datum i vreme</th>
+                <th>Max. posetilaca</th>
+                <th>Prijavljeno</th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</body>
+</html>

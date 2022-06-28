@@ -34,7 +34,7 @@ namespace WebProjekat_PR44_2019.Controllers
                     fitnesCentri[min] = tmp;
                 }
             }
-            return repo.DobaviFitnesCentre();
+            return fitnesCentri;
         }
     }
 }

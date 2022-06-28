@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Nalog</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="nalog.css">
+    <script src="../../Scripts/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+            if (localStorage.getItem("user") === "GOST") {
+                $(location).attr('href', 'login.html');
+            }
+            var korisnickoIme = localStorage.getItem("user");
+            $("#korisnik").html(localStorage.getItem("user"));
+            $("#nalog").show();
+            $("#odjavaBtn").click(function () {
+                localStorage.setItem("user", "GOST")
+                $(location).attr('href', 'login.html');
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/Login/',
+                data: {
+                    korisnickoIme
+                },
+                success: function (data) {
+                    UpisiPodatkeUPolja(data);
+                }
+            })
+
+            $(document).on("click", "#izmeniBtn", function () {
+                
+                let korisnik = {
+                    KorisnickoIme: `${$('#username').val()}`,
+                    Lozinka: `${$('#sifra').val()}`,
+                    Ime: `${$('#ime').val()}`,
+                    Prezime: `${$('#prezime').val()}`,
+                    DatumRodjenja: `${$('#datum').val()}`,
+                    Email: `${$('#email').val()}`
+                };
+
+                if (!CheckRegistrationInput(korisnik))
+                    return;
+
+                var initial = korisnik.DatumRodjenja.split('-');
+                korisnik.DatumRodjenja = [initial[2], initial[1], initial[0]].join('/');
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Login',
+                    data: JSON.stringify(korisnik),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("Uspesno izmenjen korisnik '" + korisnik.KorisnickoIme + "'!");
+                        $(location).attr('href', 'nalog.html');
+                    }
+                })
+            });
+        });
+
+        function UpisiPodatkeUPolja(korisnik) {
+
+            let tipUloge = "";
+            if (korisnik.Uloga == 0) {
+                tipUloge = "POSETILAC";
+            } else if (korisnik.Uloga == 1) {
+                tipUloge = "TRENER";
+            } else if (korisnik.Uloga == 2) {
+                tipUloge = "VLASNIK";
+            }
+            var initial = korisnik.DatumRodjenja.split('/');
+            var toInput = [initial[2], initial[1], initial[0]].join('-');
+
+            $("#username").val(korisnik.KorisnickoIme);
+            $("#sifra").val(korisnik.Lozinka);
+            $("#ime").val(korisnik.Ime);
+            $("#prezime").val(korisnik.Prezime);
+            $("#email").val(korisnik.Email);
+            $("#datum").val(toInput);
+            $("#uloga").val(tipUloge);
+        }
+
+        function CheckRegistrationInput(korisnik) {
+            var boolean = true
+         
+            if (korisnik.Lozinka === null || korisnik.Lozinka.length === 0) {
+                $("#sifra").css("background-color", "#FF8484");
+                boolean = false
+            }
+            else {
+                $("#sifra").css("background-color", "#d1d1d5");
+            }
+            if (korisnik.Ime === null || korisnik.Ime.length === 0) {
+                $("#ime").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#ime").css("background-color", "#d1d1d5");
+            }
+            if (korisnik.Prezime === null || korisnik.Prezime.length === 0) {
+                $("#prezime").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#prezime").css("background-color", "#d1d1d5");
+            }
+            if (korisnik.Email === null || korisnik.Email.length === 0) {
+                $("#email").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                var mail_format = /\S+@\S+\.\S+/;
+                if (!(mail_format.test(korisnik.Email))) {
+                    $("#email").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#email").css("background-color", "#d1d1d5");
+                }
+            }
+            if (korisnik.DatumRodjenja.length == 0) {
+                $("#datum").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#datum").css("background-color", "#d1d1d5");
+            }
+
+            return boolean;
+        }
+    </script>
+    <div class="header">
+        <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
+        <span class="navbar">
+            <a href="index.html">POČETNA</a>
+            <a href="login.html">PRIJAVA</a>
+            <a href="registration.html">REGISTRACIJA</a>
+            <a href="nalog.html">NALOG</a>
+        </span>
+        <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
+        <span><button id="odjavaBtn">ODJAVA</button></span>
+    </div>
+    <hr id="hr">
+    <br>
+    <br>
+
+    <table id="nalogTable">
+        <caption id="nalogCaption">INFORMACIJE O KORISNIKU</caption>
+        <tr>
+            <td class="polje">Korisničko ime: </td>
+            <td><input type="text" id="username" readonly></td>
+            <td class="polje">Lozinka: </td>
+            <td><input type="password" id="sifra"></td>
+        </tr>
+        <tr>
+            <td class="polje">Ime: </td>
+            <td><input type="text" id="ime"></td>
+            <td class="polje">Prezime: </td>
+            <td><input type="text" id="prezime"></td>
+
+        </tr>
+        <tr>
+            <td class="polje">E-mail: </td>
+            <td><input type="text" id="email"></td>
+            <td class="polje">Datum rođenja: </td>
+            <td><input type="date" id="datum" value=""></td>
+        </tr>
+        <tr>
+            <td class="polje">Uloga: </td>
+            <td><input type="text" id="uloga" readonly></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <button id="izmeniBtn">Izmeni</button>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+</body>
+</html>

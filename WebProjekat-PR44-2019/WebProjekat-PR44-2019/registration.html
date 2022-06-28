@@ -107,8 +107,15 @@
                     $("#email").css("background-color", "white");
                 }
             }
-            
-            
+            if (korisnik.DatumRodjenja.length == 0) {
+                $("#errorDate").html("Datum je obavezan!");
+                $("#date").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#errorDate").html("");
+                $("#date").css("background-color", "white");
+            }
+
             return boolean;
         }
     </script>

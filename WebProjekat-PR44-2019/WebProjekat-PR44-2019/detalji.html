@@ -30,6 +30,7 @@
             $("#cenaMCFC").val(localStorage.getItem("cenaMC"));
             $("#cenaJPTFC").val(localStorage.getItem("cenaJTP"));
             $("#cenaGTFC").val(localStorage.getItem("cenaJGT"));
+            $("#cenaGT").val(localStorage.getItem("cenaGT"));
 
             $.ajax({
                 type: 'GET',
@@ -91,7 +92,7 @@
             <a href="index.html">POČETNA</a>
             <a href="login.html">PRIJAVA</a>
             <a href="registration.html">REGISTRACIJA</a>
-            <a href="#account" id="nalog">NALOG</a>
+            <a href="nalog.html" id="nalog">NALOG</a>
         </span>
         <span id="welcome">Dobrodošli, <span id="korisnik">GOST</span> !</span>
         <span><button id="odjavaBtn">ODJAVA</button></span>
@@ -130,6 +131,10 @@
             <td><input type="text" id="cenaJPTFC" readonly value="8000.00 din"></td>
             <td class="polje">Grupni trening: </td>
             <td><input type="text" id="cenaGTFC" readonly value="8000.00 din"></td>
+        </tr>
+        <tr>
+            <td class="polje">Godišnja članarina: </td>
+            <td><input type="text" id="cenaGT" readonly value="8000.00 din"></td>
         </tr>
     </table>
 

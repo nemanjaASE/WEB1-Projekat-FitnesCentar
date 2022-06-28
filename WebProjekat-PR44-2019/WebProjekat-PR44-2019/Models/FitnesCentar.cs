@@ -19,6 +19,8 @@ namespace WebProjekat_PR44_2019.Models
 
         public double CenaMC { get; set; }
 
+        public double CenaGT { get; set; }
+
         public double CenaJT { get; set; }
 
         public double CenaJGT { get; set; }

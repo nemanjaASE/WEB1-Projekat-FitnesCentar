@@ -10,6 +10,7 @@
     "GodinaOtvaranja": "2006",
     "Vlasnik": "marko123",
     "CenaMC": 10000,
+    "CenaGT": 80000,
     "CenaJT": 1300,
     "CenaJGT": 1800,
     "CenaJTP": 2400
@@ -25,6 +26,7 @@
     "GodinaOtvaranja": "2012",
     "Vlasnik": "marko123",
     "CenaMC": 11000,
+    "CenaGT": 90000,
     "CenaJT": 1500,
     "CenaJGT": 2000,
     "CenaJTP": 2800
@@ -40,6 +42,7 @@
     "GodinaOtvaranja": "2010",
     "Vlasnik": "marko123",
     "CenaMC": 8000,
+    "CenaGT": 70000,
     "CenaJT": 1000,
     "CenaJGT": 1500,
     "CenaJTP": 2000
@@ -55,6 +58,7 @@
     "GodinaOtvaranja": "2020",
     "Vlasnik": "marko123",
     "CenaMC": 6000,
+    "CenaGT": 75000,
     "CenaJT": 900,
     "CenaJGT": 1300,
     "CenaJTP": 1500
@@ -70,6 +74,7 @@
     "GodinaOtvaranja": "2008",
     "Vlasnik": "marko123",
     "CenaMC": 7500,
+    "CenaGT": 100000,
     "CenaJT": 1600,
     "CenaJGT": 2800,
     "CenaJTP": 2300
@@ -85,6 +90,7 @@
     "GodinaOtvaranja": "2018",
     "Vlasnik": "marko123",
     "CenaMC": 7000,
+    "CenaGT": 65000,
     "CenaJT": 1300,
     "CenaJGT": 2400,
     "CenaJTP": 2100

@@ -9,50 +9,17 @@ namespace WebProjekat_PR44_2019.Models
 {
     public class PosetilacRepo
     {
-        private List<Posetilac> posetioci;
         public PosetilacRepo()
         {
-            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/posetioci.json");
-            string jsonString = File.ReadAllText(path);
-            var dataModel1 = JsonConvert.DeserializeObject<List<Posetilac>>(jsonString);
-            posetioci = new List<Posetilac>();
-
-            path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/grupniTreninzi.json");
-            jsonString = File.ReadAllText(path);
-            var dataModel2 = JsonConvert.DeserializeObject<List<GrupniTrening>>(jsonString);
-
-            foreach (var item in dataModel1)
-            {
-                Posetilac p = new Posetilac(item.KorisnickoIme,
-                                         item.Lozinka, item.Ime,
-                                         item.Prezime,
-                                         item.Email,
-                                         item.DatumRodjenja, Uloga.Posetilac);
-               
-                foreach (var gt in dataModel2)
-                {
-                    if (gt.Posetioci.Contains(p.KorisnickoIme))
-                    {
-                        p.GrupniTreninzi.Add(new GrupniTrening()
-                        {
-                            DatumIVreme = gt.DatumIVreme,
-                            FitnesCentarr = gt.FitnesCentarr,
-                            MaxPosetilaca = gt.MaxPosetilaca,
-                            Naziv = gt.Naziv,
-                            Posetioci = gt.Posetioci,
-                            TipTreninga = gt.TipTreninga,
-                            TrajanjeTreninga = gt.TrajanjeTreninga,
-                        });
-                    }
-                }
-                posetioci.Add(p);
-            }
-
+         
         }
 
         public List<Posetilac> DobaviPosetioce()
         {
-            return this.posetioci;
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/posetioci.json");
+            var jsonData = File.ReadAllText(path);
+            var posetioci = JsonConvert.DeserializeObject<List<Posetilac>>(jsonData);
+            return posetioci;
         }
 
         public void DodajPosetioca(Posetilac posetilac)
@@ -76,6 +43,27 @@ namespace WebProjekat_PR44_2019.Models
                     return item;
             }
             return null;
+        }
+
+        public void IzmeniPosetioca(Posetilac posetilac)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/posetioci.json");
+            var jsonData = File.ReadAllText(path);
+            var posetilacTemp = JsonConvert.DeserializeObject<List<Posetilac>>(jsonData);
+            foreach (var item in posetilacTemp)
+            {
+                if (item.KorisnickoIme == posetilac.KorisnickoIme)
+                {
+                    item.Ime = posetilac.Ime;
+                    item.Prezime = posetilac.Prezime;
+                    item.Lozinka = posetilac.Lozinka;
+                    item.Email = posetilac.Email;
+                    item.DatumRodjenja = posetilac.DatumRodjenja;
+                    break;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(posetilacTemp));
         }
     }
 }

@@ -27,7 +27,7 @@
     font-weight: bold;
 }
 
-#nazivFC, #ulicaFC, #vlasnikFC, #godinaFC, #cenaMCFC, #cenaJTFC, #cenaJPTFC, #cenaGTFC {
+#nazivFC, #ulicaFC, #vlasnikFC, #godinaFC, #cenaMCFC, #cenaJTFC, #cenaJPTFC, #cenaGTFC, #cenaGT {
     padding: 2px;
     height: 30px;
     border: 0px;
@@ -38,7 +38,7 @@
     font-style: italic;
 }
 
-    #nazivFC:hover, #ulicaFC:hover, #vlasnikFC:hover, #godinaFC:hover, #cenaMCFC:hover, #cenaJTFC:hover, #cenaJPTFC:hover, #cenaGTFC:hover, #brojFC:hover, #gradFC:hover, #postanskiKodFC:hover {
+    #nazivFC:hover, #ulicaFC:hover, #vlasnikFC:hover, #godinaFC:hover, #cenaMCFC:hover, #cenaJTFC:hover, #cenaJPTFC:hover, #cenaGTFC:hover, #brojFC:hover, #gradFC:hover, #postanskiKodFC:hover, #cenaGT:hover {
         background-color: crimson;
         color: white;
     }

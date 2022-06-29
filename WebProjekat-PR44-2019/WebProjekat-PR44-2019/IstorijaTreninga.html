@@ -27,8 +27,12 @@
             var tipCheckBtn = false;
             var fcCheckBtn = false;
 
+            $("#komentarP").hide();
+            $("#komentarTable").hide();
 
             $(document).on("click", "#sortBtnNaziv", function () {
+
+
                 if (nazivCheckBtn == true || tipCheckBtn == true || fcCheckBtn == true)
                     SortByName(filteredList, ascSortNaziv, descSortNaziv);
                 else
@@ -40,7 +44,7 @@
                     + "<th>Trajanje </th>"
                     + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
                     + "<th>Max. posetilaca </th>"
-                    + "<th>Bilo prisutno </th>"
+                    + "<th>Bilo prisutno </th><th></th>"
                     + "</tr></tbody>");
 
                 if (nazivCheckBtn == true || tipCheckBtn == true || fcCheckBtn == true)
@@ -70,7 +74,7 @@
                     + "<th>Trajanje </th>"
                     + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
                     + "<th>Max. posetilaca </th>"
-                    + "<th>Bilo prisutno </th>"
+                    + "<th>Bilo prisutno </th><th></th>"
                     + "</tr></tbody>");
 
                 if (nazivCheckBtn == true || tipCheckBtn == true || fcCheckBtn == true)
@@ -100,7 +104,7 @@
                     + "<th>Trajanje </th>"
                     + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
                     + "<th>Max. posetilaca </th>"
-                    + "<th>Bilo prisutno </th>"
+                    + "<th>Bilo prisutno </th><th></th>"
                     + "</tr></tbody>");
 
                 if (nazivCheckBtn == true || tipCheckBtn == true || fcCheckBtn == true)
@@ -119,6 +123,49 @@
                     descSortDatum = true
             });
 
+            $(document).on("click", "#komentarBtn", function () {
+                 $("#komentarP").show();
+                 $("#komentarTable").show();
+
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+            
+                $("#nazivFcInput").val(grupniTreninzi[col1 - 1].FitnesCentarr.Naziv);
+                $("#posetilacInput").val(localStorage.getItem("user"));
+             });
+            $(document).on("click", "#proslediBtn", function () {
+
+                if ($('#textArea').val() == null
+                    || $('#textArea').val().length == 0) {
+                    $("#textArea").css("background-color", "#FF8484");
+                    return;
+                } else {
+                    $("#textArea").css("background-color", "#d1d1d5");
+                }
+
+                let komentar = {
+                    FitnesCentar: `${$('#nazivFcInput').val()}`,
+                    Ocena: `${$('#ocena').find(":selected").text()}`,
+                    Posetilac: `${localStorage.getItem("user")}`,
+                    Tekst: `${$('#textArea').val()}`
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/Komentar',
+                    data: JSON.stringify(komentar),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        $(location).attr('href', 'IstorijaTreninga.html');
+                    },
+                    error: function (data) {
+                        alert("Nije moguće proslediti komentar!");
+                    }
+
+                })
+
+            });
 
 
             $.ajax({
@@ -196,7 +243,8 @@
                     + "<td>" + grupniTreninzi[key].TrajanjeTreninga + "</td>"
                     + "<td>" + grupniTreninzi[key].DatumIVreme + "</td>"
                     + "<td>" + grupniTreninzi[key].MaxPosetilaca + "</td>"
-                    + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>");
+                    + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>"
+                    + "<td> <button id=\"komentarBtn\">KOMENTAR</button></td>");
                 id = id + 1;
             }
         }
@@ -219,7 +267,7 @@
 
             var newDate = [date[2], date[1], date[0]].join('-');
             var newTime = [time[0], time[1]].join(':');
-  
+
             return [newDate, newTime].join(' ');
         }
 
@@ -423,8 +471,7 @@
                 + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
                 + "<th>Max. posetilaca </th>"
                 + "<th>Bilo prisutno </th>"
-                + "</tr></tbody>");
-
+                + "<th></th></tr></tbody>");
             DodajGrupneTreningeUTabelu(tempList);
             return tempList;
         }
@@ -487,8 +534,43 @@
                 </th>
                 <th>Max. posetilaca</th>
                 <th>Bilo prisutno</th>
+                <th></th>
             </tr>
         </table>
     </div>
+    <br><br><br><br><br><br><br><br>
+    <p id="komentarP">Komentar</p>
+    <div>
+        <table id="komentarTable">
+            <tr>
+                <td>Fitnes centar: </td>
+                <td> <input type="text" id="nazivFcInput" value="Apolon" readonly></td>
+                <td id="posetilacTekst">Posetilac: </td>
+                <td> <input type="text" id="posetilacInput" value="posetilac1" readonly></td>
+            </tr>
+            <tr>
+                <td>Tekst:</td>
+                <td colspan="3">
+                    <textarea name="textArea" id="textArea" cols="75" rows="10"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Ocena: </td>
+                <td colspan="2">
+                    <select name="ocena" id="ocena">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <td>
+                    <button id="proslediBtn">Prosledi komentar</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br><br><br>
 </body>
 </html>

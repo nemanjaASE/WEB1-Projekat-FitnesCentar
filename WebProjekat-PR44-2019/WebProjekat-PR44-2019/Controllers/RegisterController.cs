@@ -34,6 +34,7 @@ namespace WebProjekat_PR44_2019.Controllers
                 && trenerRepo.GetTrener(posetilac.KorisnickoIme ) == null)
             {
                 posetilac.Uloga = Uloga.Posetilac;
+                posetilac.GrupniTreninzi = new List<string>();
                 posetilacRepo.DodajPosetioca(posetilac);
                 return Ok(posetilac);
             }

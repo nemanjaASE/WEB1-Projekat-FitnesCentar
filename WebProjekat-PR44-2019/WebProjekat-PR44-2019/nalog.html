@@ -13,9 +13,13 @@
 <body>
     <script>
         $(document).ready(function () {
+            var komentari = [];
+            var id_list = [];
+
             if (localStorage.getItem("user") === "GOST") {
                 $(location).attr('href', 'login.html');
             }
+
             var korisnickoIme = localStorage.getItem("user");
             $("#korisnik").html(localStorage.getItem("user"));
             $("#nalog").show();
@@ -31,10 +35,11 @@
                     korisnickoIme
                 },
                 success: function (data) {
-                    UpisiPodatkeUPolja(data);
+
+                    komentari = data;
+                    UpisiPodatkeUPolja(komentari, id_list);
                 }
             })
-
             $(document).on("click", "#izmeniBtn", function () {
 
                 let pol;
@@ -58,7 +63,8 @@
 
                 var initial = korisnik.DatumRodjenja.split('-');
                 korisnik.DatumRodjenja = [initial[2], initial[1], initial[0]].join('/');
-                
+
+
                 $.ajax({
                     type: 'PUT',
                     url: '/api/Login',
@@ -70,21 +76,101 @@
                         $(location).attr('href', 'nalog.html');
                     },
                     error: function (data) {
-                        alert("Izmena nije moguća. Proverite unesene podatke.");
+                        alert("Izmena nije moguća. Proverite unešene podatke.");
+                    }
+                })
+            });
+
+            $(document).on("click", "#odobriBtn", function () {
+
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+                var col2 = trenuntiRed.find("td:eq(1)").text();
+                var col3 = trenuntiRed.find("td:eq(2)").text();
+                var col4 = trenuntiRed.find("td:eq(3)").text();
+                let komentar = {
+                    FitnesCentar: `${col2}`,
+                    Ocena: `${$('#ocena').find(":selected").text()}`,
+                    Posetilac: `${col3}`,
+                    Tekst: `${col4}`,
+                    Id: `${id_list[col1 - 1]}`,
+                    Status: `${1}`
+                };
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Komentar',
+                    data: JSON.stringify(komentar),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    complete: function (data) {
+                        $(location).attr('href', 'nalog.html');
+                    }
+                })
+            });
+
+            $(document).on("click", "#odbaciBtn", function () {
+
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+                var col2 = trenuntiRed.find("td:eq(1)").text();
+                var col3 = trenuntiRed.find("td:eq(2)").text();
+                var col4 = trenuntiRed.find("td:eq(3)").text();
+                let komentar = {
+                    FitnesCentar: `${col2}`,
+                    Ocena: `${$('#ocena').find(":selected").text()}`,
+                    Posetilac: `${col3}`,
+                    Tekst: `${col4}`,
+                    Id: `${id_list[col1 - 1]}`,
+                    Status: `${2}`
+                };
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/Komentar',
+                    data: JSON.stringify(komentar),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    complete: function (data) {
+                        $(location).attr('href', 'nalog.html');
                     }
                 })
             });
         });
 
-        function UpisiPodatkeUPolja(korisnik) {
+        function UpisiPodatkeUPolja(korisnik, id_list) {
 
             let tipUloge = "";
             if (korisnik.Uloga == 0) {
                 tipUloge = "POSETILAC";
+                $("#obradaTable").hide();
+                $("#odbijeniTable").hide();
+                $("#odbijeniKom").hide();
             } else if (korisnik.Uloga == 1) {
                 tipUloge = "TRENER";
+                $("#obradaTable").hide();
+                $("#odbijeniTable").hide();
+                $("#odbijeniKom").hide();
             } else if (korisnik.Uloga == 2) {
                 tipUloge = "VLASNIK";
+                $("#obradaTable").show();
+                $("#odbijeniTable").show();
+                $("#odbijeniKom").show();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Komentar?option=' + 1 + '&username=' + localStorage.getItem("user"),
+                    success: function (data1) {
+                        UpisiKomentareUPolja(data1, id_list);
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/Komentar?option=' + 2 + '&username=' + localStorage.getItem("user"),
+                            success: function (data2) {
+                                UpisiOdbijeneKomentare(data2);
+                            }
+
+                        })
+                    }
+
+                });
+               
             }
             var initial = korisnik.DatumRodjenja.split('/');
             var toInput = [initial[2], initial[1], initial[0]].join('-');
@@ -104,10 +190,45 @@
                 pol = "Z";
             $("#pol").val(pol).change();
         }
+        function UpisiKomentareUPolja(komentari, id_list) {
+            var id = 1;
+            var temp = komentari;
+            if (temp.length === 0) {
+                $("#obradaTable").append("<tr><td colspan=\"6\">Nema komentara za obradu!</td>/tr>");
+                return;
+            }
+            for (let key in temp) {
+                $("#obradaTable").append("<tr><td>" + id + "</td><td>" + temp[key].FitnesCentar + "</td>"
+                    + "<td>" + temp[key].Posetilac + "</td>"
+                    + "<td>" + temp[key].Ocena + "</td>"
+                    + "<td id=\"tekstPolje\">" + temp[key].Tekst + "</td>"
+                    + "<td colspan=\"2\"> <button id=\"odobriBtn\">ODOBRI</button>"
+                    + "<button id=\"odbaciBtn\" >ODBACI</button></td>"
+                    + "</tr>");
+                id_list.push(temp[key].Id);
+                id = id + 1;
+            }
+        }
+        function UpisiOdbijeneKomentare(komentari) {
+            var id = 1;
+            var temp = komentari;
+            if (temp.length === 0) {
+                $("#odbijeniTable").append("<tr><td colspan=\"5\">Nema odbijenih komentara!</td>/tr>");
+                return;
+            }
+            for (let key in temp) {
+                $("#odbijeniTable").append("<tr><td>" + id + "</td><td>" + temp[key].FitnesCentar + "</td>"
+                    + "<td>" + temp[key].Posetilac + "</td>"
+                    + "<td>" + temp[key].Ocena + "</td>"
+                    + "<td id=\"tekstPolje\">" + temp[key].Tekst + "</td>"
+                    + "</tr>");
+                id = id + 1;
+            }
+        }
 
         function CheckRegistrationInput(korisnik) {
             var boolean = true
-         
+
             if (korisnik.Lozinka === null || korisnik.Lozinka.length === 0) {
                 $("#sifra").css("background-color", "#FF8484");
                 boolean = false
@@ -202,8 +323,28 @@
             </td>
         </tr>
     </table>
-    <br />
-    <br />
-    <br />
+    <br><br><br><br><br>
+    <table id="obradaTable" hidden>
+        <tr>
+            <th id="id"></th>
+            <th>Naziv fitnes centra</th>
+            <th>Posetilac</th>
+            <th>Ocena</th>
+            <th>Tekst</th>
+            <th></th>
+        </tr>
+    </table>
+    <br><br><br><br><br>
+    <div id="odbijeniKom" hidden>Odbijeni komentari</div>
+    <table id="odbijeniTable" hidden>
+        <tr>
+            <th id="id"></th>
+            <th>Naziv fitnes centra</th>
+            <th>Posetilac</th>
+            <th>Ocena</th>
+            <th>Tekst</th>
+        </tr>
+    </table>
+    <br><br><br><br><br>
 </body>
 </html>

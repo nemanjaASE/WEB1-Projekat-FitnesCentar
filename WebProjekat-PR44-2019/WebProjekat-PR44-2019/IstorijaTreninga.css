@@ -104,3 +104,103 @@ input[type='checkbox'] {
     background-color: crimson;
     border: 1px solid crimson;
 }
+
+#komentar {
+    font-weight: bold;
+    font-size: 14px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+    #komentar:hover {
+        color: black;
+    }
+
+#komentarBtn {
+    font-weight: bold;
+    font-size: 14px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+#komentarBtn:hover {
+    color: black;
+}
+
+#komentarP {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 21%;
+}
+
+#komentarTable {
+    border: 2.5px solid crimson;
+    padding: 20px;
+    margin-left: 21%;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+    #komentarTable td {
+        padding: 10px;
+    }
+
+#nazivFcInput, #posetilacInput {
+    font-style: italic;
+    border-color: #d1d1d5;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #d1d1d5;
+}
+
+    #nazivFcInput:hover, #posetilacInput:hover, #ocena:hover {
+        background-color: crimson;
+        color: white;
+    }
+
+#textArea {
+    resize: none;
+    text-align: left;
+    font-size: 13px;
+    background-color: #d1d1d5;
+    border-color: #d1d1d5;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#proslediBtn {
+    background-color: white;
+    width: 150px;
+    height: 40px;
+    border-radius: 50px;
+    border-color: crimson;
+    border-width: 1px;
+    color: black;
+    margin-top: 0px;
+    margin-left: 100px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#ocena {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #d1d1d5;
+    border-color: #d1d1d5;
+}
+
+#proslediBtn:hover {
+    background-color: crimson;
+    color: white;
+}

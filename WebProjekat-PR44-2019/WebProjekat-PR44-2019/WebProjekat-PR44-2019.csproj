@@ -158,6 +158,7 @@
     <Compile Include="Controllers\FitnesCentriController.cs" />
     <Compile Include="Controllers\GrupniTreningController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KomentarController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -170,9 +171,11 @@
     <Compile Include="Models\GrupniTrening.cs" />
     <Compile Include="Models\GrupniTreningRepo.cs" />
     <Compile Include="Models\Komentar.cs" />
+    <Compile Include="Models\KomentarRepo.cs" />
     <Compile Include="Models\Korisnik.cs" />
     <Compile Include="Models\Posetilac.cs" />
     <Compile Include="Models\PosetilacRepo.cs" />
+    <Compile Include="Models\StatusKomentara.cs" />
     <Compile Include="Models\TipTreninga.cs" />
     <Compile Include="Models\Trener.cs" />
     <Compile Include="Models\TrenerRepo.cs" />
@@ -228,6 +231,7 @@
     <Content Include="App_Data\posetioci.json" />
     <Content Include="App_Data\grupniTreninzi.json" />
     <Content Include="App_Data\treneri.json" />
+    <Content Include="App_Data\komentari.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

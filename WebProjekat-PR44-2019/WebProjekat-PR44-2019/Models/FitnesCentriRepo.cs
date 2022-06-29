@@ -21,5 +21,18 @@ namespace WebProjekat_PR44_2019.Models
 
             return dataModel;
         }
+
+        public FitnesCentar DobaviFitnesCentar(string naziv)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/fitnesCentri.json");
+            string jsonString = File.ReadAllText(path);
+            var dataModel = JsonConvert.DeserializeObject<List<FitnesCentar>>(jsonString);
+            foreach (var item in dataModel)
+            {
+                if (item.Naziv == naziv)
+                    return item;
+            }
+            return null;
+        }
     }
 }

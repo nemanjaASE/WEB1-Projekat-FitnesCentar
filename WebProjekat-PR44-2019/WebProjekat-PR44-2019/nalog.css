@@ -60,3 +60,87 @@
     #izmeniBtn:hover {
         background-color: crimson;
     }
+
+#obradaTable, #odbijeniTable {
+    margin-top: 1%;
+    min-width: 800px;
+    max-width: 1000px;
+    border: collapse;
+    margin-left: 25%;
+    font-size: 18px;
+    color: white;
+    background-color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+}
+
+#odbijeniTable {
+    min-width: 1000px;
+}
+
+    #obradaTable th, #odbijeniTable th {
+        padding: 6px;
+        padding-right: 50px;
+        padding-left: 50px;
+        background-color: crimson;
+    }
+
+
+    #obradaTable td, #odbijeniTable td {
+        text-align: center;
+        padding: 10px;
+        background-color: white;
+        color: black;
+    }
+
+    #obradaTable tr.item:hover, #odbijeniTable tr.item:hover {
+        font-weight: bolder;
+    }
+
+#prikaziBtn {
+    font-weight: bold;
+    font-size: 16px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+#odobriBtn, #odbaciBtn {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+    #odobriBtn:hover {
+        background-color: green;
+        color: white;
+        border-color: black;
+    }
+
+    #odbaciBtn:hover {
+        background-color: red;
+        color: white;
+        border-color: black;
+    }
+
+#prikaziBtn:hover {
+    color: black;
+}
+
+#odbijeniKom {
+    margin-left: 100px;
+    margin-left: 25%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#tekstPolje{
+    font-size: 14px;
+}

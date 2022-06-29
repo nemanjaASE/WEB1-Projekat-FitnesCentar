@@ -27,7 +27,7 @@
     font-weight: bold;
 }
 
-#username, #sifra, #ime, #prezime, #email, #datum, #uloga {
+#username, #sifra, #ime, #prezime, #email, #datum, #uloga, #pol {
     padding: 2px;
     height: 30px;
     border: 0px;
@@ -39,7 +39,7 @@
     width: 200px;
 }
 
-    #username:hover, #sifra:hover, #ime:hover, #prezime:hover, #email:hover, #datum:hover, #uloga:hover {
+    #username:hover, #sifra:hover, #ime:hover, #prezime:hover, #email:hover, #datum:hover, #uloga:hover, #pol:hover {
         background-color: crimson;
         color: white;
     }

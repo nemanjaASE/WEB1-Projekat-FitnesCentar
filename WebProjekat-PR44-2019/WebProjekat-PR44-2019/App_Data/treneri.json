@@ -1,5 +1,5 @@
 [
-  
+
   {
     "FitnesCentar": "Apolon",
     "GrupniTrening": [ "Grupni Trening 1" ],
@@ -8,6 +8,7 @@
     "Ime": "Adam",
     "Prezime": "Jovanovic",
     "Email": "adam123@gmail.com",
+    "Pol": "Muski",
     "DatumRodjenja": "19/01/2000",
     "Uloga": 1
   }

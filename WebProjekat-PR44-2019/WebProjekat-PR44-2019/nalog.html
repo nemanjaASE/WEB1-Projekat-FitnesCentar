@@ -36,14 +36,21 @@
             })
 
             $(document).on("click", "#izmeniBtn", function () {
-                
+
+                let pol;
+                if ($('#pol').find(":selected").text() === "Muški")
+                    pol = "Muski";
+                else
+                    pol = "Zenski";
+
                 let korisnik = {
                     KorisnickoIme: `${$('#username').val()}`,
                     Lozinka: `${$('#sifra').val()}`,
                     Ime: `${$('#ime').val()}`,
                     Prezime: `${$('#prezime').val()}`,
                     DatumRodjenja: `${$('#datum').val()}`,
-                    Email: `${$('#email').val()}`
+                    Email: `${$('#email').val()}`,
+                    Pol: `${pol}`
                 };
 
                 if (!CheckRegistrationInput(korisnik))
@@ -51,7 +58,7 @@
 
                 var initial = korisnik.DatumRodjenja.split('-');
                 korisnik.DatumRodjenja = [initial[2], initial[1], initial[0]].join('/');
-
+                
                 $.ajax({
                     type: 'PUT',
                     url: '/api/Login',
@@ -61,6 +68,9 @@
                     success: function (data) {
                         alert("Uspesno izmenjen korisnik '" + korisnik.KorisnickoIme + "'!");
                         $(location).attr('href', 'nalog.html');
+                    },
+                    error: function (data) {
+                        alert("Izmena nije moguća. Proverite unesene podatke.");
                     }
                 })
             });
@@ -86,6 +96,13 @@
             $("#email").val(korisnik.Email);
             $("#datum").val(toInput);
             $("#uloga").val(tipUloge);
+
+            let pol;
+            if (korisnik.Pol === "Muski")
+                pol = "M";
+            else
+                pol = "Z";
+            $("#pol").val(pol).change();
         }
 
         function CheckRegistrationInput(korisnik) {
@@ -171,6 +188,13 @@
         <tr>
             <td class="polje">Uloga: </td>
             <td><input type="text" id="uloga" readonly></td>
+            <td class="polje">Pol: </td>
+            <td>
+                <select name="pol" id="pol">
+                    <option value="M">Muški</option>
+                    <option value="Z">Ženski</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td colspan="4">

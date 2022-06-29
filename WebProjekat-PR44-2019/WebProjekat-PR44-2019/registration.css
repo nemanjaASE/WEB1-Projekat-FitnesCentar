@@ -16,12 +16,17 @@
 #username, #password, #email, #date {
     margin-left: 20px;
     height: 50px;
-    width: 350px;
+    width: 370px;
     border-radius: 0px 50px 50px 0px;
     font-size: 15px;
     text-align: center;
     border-color: crimson;
     border-width: 1px;
+}
+
+#date {
+    border-radius: 0px 0px 0px 0px;
+    width: 230px;
 }
 
 #firstName {
@@ -37,7 +42,7 @@
 #lastName {
     margin-left: 5px;
     height: 50px;
-    width: 170px;
+    width: 190px;
     border-radius: 0px 50px 50px 0px;
     font-size: 15px;
     text-align: center;
@@ -55,6 +60,10 @@ i {
     text-align: center;
     font-size: 13px;
     color: red;
+}
+
+#errorDate {
+    margin-left: 70px;
 }
 
 #errorPrezime, #errorIme {
@@ -113,5 +122,18 @@ i {
 
 #registerBtn:hover {
     background-color: crimson;
+}
+
+#pol {
+    width: 100px;
+    border-radius: 0px 50px 50px 0px;
+    height: 50px;
+    margin-left: -110px;
+    font-size: 15px;
+    text-align: center;
+    border-color: crimson;
+    border-width: 1px;
+    caret-color: crimson;
+    background-color: white;
 }
 

@@ -19,13 +19,21 @@
             $("#nalog").hide();
             $(".loader").hide();
             $("#registerBtn").click(function () {
+
+                var pol;
+                if ($('#pol').find(":selected").text() === "Muški")
+                    pol = "Muski";
+                else
+                    pol = "Zenski";
+
                 let korisnik = {
                     KorisnickoIme: `${$('#username').val()}`,
                     Lozinka: `${$('#password').val()}`,
                     Ime: `${$('#firstName').val()}`,
                     Prezime: `${$('#lastName').val()}`,
                     DatumRodjenja: `${$('#date').val()}`,
-                    Email: `${$('#email').val()}`
+                    Email: `${$('#email').val()}`,
+                    Pol: `${pol}`
                 };
                 console.log(korisnik.DatumRodjenja)
                 if (!CheckRegistrationInput(korisnik))
@@ -190,10 +198,18 @@
         <tr>
             <td><i class="fa fa-calendar icon"></i></td>
             <td> <input type="date" name="date" id="date" placeholder="Datum rođenja"> </td>
+            <td>
+                <select name="pol" id="pol">
+                    <option value="M">Muški</option>
+                    <option value="Z">Ženski</option>
+                </select>
+            </td>
         </tr>
 
         <tr>
-            <td colspan="2" id="errorDate"></td>
+            <td colspan="2">
+                <span id="errorDate"></span>
+            </td>
         </tr>
         <tr>
             <td colspan="2" id="errorRegistracija"></td>

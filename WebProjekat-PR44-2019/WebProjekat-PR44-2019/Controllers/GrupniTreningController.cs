@@ -12,6 +12,7 @@ namespace WebProjekat_PR44_2019.Controllers
     public class GrupniTreningController : ApiController
     {
         private static GrupniTreningRepo repo = new GrupniTreningRepo();
+        private static PosetilacRepo repoPosetilac = new PosetilacRepo();
         public IEnumerable<GrupniTrening> Get(string naziv, string ulica, string broj, string grad)
         {
             List<GrupniTrening> grupniTreninzi = repo.DobaviGrupneTreninge();
@@ -58,6 +59,57 @@ namespace WebProjekat_PR44_2019.Controllers
         public IEnumerable<GrupniTrening> Get()
         {
             return repo.DobaviGrupneTreninge();
+        }
+
+        public IEnumerable<GrupniTrening> Get(string username)
+        {
+            List<GrupniTrening> gt = repo.DobaviGrupneTreninge();
+            List<GrupniTrening> retVal = new List<GrupniTrening>();
+
+            DateTime now = DateTime.Now;
+            int dan = now.Day;
+            int mesec = now.Month;
+            int godina = now.Year;
+            int sat = now.Hour;
+            int min = now.Minute;
+
+            foreach (var item in gt)
+            {
+                if (item.Posetioci.Contains(username))
+                {
+                    string[] tokens = item.DatumIVreme.Split(' ');
+                    int tempDan = int.Parse(tokens[0].Split('/')[0]);
+                    int tempMesec = int.Parse(tokens[0].Split('/')[1]);
+                    int tempGodina = int.Parse(tokens[0].Split('/')[2]);
+
+                    int tempSat = int.Parse(tokens[1].Split(':')[0]);
+                    int tempMin = int.Parse(tokens[1].Split(':')[1]);
+
+                    if (tempGodina > godina)
+                        continue;
+                    if (tempMesec > mesec && tempGodina == godina)
+                        continue;
+                    if (tempDan > dan && tempGodina == godina && tempMesec == mesec)
+                        continue;
+                    if (tempSat > sat && tempDan == dan && tempGodina == godina && tempMesec == mesec)
+                        continue;
+                    if (tempMin > min && tempSat == sat && tempDan == dan && tempGodina == godina && tempMesec == mesec)
+                        continue;
+
+                    retVal.Add(item);
+                }
+            }
+            return retVal;
+        }
+
+        public IHttpActionResult Put(string username, GrupniTrening grupniTrening)
+        {   if (repoPosetilac.DobaviPosetioca(username) == null)
+                return BadRequest();
+            if(!repo.DodajPosetiocaNaTrening(grupniTrening, username))
+                return BadRequest();
+            repoPosetilac.DodajGrupniTrening(username, grupniTrening.Naziv);
+            return StatusCode(HttpStatusCode.OK);
+
         }
     }
 }

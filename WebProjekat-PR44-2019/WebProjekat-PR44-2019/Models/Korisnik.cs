@@ -18,6 +18,8 @@ namespace WebProjekat_PR44_2019.Models
 
         public string Email { get; set; }
 
+        public string Pol { get; set; }
+
         public string DatumRodjenja { get; set; }
 
         public Uloga Uloga { get; set; }

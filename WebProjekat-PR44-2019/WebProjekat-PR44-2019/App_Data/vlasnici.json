@@ -1,1 +1,14 @@
-[{"FitnesCentri":[],"KorisnickoIme":"marko123","Lozinka":"12345","Ime":"Marko","Prezime":"Markovic","Email":"jovanovic12345@gmail.com","DatumRodjenja":"18/12/1978","Uloga":2}]
+[
+
+  {
+    "FitnesCentri": [],
+    "KorisnickoIme": "marko123",
+    "Lozinka": "12345",
+    "Ime": "Marko",
+    "Prezime": "Markovic",
+    "Email": "jovanovic12345@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "18/12/1978",
+    "Uloga": 2
+  }
+]

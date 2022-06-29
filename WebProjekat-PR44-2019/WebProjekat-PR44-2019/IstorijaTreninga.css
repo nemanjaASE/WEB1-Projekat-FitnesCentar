@@ -1,0 +1,106 @@
+﻿
+.polje {
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#grupniTreninziTable {
+    background-color: black;
+    border: collapse;
+    min-width: 1000px;
+    margin-top: 1%;
+    margin-left: 20%;
+    font-size: 18px;
+    color: crimson;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+}
+
+    #grupniTreninziTable td {
+        padding: 10px;
+    }
+
+    #grupniTreninziTable th {
+        padding: 10px;
+        text-align: center;
+        background-color: crimson;
+        color: white;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    #grupniTreninziTable tr {
+        text-align: center;
+        background-color: white;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+#grupniTreninzi {
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+#grupniTreninziTable tr.polje:hover {
+    color: crimson;
+}
+
+#pretraga {
+    margin-left: 21%;
+}
+
+input[type='checkbox'] {
+    cursor: pointer;
+    margin-right: 10px;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.0em;
+    margin-bottom: -3px;
+}
+
+#pretragaBtn {
+    width: 80px;
+    margin-left: 5px;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    background-color: white;
+    height: 30px;
+    color: crimson;
+    font-size: 16px;
+}
+
+#nazivInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 160px;
+    height: 30px;
+    text-align: center;
+}
+
+#tipInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 130px;
+    height: 36px;
+    text-align: center;
+}
+
+#fitnesCentarInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    text-align: center;
+}
+
+#pretragaBtn:hover {
+    color: black;
+}
+
+#sortBtnNaziv, #sortBtnDatum, #sortBtnTip {
+    margin-left: 2%;
+    color: white;
+    background-color: crimson;
+    border: 1px solid crimson;
+}

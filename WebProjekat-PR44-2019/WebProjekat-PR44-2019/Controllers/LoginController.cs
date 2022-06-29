@@ -105,7 +105,9 @@ namespace WebProjekat_PR44_2019.Controllers
                     vlasnik.Lozinka = korisnik.Lozinka;
                     vlasnik.Email = korisnik.Email;
                     vlasnik.DatumRodjenja = korisnik.DatumRodjenja;
+                    vlasnik.Pol = korisnik.Pol;
                     vlasnikRepo.IzmeniVlasnika(vlasnik);
+                    
                     return Ok(vlasnik);
                 }
             }
@@ -118,6 +120,7 @@ namespace WebProjekat_PR44_2019.Controllers
                     posetilac.Lozinka = korisnik.Lozinka;
                     posetilac.Email = korisnik.Email;
                     posetilac.DatumRodjenja = korisnik.DatumRodjenja;
+                    posetilac.Pol = korisnik.Pol;
                     posetilacRepo.IzmeniPosetioca(posetilac);
                     return Ok(posetilac);
                 }
@@ -131,6 +134,7 @@ namespace WebProjekat_PR44_2019.Controllers
                     trener.Lozinka = korisnik.Lozinka;
                     trener.Email = korisnik.Email;
                     trener.DatumRodjenja = korisnik.DatumRodjenja;
+                    trener.Pol = korisnik.Pol;
                     trenerRepo.IzmeniTrenera(trener);
                     return Ok(trener);
                 }

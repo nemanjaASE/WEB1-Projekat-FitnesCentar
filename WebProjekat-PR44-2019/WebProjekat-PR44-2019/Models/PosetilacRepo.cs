@@ -59,11 +59,46 @@ namespace WebProjekat_PR44_2019.Models
                     item.Lozinka = posetilac.Lozinka;
                     item.Email = posetilac.Email;
                     item.DatumRodjenja = posetilac.DatumRodjenja;
+                    item.Pol = posetilac.Pol;
                     break;
                 }
             }
             File.Delete(path);
             File.WriteAllText(path, JsonConvert.SerializeObject(posetilacTemp));
+        }
+
+        public void DodajGrupniTrening(string username, string nazivGT)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/posetioci.json");
+            var jsonData = File.ReadAllText(path);
+            var posetioci = JsonConvert.DeserializeObject<List<Posetilac>>(jsonData);
+            foreach (var item in posetioci)
+            {
+                if(item.KorisnickoIme == username)
+                {
+                    item.GrupniTreninzi.Add(nazivGT);
+                    break;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(posetioci));
+        }
+
+        public Posetilac DobaviPosetioca(string username)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/posetioci.json");
+            var jsonData = File.ReadAllText(path);
+            var posetioci = JsonConvert.DeserializeObject<List<Posetilac>>(jsonData);
+            foreach (var item in posetioci)
+            {
+                if (item.KorisnickoIme == username)
+                {
+                    return item;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(posetioci));
+            return null;
         }
     }
 }

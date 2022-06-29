@@ -136,3 +136,11 @@
 #grupniTreninziTable tr.polje:hover {
     color: crimson;
 }
+
+#istorija {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 42%;
+    color: crimson;
+    font-size: 28px;
+}

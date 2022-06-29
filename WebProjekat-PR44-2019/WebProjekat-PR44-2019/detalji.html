@@ -12,6 +12,7 @@
 
 <body>
     <script>
+
         $(document).ready(function () {
 
             var grupniTreninzi = [];
@@ -32,20 +33,64 @@
             $("#cenaGTFC").val(localStorage.getItem("cenaJGT"));
             $("#cenaGT").val(localStorage.getItem("cenaGT"));
 
-            $.ajax({
-                type: 'GET',
-                url: '/api/GrupniTrening/',
-                data: {
-                    naziv,
-                    ulica,
-                    broj,
-                    grad
-                },
-                success: function (data) {
-                    grupniTreninzi = data;
-                    DodajGrupneTreningeUTabelu(grupniTreninzi);
-                }
-            })
+            var korisnickoIme = localStorage.getItem("user");
+
+            if (korisnickoIme !== "GOST") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Login',
+                    data: {
+                        korisnickoIme
+                    },
+                    success: function (data) {
+
+                        let tipUloge = "";
+                        if (data.Uloga == 0) {
+                            tipUloge = "POSETILAC";
+                            $("#istorija").show();
+                        } else if (data.Uloga == 1) {
+                            tipUloge = "TRENER";
+                            $("#istorija").hide();
+                        } else if (data.Uloga == 2) {
+                            tipUloge = "VLASNIK";
+                            $("#istorija").hide();
+                        } else {
+                            $("#istorija").hide();
+                        }
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/GrupniTrening/',
+                            data: {
+                                naziv,
+                                ulica,
+                                broj,
+                                grad
+                            },
+                            success: function (data) {
+                                grupniTreninzi = data;
+                                DodajGrupneTreningeUTabelu(grupniTreninzi, tipUloge);
+                            }
+                        })
+                    }
+                })
+            } else {
+                $("#istorija").hide();
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/GrupniTrening/',
+                    data: {
+                        naziv,
+                        ulica,
+                        broj,
+                        grad
+                    },
+                    success: function (data) {
+                        grupniTreninzi = data;
+                        DodajGrupneTreningeUTabelu(grupniTreninzi, "GOST");
+                    }
+                })
+            }
+
 
             if (localStorage.getItem("user") === "GOST") {
                 $("#nalog").hide();
@@ -58,9 +103,36 @@
                     $(location).attr('href', 'login.html');
                 });
             }
+
+            $(document).on("click", "#prijava", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+
+                let grupniTrening = {
+                    Naziv: `${grupniTreninzi[col1 - 1].Naziv}`,
+                    DatumIVreme: `${grupniTreninzi[col1 - 1].DatumIVreme}`
+                };
+                var username = korisnickoIme
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/GrupniTrening?username=' + username,
+                    data: JSON.stringify(grupniTreninzi[col1 - 1]),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    statusCode: {
+                        200: function (status) {
+                            alert("Uspesno prijavljen!'" + username + "'!");
+                            $(location).attr('href', 'detalji.html');
+                        },
+                        400: function (data) {
+                            alert("Prijava nije moguća. Već ste prijavljeni ili je dostignut kapacitet!");
+                        }
+                    }
+                })
+            });
         });
 
-        function DodajGrupneTreningeUTabelu(grupniTreninzi) {
+        function DodajGrupneTreningeUTabelu(grupniTreninzi, tipUloge) {
             if (grupniTreninzi.length == 0) {
                 $("#grupniTreninziTable").append("<tr class=\"polje\"><td colspan=\"8\"> Nema zakazanih treninga!</td></tr>");
             }
@@ -74,14 +146,23 @@
                 } else if (grupniTreninzi[key].TipTreninga == 2) {
                     tipTreninga = "Body Pump";
                 }
-           
-                $("#grupniTreninziTable").append("<tr class=\"polje\"><td>" + id + "</td><td>" + grupniTreninzi[key].Naziv + "</td>"
-                    + "<td>" + tipTreninga + "</td>"
-                    + "<td>" + grupniTreninzi[key].TrajanjeTreninga + "</td>"
-                    + "<td>" + grupniTreninzi[key].DatumIVreme + "</td>"
-                    + "<td>" + grupniTreninzi[key].MaxPosetilaca + "</td>"
-                    + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>"
-                    + "<td> <button id=\"prijava\">Prijava</button></td></tr>");
+                if (tipUloge === "POSETILAC") {
+                    $("#grupniTreninziTable").append("<tr class=\"polje\"><td>" + id + "</td><td>" + grupniTreninzi[key].Naziv + "</td>"
+                        + "<td>" + tipTreninga + "</td>"
+                        + "<td>" + grupniTreninzi[key].TrajanjeTreninga + "</td>"
+                        + "<td>" + grupniTreninzi[key].DatumIVreme + "</td>"
+                        + "<td>" + grupniTreninzi[key].MaxPosetilaca + "</td>"
+                        + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>"
+                        + "<td> <button id=\"prijava\">Prijava</button></td></tr>");
+                } else {
+                    $("#grupniTreninziTable").append("<tr class=\"polje\"><td>" + id + "</td><td>" + grupniTreninzi[key].Naziv + "</td>"
+                        + "<td>" + tipTreninga + "</td>"
+                        + "<td>" + grupniTreninzi[key].TrajanjeTreninga + "</td>"
+                        + "<td>" + grupniTreninzi[key].DatumIVreme + "</td>"
+                        + "<td>" + grupniTreninzi[key].MaxPosetilaca + "</td>"
+                        + "<td>" + grupniTreninzi[key].Posetioci.length + "</td>"
+                        + "<td></td></tr>");
+                }
                 id = id + 1;
             }
         }
@@ -155,10 +236,14 @@
             </tr>
         </table>
     </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+    <br>
+    <br>
+    <br>
+    <br>
+    <span>
+        <a id="istorija" href="istorijaTreninga.html">ISTORIJA TRENINGA</a>
+    </span>
+    <br>
+    <br>
 </body>
 </html>

@@ -47,6 +47,7 @@ namespace WebProjekat_PR44_2019.Models
                     item.Lozinka = trener.Lozinka;
                     item.Email = trener.Email;
                     item.DatumRodjenja = trener.DatumRodjenja;
+                    item.Pol = trener.Pol;
                     break;
                 }
             }

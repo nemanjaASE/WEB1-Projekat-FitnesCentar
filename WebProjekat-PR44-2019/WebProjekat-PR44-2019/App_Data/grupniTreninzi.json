@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Naziv": "Grupni trening 1",
     "TipTreninga": 2,
@@ -8,23 +8,20 @@
         "Ulica": "Svetog Save",
         "Broj": 12,
         "Grad": "Srbobran",
-        "PostanskiBroj": 21480
+        "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
       "Vlasnik": "marko123",
-      "CenaMC": 8000,
-      "CenaGT": 70000,
-      "CenaJT": 1000,
-      "CenaJGT": 1500,
-      "CenaJTP": 2000
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0
     },
     "TrajanjeTreninga": 120,
     "DatumIVreme": "20/07/2022 21:45",
     "MaxPosetilaca": 30,
-    "Posetioci": [
-      "posetilac1",
-      "posetilac2"
-    ]
+    "Posetioci": [ "posetilac2", "posetilac1", "admin", "posetilac" ]
   },
   {
     "Naziv": "Grupni trening 2",
@@ -35,22 +32,20 @@
         "Ulica": "Svetog Save",
         "Broj": 12,
         "Grad": "Srbobran",
-        "PostanskiBroj": 21480
+        "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
       "Vlasnik": "marko123",
-      "CenaMC": 8000,
-      "CenaGT": 70000,
-      "CenaJT": 1000,
-      "CenaJGT": 1500,
-      "CenaJTP": 2000
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "21/08/2022 20:00",
     "MaxPosetilaca": 30,
-    "Posetioci": [
-      "posetilac1"
-    ]
+    "Posetioci": [ "posetilac1", "admin", "posetilac", "posetilac2" ]
   },
   {
     "Naziv": "Grupni trening 3",
@@ -61,22 +56,68 @@
         "Ulica": "Svetog Save",
         "Broj": 12,
         "Grad": "Srbobran",
-        "PostanskiBroj": 21480
+        "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
       "Vlasnik": "marko123",
-      "CenaMC": 8000,
-      "CenaGT": 70000,
-      "CenaJT": 1000,
-      "CenaJGT": 1500,
-      "CenaJTP": 2000
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0
     },
     "TrajanjeTreninga": 80,
     "DatumIVreme": "27/06/2022 21:45",
     "MaxPosetilaca": 20,
-    "Posetioci": [
-      "posetilac1"
-    ]
+    "Posetioci": []
+  },
+  {
+    "Naziv": "Grupni trening 4",
+    "TipTreninga": 1,
+    "FitnesCentarr": {
+      "Naziv": "Apolon",
+      "Adresa": {
+        "Ulica": "Svetog Save",
+        "Broj": 12,
+        "Grad": "Srbobran",
+        "PostanskiBroj": "21480"
+      },
+      "GodinaOtvaranja": "2010",
+      "Vlasnik": "marko123",
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0
+    },
+    "TrajanjeTreninga": 80,
+    "DatumIVreme": "20/05/2022 21:40",
+    "MaxPosetilaca": 15,
+    "Posetioci": [ "posetilac1" ]
+  },
+  {
+    "Naziv": "Grupni trening 5",
+    "TipTreninga": 1,
+    "FitnesCentarr": {
+      "Naziv": "Apolon",
+      "Adresa": {
+        "Ulica": "Svetog Save",
+        "Broj": 12,
+        "Grad": "Srbobran",
+        "PostanskiBroj": "21480"
+      },
+      "GodinaOtvaranja": "2010",
+      "Vlasnik": "marko123",
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0
+    },
+    "TrajanjeTreninga": 105,
+    "DatumIVreme": "20/04/2022 10:00",
+    "MaxPosetilaca": 15,
+    "Posetioci": [ "posetilac1" ]
   },
   {
     "Naziv": "Yoga zajedno",
@@ -87,22 +128,44 @@
         "Ulica": "Bulevar Oslobođenja",
         "Broj": 2,
         "Grad": "Novi Sad",
-        "PostanskiBroj": 21101
+        "PostanskiBroj": "21101"
       },
       "GodinaOtvaranja": "2006",
       "Vlasnik": "marko123",
-      "CenaMC": 10000,
-      "CenaGT": 80000,
-      "CenaJT": 1300,
-      "CenaJGT": 1800,
-      "CenaJTP": 2400
+      "CenaMC": 10000.0,
+      "CenaGT": 80000.0,
+      "CenaJT": 1300.0,
+      "CenaJGT": 1800.0,
+      "CenaJTP": 2400.0
     },
     "TrajanjeTreninga": 85,
     "DatumIVreme": "01/10/2020 10:00",
     "MaxPosetilaca": 20,
-    "Posetioci": [
-      "posetilac1"
-    ]
+    "Posetioci": [ "posetilac1", "posetilac2", "posetilac" ]
+  },
+  {
+    "Naziv": "Health Care",
+    "TipTreninga": 1,
+    "FitnesCentarr": {
+      "Naziv": "Try Hard",
+      "Adresa": {
+        "Ulica": "Bulevar Oslobođenja",
+        "Broj": 2,
+        "Grad": "Novi Sad",
+        "PostanskiBroj": "21101"
+      },
+      "GodinaOtvaranja": "2006",
+      "Vlasnik": "marko123",
+      "CenaMC": 10000.0,
+      "CenaGT": 80000.0,
+      "CenaJT": 1300.0,
+      "CenaJGT": 1800.0,
+      "CenaJTP": 2400.0
+    },
+    "TrajanjeTreninga": 130,
+    "DatumIVreme": "02/10/2021 11:00",
+    "MaxPosetilaca": 20,
+    "Posetioci": [ "posetilac1" ]
   },
   {
     "Naziv": "Trening zajedno",
@@ -113,23 +176,20 @@
         "Ulica": "Pap Pavla",
         "Broj": 55,
         "Grad": "Srbobran",
-        "PostanskiBroj": 21480
+        "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2020",
       "Vlasnik": "marko123",
-      "CenaMC": 6000,
-      "CenaGT": 75000,
-      "CenaJT": 900,
-      "CenaJGT": 1300,
-      "CenaJTP": 1500
+      "CenaMC": 6000.0,
+      "CenaGT": 75000.0,
+      "CenaJT": 900.0,
+      "CenaJGT": 1300.0,
+      "CenaJTP": 1500.0
     },
     "TrajanjeTreninga": 85,
     "DatumIVreme": "25/12/2022 11:45",
     "MaxPosetilaca": 15,
-    "Posetioci": [
-      "posetilac1",
-      "posetilac2"
-    ]
+    "Posetioci": [ "posetilac1", "posetilac2", "admin" ]
   },
   {
     "Naziv": "Fit Dance",
@@ -140,22 +200,20 @@
         "Ulica": "Pap Pavla",
         "Broj": 55,
         "Grad": "Srbobran",
-        "PostanskiBroj": 21480
+        "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2020",
       "Vlasnik": "marko123",
-      "CenaMC": 6000,
-      "CenaGT": 75000,
-      "CenaJT": 900,
-      "CenaJGT": 1300,
-      "CenaJTP": 1500
+      "CenaMC": 6000.0,
+      "CenaGT": 75000.0,
+      "CenaJT": 900.0,
+      "CenaJGT": 1300.0,
+      "CenaJTP": 1500.0
     },
     "TrajanjeTreninga": 120,
     "DatumIVreme": "20/09/2022 21:00",
     "MaxPosetilaca": 15,
-    "Posetioci": [
-      "posetilac2"
-    ]
+    "Posetioci": [ "posetilac1", "posetilac2", "admin" ]
   },
   {
     "Naziv": "Athletic Gym Yoga",
@@ -166,22 +224,20 @@
         "Ulica": "Nodilova",
         "Broj": 9,
         "Grad": "Beograd",
-        "PostanskiBroj": 11000
+        "PostanskiBroj": "11000"
       },
       "GodinaOtvaranja": "2008",
       "Vlasnik": "marko123",
-      "CenaMC": 7500,
-      "CenaGT": 100000,
-      "CenaJT": 1600,
-      "CenaJGT": 2800,
-      "CenaJTP": 2300
+      "CenaMC": 7500.0,
+      "CenaGT": 100000.0,
+      "CenaJT": 1600.0,
+      "CenaJGT": 2800.0,
+      "CenaJTP": 2300.0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "02/10/2022 18:00",
     "MaxPosetilaca": 20,
-    "Posetioci": [
-      "posetilac1"
-    ]
+    "Posetioci": [ "posetilac1" ]
   },
   {
     "Naziv": "Athletic Gym Body Pump",
@@ -192,21 +248,19 @@
         "Ulica": "Nodilova",
         "Broj": 9,
         "Grad": "Beograd",
-        "PostanskiBroj": 11000
+        "PostanskiBroj": "11000"
       },
       "GodinaOtvaranja": "2008",
       "Vlasnik": "marko123",
-      "CenaMC": 7500,
-      "CenaGT": 100000,
-      "CenaJT": 1600,
-      "CenaJGT": 2800,
-      "CenaJTP": 2300
+      "CenaMC": 7500.0,
+      "CenaGT": 100000.0,
+      "CenaJT": 1600.0,
+      "CenaJGT": 2800.0,
+      "CenaJTP": 2300.0
     },
     "TrajanjeTreninga": 70,
     "DatumIVreme": "02/07/2022 12:00",
     "MaxPosetilaca": 20,
-    "Posetioci": [
-      "posetilac1"
-    ]
+    "Posetioci": [ "posetilac1" ]
   }
 ]

@@ -62,6 +62,18 @@ namespace WebProjekat_PR44_2019.Controllers
                 return null;
         }
 
+        public IEnumerable<Komentar> Get(string naziv)
+        {
+            List<Komentar> komentari =  repo.DobaviKomentareObradjene();
+            List<Komentar> temp = new List<Komentar>();
+            foreach (var komentar in komentari)
+            {
+                if (komentar.FitnesCentar == naziv)
+                    temp.Add(komentar);
+            }
+            return temp;
+        }
+
         public IHttpActionResult Put(Komentar komentar)
         {
             repo.IzmeniKomentar(komentar);

@@ -42,6 +42,20 @@ namespace WebProjekat_PR44_2019.Models
             return odobreni;
         }
 
+        public List<Komentar> DobaviKomentareObradjene()
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/komentari.json");
+            string jsonString = File.ReadAllText(path);
+            var dataModel = JsonConvert.DeserializeObject<List<Komentar>>(jsonString);
+            List<Komentar> odobreni = new List<Komentar>();
+            foreach (var item in dataModel)
+            {
+                if (item.Status == StatusKomentara.ODOBREN)
+                    odobreni.Add(item);
+            }
+            return odobreni;
+        }
+
         public void DodajKomentarNaObradu(Komentar komentar)
         {
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/komentari.json");

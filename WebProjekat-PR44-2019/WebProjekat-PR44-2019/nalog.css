@@ -144,3 +144,82 @@
 #tekstPolje{
     font-size: 14px;
 }
+
+#grupniTreninziTable {
+    background-color: black;
+    margin-top: 1%;
+    min-width: 700px;
+    margin-left: 18%;
+    font-size: 15px;
+    color: crimson;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5px;
+}
+
+.nazivGT, .trajanjeGT, .datumIVremeGT, .maxPosetilacaGT, .vremeGT, .tipGT {
+    padding: 10px;
+    text-align: center;
+    border: none;
+}
+.vremeGT {
+    width: 40px;
+    margin-right: 10px;
+}
+.datumIVremeGT {
+    display: inline-block !important;
+    width: 200px;
+}
+
+.tipGT {
+    height: 45px;
+    text-align: center;
+}
+
+#grupniTreninziTable td {
+    padding: 10px;
+}
+
+#grupniTreninziTable .inputPolje {
+    padding: 0px;
+}
+
+
+
+#grupniTreninziTable th {
+    padding: 10px;
+    text-align: center;
+    background-color: crimson;
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#grupniTreninziTable tr {
+    text-align: center;
+    background-color: white;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#grupniTreninzi {
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+
+#izmeni, #obrisi, #pregledaj {
+    font-weight: bold;
+    font-size: 14px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+    #izmeni:hover, #obrisi:hover, #pregledaj:hover {
+        color: black;
+    }
+
+#grupniTreninziTable tr.polje:hover {
+    color: crimson;
+}

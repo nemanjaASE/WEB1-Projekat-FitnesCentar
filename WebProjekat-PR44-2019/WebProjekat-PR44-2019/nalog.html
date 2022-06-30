@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="nalog.css">
     <script src="../../Scripts/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -15,6 +14,8 @@
         $(document).ready(function () {
             var komentari = [];
             var id_list = [];
+            var buduciGT = [];
+            var prosliGT = [];
 
             if (localStorage.getItem("user") === "GOST") {
                 $(location).attr('href', 'login.html');
@@ -37,7 +38,7 @@
                 success: function (data) {
 
                     komentari = data;
-                    UpisiPodatkeUPolja(komentari, id_list);
+                    UpisiPodatkeUPolja(komentari, id_list, buduciGT, prosliGT);
                 }
             })
             $(document).on("click", "#izmeniBtn", function () {
@@ -134,9 +135,19 @@
                     }
                 })
             });
+
+            $(document).on("click", "#pregledaj", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+                var out = "";
+                for (let pos of buduciGT[col1 - 1].Posetioci) {
+                    out = out + pos + "\n";
+                }
+                alert("Posetioci:\n\n" + out)
+            });
         });
 
-        function UpisiPodatkeUPolja(korisnik, id_list) {
+        function UpisiPodatkeUPolja(korisnik, id_list, buduciGT, prosliGT) {
 
             let tipUloge = "";
             if (korisnik.Uloga == 0) {
@@ -144,16 +155,29 @@
                 $("#obradaTable").hide();
                 $("#odbijeniTable").hide();
                 $("#odbijeniKom").hide();
+                $("#grupniTreninziTable").hide();
             } else if (korisnik.Uloga == 1) {
                 tipUloge = "TRENER";
                 $("#obradaTable").hide();
                 $("#odbijeniTable").hide();
                 $("#odbijeniKom").hide();
+                $("#grupniTreninziTable").show();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/GrupniTrening/',
+                    success: function (data) {
+                        grupniTreninzi = data;
+                        DodajGrupneTreningeUTabelu(grupniTreninzi,buduciGT, prosliGT);
+                    }
+                })
+
             } else if (korisnik.Uloga == 2) {
                 tipUloge = "VLASNIK";
                 $("#obradaTable").show();
                 $("#odbijeniTable").show();
                 $("#odbijeniKom").show();
+                $("#grupniTreninziTable").hide();
                 $.ajax({
                     type: 'GET',
                     url: '/api/Komentar?option=' + 1 + '&username=' + localStorage.getItem("user"),
@@ -222,6 +246,78 @@
                     + "<td>" + temp[key].Ocena + "</td>"
                     + "<td id=\"tekstPolje\">" + temp[key].Tekst + "</td>"
                     + "</tr>");
+                id = id + 1;
+            }
+        }
+        function DodajGrupneTreningeUTabelu(grupniTreninzi, buduciGT, prosliGT) {
+            var id = 1;
+            var temp = grupniTreninzi;
+            if (temp.length === 0) {
+                $("#obradaTable").append("<tr><td colspan=\"6\">Nema komentara za obradu!</td>/tr>");
+                return;
+            }
+
+            var currentDate = new Date();
+            var mesec = currentDate.getMonth() + 1;
+            var godina = currentDate.getFullYear();
+            var dan = currentDate.getDate();
+            var sat = currentDate.getHours();
+            var min = currentDate.getMinutes();
+
+            for (let key in temp) {
+                var initial = temp[key].DatumIVreme.split(' ')[0].split('/');
+                var toInput = [initial[2], initial[1], initial[0]].join('-');
+
+                var tempGodina = parseInt(initial[2]);
+                var tempMesec = parseInt(initial[1]);
+                var tempDan = parseInt(initial[0]);
+
+                var tempSat = parseInt(temp[key].DatumIVreme.split(' ')[1].split(':')[0]);
+                var tempMin = parseInt(temp[key].DatumIVreme.split(' ')[1].split(':')[1]);
+
+                let tip;
+                if (temp[key].TipTreninga === 0) {
+                    tip = "Yoga";
+                } else if (temp[key].TipTreninga === 1) {
+                    tip = "Les";
+                } else if (temp[key].TipTreninga === 2) {
+                    tip = "Body"
+                }
+
+
+                if (tempGodina < godina)
+                    continue;
+                if (tempMesec < mesec && tempGodina == godina)
+                    continue;
+                if (tempDan < dan && tempGodina == godina && tempMesec == mesec)
+                    continue;
+                if (tempSat < sat && tempDan == dan && tempGodina == godina && tempMesec == mesec)
+                    continue;
+                if (tempMin < min && tempSat == sat && tempDan == dan && tempGodina == godina && tempMesec == mesec)
+                    continue;
+               
+                $("#grupniTreninziTable").append("<tr class=\"polje\">"
+                    + "<td>" + id + "</td>"
+                    + "<td class=\"inputPolje\"> <input type=\"text\" class=\"nazivGT\" value=\"" + temp[key].Naziv + "\"></td>"
+                    + "<td class=\"inputPolje\">"
+                    + "<select class=\"tipGT\" class=\"inputPolje\">"
+                    + " <option value=\"Yoga\">Yoga</option>"
+                    + " <option value=\"Les\">Les Mills Tone</option>"
+                    + " <option value=\"Body\">Body Pump</option>"
+                    + " /td>"
+                    + "<td class=\"inputPolje\"><input type=\"text\" class=\"trajanjeGT\" value=\"" + temp[key].TrajanjeTreninga + "\"></td>"
+                    + "<td class=\"inputPolje\"><input type=\"date\" class=\"datumIVremeGT\" value=\"" + toInput + "\">"
+                    + "<input type=\"text\" class=\"vremeGT\" value=\"" + temp[key].DatumIVreme.split(' ')[1] + "\"> "
+                    + "</td>"
+                    + "<td class=\"inputPolje\"><input type=\"text\" class=\"maxPosetilacaGT\" value=\"" + temp[key].MaxPosetilaca + "\"></td>"
+                    + "<td>" + temp[key].Posetioci.length + "</td>"
+                    + "<td colspan=\"3\">"
+                    + "<button id=\"izmeni\">Izmeni</button>"
+                    + "<button id=\"obrisi\">Obrisi</button>"
+                    + "<button id=\"pregledaj\">Pregledaj</button></td></tr>"
+                );
+                $("#grupniTreninziTable tr:last td:eq(2) .tipGT").val(tip).change();
+                buduciGT.push(temp[key]);
                 id = id + 1;
             }
         }
@@ -345,6 +441,25 @@
             <th>Tekst</th>
         </tr>
     </table>
-    <br><br><br><br><br>
+        <table id="grupniTreninziTable" hidden>
+            <caption id="grupniTreninzi">
+                GRUPNI TRENINZI
+            </caption>
+            <tr>
+                <th></th>
+                <th>
+                    Naziv
+                </th>
+                <th>Tip</th>
+                <th>Trajanje</th>
+                <th>Datum i vreme</th>
+                <th>Max. posetilaca</th>
+                <th>Prijavljeno</th>
+                <th colspan="3">Akcije</th>
+            </tr>
+           
+           
+        </table>
+        <br><br><br>
 </body>
 </html>

@@ -35,6 +35,16 @@
 
             var korisnickoIme = localStorage.getItem("user");
 
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/Komentar?naziv=' + naziv,
+                success: function (data) {
+                    UpisiKomentareUPolja(data);
+                }
+
+            });
+
             if (korisnickoIme !== "GOST") {
                 $.ajax({
                     type: 'GET',
@@ -166,6 +176,24 @@
                 id = id + 1;
             }
         }
+
+        function UpisiKomentareUPolja(komentari) {
+            var temp = komentari;
+            if (temp.length === 0) {
+                $("#komentari").append("<p style=\"margin-left: 470px; font-size: 20px\"><i>Još uvek nema komentara!</i></p>");
+                return;
+            }
+            for (let key in temp) {
+                $("#komentari").append("<table class=\"odobreniTable\"><tr>"
+                    + "<th>Posetilac:</th>" + "<td>" + temp[key].Posetilac + "</td>"
+                    + "<td rowspan=\"2'\" style=\"width: 320px;\"><textarea name=\"komentarInput\" id=\"komentarInput\" cols=\"40\" rows=\"6\" readonly>" + temp[key].Tekst + "</textarea></td>"
+                    + "</tr><tr>"
+                    + "<th>Fitnes centar:</th>"
+                    +  "<td>" + temp[key].FitnesCentar + "</td>"
+                    + "<th id=\"ocenaTh\"> Ocena: " 
+                    + "<p id=\"ocena\">" + temp[key].Ocena + "</p></th></tr></table>");
+            }
+        }
     </script>
     <div class="header">
         <span id="naslov"><span id="prvo">F</span>itnes <span id="drugo">C</span>entri</span>
@@ -243,7 +271,10 @@
     <span>
         <a id="istorija" href="istorijaTreninga.html">ISTORIJA TRENINGA</a>
     </span>
-    <br>
-    <br>
+    <br><br>
+    <div id="odobreniKom">Komentari:</div>
+    <div id="komentari">
+    </div>
+    <br><br><br><br>
 </body>
 </html>

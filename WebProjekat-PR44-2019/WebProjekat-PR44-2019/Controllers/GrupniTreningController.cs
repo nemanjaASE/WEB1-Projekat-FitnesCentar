@@ -13,6 +13,8 @@ namespace WebProjekat_PR44_2019.Controllers
     {
         private static GrupniTreningRepo repo = new GrupniTreningRepo();
         private static PosetilacRepo repoPosetilac = new PosetilacRepo();
+        private static TrenerRepo trenerRepo = new TrenerRepo();
+
         public IEnumerable<GrupniTrening> Get(string naziv, string ulica, string broj, string grad)
         {
             List<GrupniTrening> grupniTreninzi = repo.DobaviGrupneTreninge();

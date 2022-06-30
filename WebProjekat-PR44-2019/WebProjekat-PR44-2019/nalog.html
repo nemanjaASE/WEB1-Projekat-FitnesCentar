@@ -6,16 +6,28 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="nalog.css">
     <script src="../../Scripts/jquery-3.3.1.min.js"></script>
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <script>
         $(document).ready(function () {
-            var komentari = [];
             var id_list = [];
             var buduciGT = [];
             var prosliGT = [];
+            var filteredList = [];
+
+            var nazivCheckBtn = false;
+            var tipCheckBtn = false;
+            var datumCheckBtn = false;
+
+            var ascSortNaziv = false;
+            var descSortNaziv = true;
+            var ascSortTip = false;
+            var descSortTip = true;
+            var ascSortDatum = false;
+            var descSortDatum = true;
 
             if (localStorage.getItem("user") === "GOST") {
                 $(location).attr('href', 'login.html');
@@ -107,7 +119,6 @@
                     }
                 })
             });
-
             $(document).on("click", "#odbaciBtn", function () {
 
                 var trenuntiRed = $(this).closest("tr");
@@ -140,6 +151,15 @@
                 var col1 = trenuntiRed.find("td:eq(0)").text();
                 var out = "";
                 for (let pos of buduciGT[col1 - 1].Posetioci) {
+                    out = out + pos + "\n";
+                }
+                alert("Posetioci:\n\n" + out);
+            });
+            $(document).on("click", "#pregledaj2", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+                var out = "";
+                for (let pos of prosliGT[col1 - 1].Posetioci) {
                     out = out + pos + "\n";
                 }
                 alert("Posetioci:\n\n" + out);
@@ -196,7 +216,6 @@
                     }
                 })
             });
-
             $(document).on("click", "#obrisi", function () {
 
                 var trenuntiRed = $(this).closest("tr");
@@ -216,6 +235,132 @@
                     }
                 })
             });
+
+            $("#nazivPretraga").change(function () {
+                if (this.checked) {
+                    nazivCheckBtn = true;
+                } else {
+                    nazivCheckBtn = false;
+                    $("#nazivInput").val("");
+                    filteredList = Search(nazivCheckBtn, tipCheckBtn, datumCheckBtn, prosliGT);
+                }
+            });
+            $("#adresaPretraga").change(function () {
+                if (this.checked) {
+                    tipCheckBtn = true;
+                } else {
+                    tipCheckBtn = false;
+                    $("#tipInput").val("YOGA").change();
+                    filteredList = Search(nazivCheckBtn, tipCheckBtn, datumCheckBtn, prosliGT);
+                }
+            });
+            $("#godinaPretraga").change(function () {
+                if (this.checked) {
+                    datumCheckBtn = true;
+                } else {
+                    datumCheckBtn = false;
+                    $("#minInput").val("");
+                    $("#maxInput").val("");
+                    filteredList = Search(nazivCheckBtn, tipCheckBtn, datumCheckBtn, prosliGT);
+                }
+            });
+
+            $(document).on("click", "#pretragaBtn", function () {
+                filteredList = Search(nazivCheckBtn, tipCheckBtn, datumCheckBtn, prosliGT);
+            });
+
+            $(document).on("click", "#sortBtnNaziv", function () {
+
+
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    SortByName(filteredList, ascSortNaziv, descSortNaziv);
+                else
+                    SortByName(prosliGT, ascSortNaziv, descSortNaziv);
+
+                $("#grupniTreninziProsliTable").html("<tbody><tr><th></th>"
+                    + "<th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Tip <button id=\"sortBtnTip\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Trajanje </th>"
+                    + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Max. posetilaca </th>"
+                    + "<th>Prijavljeno </th><th></th>"
+                    + "</tr></tbody>");
+
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    DodajProsleTreningeUTabelu(filteredList)
+                else
+                    DodajProsleTreningeUTabelu(prosliGT);
+
+                if (ascSortNaziv == true)
+                    ascSortNaziv = false;
+                else
+                    ascSortNaziv = true
+
+                if (descSortNaziv == true)
+                    descSortNaziv = false;
+                else
+                    descSortNaziv = true
+            });
+            $(document).on("click", "#sortBtnTip", function () {
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    SortByType(filteredList, ascSortTip, descSortTip);
+                else
+                    SortByType(prosliGT, ascSortTip, descSortTip);
+
+                $("#grupniTreninziProsliTable").html("<tbody><tr><th></th>"
+                    + "<th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Tip <button id=\"sortBtnTip\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Trajanje </th>"
+                    + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Max. posetilaca </th>"
+                    + "<th>Prijavljeno </th><th></th>"
+                    + "</tr></tbody>");
+
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    DodajProsleTreningeUTabelu(filteredList)
+                else
+                    DodajProsleTreningeUTabelu(prosliGT);
+
+                if (ascSortTip == true)
+                    ascSortTip = false;
+                else
+                    ascSortTip = true
+
+                if (descSortTip == true)
+                    descSortTip = false;
+                else
+                    descSortTip = true
+            });
+            $(document).on("click", "#sortBtnDatum", function () {
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    SortByDate(filteredList, ascSortDatum, descSortDatum);
+                else
+                    SortByDate(prosliGT, ascSortDatum, descSortDatum);
+
+                $("#grupniTreninziProsliTable").html("<tbody><tr><th></th>"
+                    + "<th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Tip <button id=\"sortBtnTip\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Trajanje </th>"
+                    + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
+                    + "<th>Max. posetilaca </th>"
+                    + "<th>Prijavljeno </th><th></th>"
+                    + "</tr></tbody>");
+
+                if (nazivCheckBtn == true || tipCheckBtn == true || datumCheckBtn == true)
+                    DodajProsleTreningeUTabelu(filteredList)
+                else
+                    DodajProsleTreningeUTabelu(prosliGT);
+
+                if (ascSortDatum == true)
+                    ascSortDatum = false;
+                else
+                    ascSortDatum = true
+
+                if (descSortDatum == true)
+                    descSortDatum = false;
+                else
+                    descSortDatum = true
+            });
         });
 
         function UpisiPodatkeUPolja(korisnik, id_list, buduciGT, prosliGT) {
@@ -228,6 +373,9 @@
                 $("#odbijeniKom").hide();
                 $("#grupniTreninziTable").hide();
                 $("#grupniTreninziProsliTable").hide();
+                $("#pretraga").hide();
+                $("#naslov2").hide();
+
             } else if (korisnik.Uloga == 1) {
                 tipUloge = "TRENER";
                 $("#obradaTable").hide();
@@ -235,6 +383,8 @@
                 $("#odbijeniKom").hide();
                 $("#grupniTreninziTable").show();
                 $("#grupniTreninziProsliTable").show();
+                $("#pretraga").show();
+                $("#naslov2").show();
                 treninzi = korisnik.GrupniTrening;
                 $.ajax({
                     type: 'GET',
@@ -252,6 +402,8 @@
                 $("#odbijeniKom").show();
                 $("#grupniTreninziTable").hide();
                 $("#grupniTreninziProsliTable").hide();
+                $("#pretraga").hide();
+                $("#naslov2").hide();
                 $.ajax({
                     type: 'GET',
                     url: '/api/Komentar?option=' + 1 + '&username=' + localStorage.getItem("user"),
@@ -417,8 +569,11 @@
                 $("#grupniTreninziTable").append("<tr><td colspan=\"8\">Nemate zakazane treninge!</td>/tr>");
                 return;
             }
+            DodajProsleTreningeUTabelu(prosliGT);
+        }
+        function DodajProsleTreningeUTabelu(prosliGT) {
             if (prosliGT.length !== 0) {
-                id = 1;
+                let id = 1;
                 for (let key in prosliGT) {
                     let tip2;
                     if (prosliGT[key].TipTreninga === 0) {
@@ -431,16 +586,12 @@
                     $("#grupniTreninziProsliTable").append("<tr class=\"polje\">"
                         + "<td>" + id + "</td>"
                         + "<td>" + prosliGT[key].Naziv + "</td>"
-                        + "<td>" + tip2
-                        + "</td>"
+                        + "<td>" + tip2 + "</td>"
                         + "<td>" + prosliGT[key].TrajanjeTreninga + "</td>"
-                        + "<td>"
-                        + prosliGT[key].DatumIVreme
-                        + "</td>"
+                        + "<td>" + prosliGT[key].DatumIVreme+ "</td>"
                         + "<td>" + prosliGT[key].MaxPosetilaca + "</td>"
                         + "<td>" + prosliGT[key].Posetioci.length + "</td>"
-                        + "<td>"
-                        + "<button id=\"pregledaj\">Pregledaj</button></td></tr>"
+                        + "<td><button id=\"pregledaj2\">Pregledaj</button></td></tr>"
                     );
                     id = id + 1;
                 }
@@ -492,8 +643,7 @@
 
             return boolean;
         }
-
-        function CheckGTINput(grupniTrening, trenuntiRed) {
+        function CheckGTINput(grupniTrening, trenuntiRed){
             var boolean = true;
             if (grupniTrening.Naziv == null || grupniTrening.Naziv.length == 0) {
                 trenuntiRed.find("td:eq(1)").css("background-color", "#FF8484");
@@ -546,6 +696,300 @@
             }
 
             return boolean;
+        }
+
+        function TipUString(tip) {
+            let tipTreninga;
+            if (tip == 0) {
+                tipTreninga = "Yoga";
+            } else if (tip == 1) {
+                tipTreninga = "Les Mills Tone";
+            } else if (tip == 2) {
+                tipTreninga = "Body Pump";
+            }
+            return tipTreninga;
+        }
+        function ConvertDate(date) {
+            var tokens = date.split(' '); // dd/MM/yyyy hh:mm
+            var date = tokens[0].split('/');
+            var time = tokens[1].split(':');
+
+            var newDate = [date[2], date[1], date[0]].join('-');
+            var newTime = [time[0], time[1]].join(':');
+
+            return [newDate, newTime].join(' ');
+        }
+
+        function Search(nazivCheckBtn, tipCheckBtn, datumCheckBtn, prosliGT) {
+
+            var tempList = [];
+            
+            if (nazivCheckBtn == true && tipCheckBtn == false && datumCheckBtn == false) {
+                let val = $("#nazivInput").val();
+                for (let i = 0; i < prosliGT.length; i++) {
+                    if (prosliGT[i].Naziv === val) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            if (nazivCheckBtn == false && tipCheckBtn == false && datumCheckBtn == false) {
+                for (let i = 0; i < prosliGT.length; i++) {
+                    tempList.push(prosliGT[i]);
+                }
+            }
+            //Naziv i tip
+            if (nazivCheckBtn == true && tipCheckBtn == true && datumCheckBtn== false) {
+                let val = $("#nazivInput").val();
+
+                let tip;
+                if ($('#tipInput').find(":selected").text() === "Yoga")
+                    tip = "Yoga";
+                else if ($('#tipInput').find(":selected").text() === "Les Mills Tone")
+                    tip = "Les Mills Tone";
+                else if ($('#tipInput').find(":selected").text() === "Body Pump")
+                    tip = "Body Pump";
+
+                for (let i = 0; i < prosliGT.length; i++) {
+                    var tempTip = TipUString(prosliGT[i].TipTreninga);
+
+                    if (prosliGT[i].Naziv === val
+                        || tempTip === tip) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            //Sve
+            if (nazivCheckBtn == true && tipCheckBtn == true && datumCheckBtn == true) {
+                let val = $("#nazivInput").val();
+
+                let tip;
+                if ($('#tipInput').find(":selected").text() === "Yoga")
+                    tip = "Yoga";
+                else if ($('#tipInput').find(":selected").text() === "Les Mills Tone")
+                    tip = "Les Mills Tone";
+                else if ($('#tipInput').find(":selected").text() === "Body Pump")
+                    tip = "Body Pump";
+
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+
+                var minToken = min.split('T');
+                var minGodina = minToken[0].split('-')[0];
+                var minMesec = minToken[0].split('-')[1];
+                var minDan = minToken[0].split('-')[2];
+
+                var minDatum = ConvertDate([minDan, minMesec, minGodina].join('/') + " " + minToken[1])
+
+                var maxToken = max.split('T');
+                var maxGodina = maxToken[0].split('-')[0];
+                var maxMesec = maxToken[0].split('-')[1];
+                var maxDan = maxToken[0].split('-')[2];
+
+                var maxDatum = ConvertDate([maxDan, maxMesec, maxGodina].join('/') + " " + maxToken[1])
+
+                for (let i = 0; i < prosliGT.length; i++) {
+                    tempDatum = ConvertDate(prosliGT[i].DatumIVreme);
+                    var tempTip = TipUString(prosliGT[i].TipTreninga);
+                    if (prosliGT[i].Naziv === val
+                        || tempTip === tip
+                        || (new Date(tempDatum) >= new Date(minDatum) && new Date(tempDatum) <= new Date(maxDatum))) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            //Samo tip
+            if (nazivCheckBtn == false && tipCheckBtn == true && datumCheckBtn == false) {
+                let tip;
+                if ($('#tipInput').find(":selected").text() === "Yoga")
+                    tip = "Yoga";
+                else if ($('#tipInput').find(":selected").text() === "Les Mills Tone")
+                    tip = "Les Mills Tone";
+                else if ($('#tipInput').find(":selected").text() === "Body Pump")
+                    tip = "Body Pump";
+                for (let i = 0; i < prosliGT.length; i++) {
+                    var tempTip = TipUString(prosliGT[i].TipTreninga);
+
+                    if (tempTip === tip) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            //Samo datum i vreme
+            if (nazivCheckBtn == false && tipCheckBtn == false && datumCheckBtn == true) {
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+
+                var minToken = min.split('T');
+                var minGodina = minToken[0].split('-')[0];
+                var minMesec = minToken[0].split('-')[1];
+                var minDan = minToken[0].split('-')[2];
+          
+                var minDatum = ConvertDate([minDan,minMesec,minGodina].join('/') + " " + minToken[1])
+
+                var maxToken = max.split('T');
+                var maxGodina = maxToken[0].split('-')[0];
+                var maxMesec = maxToken[0].split('-')[1];
+                var maxDan = maxToken[0].split('-')[2];
+
+                var maxDatum = ConvertDate([maxDan, maxMesec, maxGodina].join('/')+ " " + maxToken[1])
+
+                for (let i = 0; i < prosliGT.length; i++) {
+
+                    tempDatum = ConvertDate(prosliGT[i].DatumIVreme);
+                    
+                    if (new Date(tempDatum) < new Date(minDatum) || new Date(tempDatum) > new Date(maxDatum))
+                        continue;
+                    tempList.push(prosliGT[i]);
+                }
+            }
+            //Naziv i Datum
+            if (nazivCheckBtn == true && tipCheckBtn == false && datumCheckBtn == true) {
+                let val = $("#nazivInput").val();
+
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+
+                var minToken = min.split('T');
+                var minGodina = minToken[0].split('-')[0];
+                var minMesec = minToken[0].split('-')[1];
+                var minDan = minToken[0].split('-')[2];
+
+                var minDatum = ConvertDate([minDan, minMesec, minGodina].join('/') + " " + minToken[1])
+
+                var maxToken = max.split('T');
+                var maxGodina = maxToken[0].split('-')[0];
+                var maxMesec = maxToken[0].split('-')[1];
+                var maxDan = maxToken[0].split('-')[2];
+
+                var maxDatum = ConvertDate([maxDan, maxMesec, maxGodina].join('/') + " " + maxToken[1])
+                for (let i = 0; i < prosliGT.length; i++) {
+                    tempDatum = ConvertDate(prosliGT[i].DatumIVreme);
+                    if (prosliGT[i].Naziv === val
+                        || (new Date(tempDatum) >= new Date(minDatum) && new Date(tempDatum) <= new Date(maxDatum))) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            //Datum i tip
+            if (nazivCheckBtn == false && tipCheckBtn == true && datumCheckBtn == true) {
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+
+                let tip;
+                if ($('#tipInput').find(":selected").text() === "Yoga")
+                    tip = "Yoga";
+                else if ($('#tipInput').find(":selected").text() === "Les Mills Tone")
+                    tip = "Les Mills Tone";
+                else if ($('#tipInput').find(":selected").text() === "Body Pump")
+                    tip = "Body Pump";
+
+                var minToken = min.split('T');
+                var minGodina = minToken[0].split('-')[0];
+                var minMesec = minToken[0].split('-')[1];
+                var minDan = minToken[0].split('-')[2];
+
+                var minDatum = ConvertDate([minDan, minMesec, minGodina].join('/') + " " + minToken[1])
+
+                var maxToken = max.split('T');
+                var maxGodina = maxToken[0].split('-')[0];
+                var maxMesec = maxToken[0].split('-')[1];
+                var maxDan = maxToken[0].split('-')[2];
+
+                var maxDatum = ConvertDate([maxDan, maxMesec, maxGodina].join('/') + " " + maxToken[1])
+                for (let i = 0; i < prosliGT.length; i++) {
+                    tempDatum = ConvertDate(prosliGT[i].DatumIVreme);
+                    var tempTip = TipUString(prosliGT[i].TipTreninga);
+                    if (tempTip === tip
+                        || (new Date(tempDatum) >= new Date(minDatum) && new Date(tempDatum) <= new Date(maxDatum))) {
+                        tempList.push(prosliGT[i]);
+                    }
+                }
+            }
+            $("#grupniTreninziProsliTable").html("<tbody><tr><th></th>"
+                + "<th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th>"
+                + "<th>Tip <button id=\"sortBtnTip\"><i class=\"fa fa-sort\"></i></button></th>"
+                + "<th>Trajanje </th>"
+                + "<th>Datum i vreme <button id=\"sortBtnDatum\"><i class=\"fa fa-sort\"></i></button></th>"
+                + "<th>Max. posetilaca </th>"
+                + "<th>Prijavljeno </th><th></th>"
+                + "</tr></tbody>");
+            DodajProsleTreningeUTabelu(tempList)
+            return tempList;
+        }
+
+        function SortByName(grupniTreninzi, ascSortNaziv, descSortNaziv) {
+            let n = grupniTreninzi.length
+            for (let i = 0; i < n; i++) {
+                let min = i;
+                for (let j = i + 1; j < n; j++) {
+                    if (ascSortNaziv == true && grupniTreninzi[j].Naziv.localeCompare(grupniTreninzi[min].Naziv) == -1) {
+                        min = j;
+                    }
+                    if (descSortNaziv == true && grupniTreninzi[min].Naziv.localeCompare(grupniTreninzi[j].Naziv) == -1) {
+                        min = j;
+                    }
+                }
+                if (min != i) {
+                    let tmp = grupniTreninzi[i];
+                    grupniTreninzi[i] = grupniTreninzi[min];
+                    grupniTreninzi[min] = tmp;
+                }
+            }
+        }
+        function SortByType(grupniTreninzi, ascSortTip, descSortTip) {
+
+            let n = grupniTreninzi.length
+
+            for (let i = 0; i < n; i++) {
+
+                let min = i;
+
+                for (let j = i + 1; j < n; j++) {
+
+                    tempTip = TipUString(grupniTreninzi[j].TipTreninga);
+                    minTip = TipUString(grupniTreninzi[min].TipTreninga);
+
+                    if (ascSortTip == true && tempTip.localeCompare(minTip) == -1) {
+                        min = j;
+                    }
+                    if (descSortTip == true && minTip.localeCompare(tempTip) == -1) {
+                        min = j;
+                    }
+                }
+
+                if (min != i) {
+                    let tmp = grupniTreninzi[i];
+                    grupniTreninzi[i] = grupniTreninzi[min];
+                    grupniTreninzi[min] = tmp;
+                }
+            }
+        }
+        function SortByDate(grupniTreninzi, ascSortDatum, descSortDatum) {
+
+            let n = grupniTreninzi.length
+
+            for (let i = 0; i < n; i++) {
+
+                let min = i;
+
+                for (let j = i + 1; j < n; j++) {
+
+                    tempDatum = ConvertDate(grupniTreninzi[j].DatumIVreme);
+                    minDatum = ConvertDate(grupniTreninzi[min].DatumIVreme);
+                    if (ascSortDatum == true && new Date(tempDatum) < new Date(minDatum)) {
+                        min = j;
+                    }
+                    if (descSortDatum == true && new Date(minDatum) < new Date(tempDatum)) {
+                        min = j;
+                    }
+                }
+
+                if (min != i) {
+                    let tmp = grupniTreninzi[i];
+                    grupniTreninzi[i] = grupniTreninzi[min];
+                    grupniTreninzi[min] = tmp;
+                }
+            }
         }
     </script>
     <div class="header">
@@ -643,22 +1087,55 @@
 
     </table>
     <br><br><br>
-            <table id="grupniTreninziProsliTable" hidden>
-                <caption id="naslov2">
-                    ZAVRŠENI TRENINZI
-                </caption>
-                <tr>
-                    <th></th>
-                    <th>
-                        Naziv
-                    </th>
-                    <th>Tip</th>
-                    <th>Trajanje</th>
-                    <th>Datum i vreme</th>
-                    <th>Max. posetilaca</th>
-                    <th>Prijavljeno</th>
-                    <th>Akcije</th>
-                </tr>
-            </table>
+    <div id="naslov2" hidden>
+        ZAVRŠENI TRENINZI
+    </div>
+    <div id="pretraga" hidden>
+        <span>
+            Naziv:
+            <input type="checkbox" id="nazivPretraga">
+        </span>
+        <span>
+            Tip:
+            <input type="checkbox" id="adresaPretraga">
+        </span>
+        <span>
+            Datum i godina:
+            <input type="checkbox" id="godinaPretraga">
+        </span>
+        <input type="text" id="nazivInput" placeholder="Naziv">
+        <select id="tipInput">
+            <option value="YOGA">Yoga</option>
+            <option value="LES">Les Mills Tone</option>
+            <option value="BODY">Body Pump</option>
+        </select>
+        <input type="datetime-local" id="minInput">
+        <input type="datetime-local" id="maxInput">
+        <button id="pretragaBtn">Pretraži</button>
+    </div>
+    <table id="grupniTreninziProsliTable" hidden>
+        <tr>
+            <th></th>
+            <th>
+                Naziv
+                <button id="sortBtnNaziv"><i class="fa fa-sort"></i></button>
+            </th>
+            <th>
+                Tip
+                <button id="sortBtnTip"><i class="fa fa-sort"></i></button>
+            </th>
+            <th>Trajanje</th>
+            <th>
+                Datum i vreme
+                <button id="sortBtnDatum"><i class="fa fa-sort"></i></button>
+            </th>
+            <th>Max. posetilaca</th>
+            <th>Prijavljeno</th>
+            <th></th>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
 </body>
 </html>

@@ -207,7 +207,7 @@
     padding-bottom: 20px;
 }
 
-#izmeni, #obrisi, #pregledaj {
+#izmeni, #obrisi, #pregledaj, #pregledaj2{
     font-weight: bold;
     font-size: 14px;
     color: crimson;
@@ -228,15 +228,14 @@
 
 #grupniTreninziProsliTable {
     background-color: black;
-    margin-top: 5%;
-    min-width: 900px;
+    margin-top: 0.5%;
+    min-width: 1200px;
     margin-left: 10%;
     font-size: 15px;
     color: crimson;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
 }
 
     #grupniTreninziProsliTable td {
@@ -264,4 +263,50 @@
     font-weight: bold;
     padding-bottom: 20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+#vremeInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+#pretraga {
+    margin-left: 10.2%;
+}
+
+#tipInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 36px;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+#minInput, #maxInput {
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#nazivInput {
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 140px;
+    height: 27px;
+    text-align: center;
+}
+
+#sortBtnNaziv, #sortBtnDatum, #sortBtnTip {
+    margin-left: 2%;
+    color: white;
+    background-color: crimson;
+    border: 1px solid crimson;
 }

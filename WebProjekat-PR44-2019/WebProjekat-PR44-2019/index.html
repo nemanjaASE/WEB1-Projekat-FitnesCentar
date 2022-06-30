@@ -144,8 +144,10 @@
                 filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
             });
             $(document).on("click", "#detalji", function () {
+
                 var trenuntiRed = $(this).closest("tr");
                 var col1 = trenuntiRed.find("td:eq(0)").text();
+
 
                 localStorage.setItem("naziv", fitnesCentri[col1 - 1].Naziv);
                 localStorage.setItem("ulica", fitnesCentri[col1 - 1].Adresa.Ulica);

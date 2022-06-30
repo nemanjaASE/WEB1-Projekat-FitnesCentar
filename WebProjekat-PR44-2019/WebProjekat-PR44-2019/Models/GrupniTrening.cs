@@ -8,6 +8,7 @@ namespace WebProjekat_PR44_2019.Models
     public class GrupniTrening
     {
         
+        public long Id { get; set; }
 
         public string Naziv { get; set; }
 
@@ -22,5 +23,7 @@ namespace WebProjekat_PR44_2019.Models
         public int MaxPosetilaca { get; set; }
 
         public List<string> Posetioci { get; set; }
+
+        public int IsDeleted { get; set; }
     }
 }

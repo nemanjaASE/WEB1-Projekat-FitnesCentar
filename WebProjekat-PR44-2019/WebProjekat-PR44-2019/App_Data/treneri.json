@@ -1,8 +1,7 @@
 [
-
   {
     "FitnesCentar": "Apolon",
-    "GrupniTrening": [ "Grupni Trening 1" ],
+    "GrupniTrening": [ "Grupni Trening 1", "Grupni Trening 2", "Grupni Trening 3", "Grupni Trening 4", "Grupni Trening 5" ,"Neki grupni trening"],
     "KorisnickoIme": "trenerYoge",
     "Lozinka": "qwerty",
     "Ime": "Adam",

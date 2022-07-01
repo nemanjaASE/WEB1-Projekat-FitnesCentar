@@ -223,7 +223,7 @@
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '/api/GrupniTrening/' + buduciGT[col1 - 1].Id,
+                    url: '/api/GrupniTrening?id=' + buduciGT[col1 - 1].Id+"&username=" + localStorage.getItem("user"),
                     statusCode: {
                         200: function () {
                             alert("Uspesno obrisan!");
@@ -235,7 +235,62 @@
                     }
                 })
             });
+            $(document).on("click", "#kreirajBtn", function () {
+                var trenuntiRed = $(this).closest("tr");
+   
+                var naziv = trenuntiRed.find("td:eq(1) .nazivGT").val();
 
+                var tip = trenuntiRed.find("td:eq(2) .tipGT").val();
+                if (tip === "Yoga") {
+                    tipEnum = 0;
+                } else if (tip === "Les") {
+                    tipEnum = 1;
+                } else if (tip === "Body") {
+                    tipEnum = 2;
+                }
+
+                var trajanje = trenuntiRed.find("td:eq(3) .trajanjeGT").val();
+                var datum = trenuntiRed.find("td:eq(4) .datumIVremeGT").val();
+
+                var initial = datum.split('-');
+                var date = [initial[2], initial[1], initial[0]].join('/');
+
+                var vreme = trenuntiRed.find("td:eq(4) .vremeGT").val();
+                var datumIVreme = [date, vreme].join(' ');
+
+                var maxPos = trenuntiRed.find("td:eq(5) .maxPosetilacaGT").val();
+        
+                var grupniTrening = {
+                    Naziv: naziv,
+                    TipTreninga: tipEnum,
+                    TrajanjeTreninga: trajanje,
+                    DatumIVreme: datumIVreme,
+                    MaxPosetilaca: maxPos,
+                    FitnesCentarr: buduciGT[0].FitnesCentarr
+                }
+                if (!CheckGTINput(grupniTrening, trenuntiRed)) {
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/GrupniTrening?username=' + korisnickoIme,
+                    data: JSON.stringify(grupniTrening),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    statusCode: {
+                        200: function () {
+                            alert("Uspešno dodat grupni trening!");
+                            $(location).attr('href', 'nalog.html');
+                        },
+                        400: function () {
+                            alert("Nije moguće dodati grupni trening!");
+                        }
+                    }
+                })
+              
+
+                
+            });
             $("#nazivPretraga").change(function () {
                 if (this.checked) {
                     nazivCheckBtn = true;
@@ -565,6 +620,23 @@
                 id = id + 1;
 
             }
+            $("#grupniTreninziTable").append("<tr class=\"polje\">"
+                + "<td></td>"
+                + "<td class=\"inputPolje\"> <input type=\"text\" class=\"nazivGT\" placeholder=\"Naziv\"></td>"
+                + "<td class=\"inputPolje\">"
+                + "<select class=\"tipGT\" class=\"inputPolje\" placeholder=\"Tip\">"
+                + " <option value=\"Yoga\">Yoga</option>"
+                + " <option value=\"Les\">Les Mills Tone</option>"
+                + " <option value=\"Body\">Body Pump</option>"
+                + " </td>"
+                + "<td class=\"inputPolje\"><input type=\"text\" class=\"trajanjeGT\" placeholder=\"Trajanje treninga\"></td>"
+                + "<td class=\"inputPolje\"><input type=\"date\" class=\"datumIVremeGT\">"
+                + "<input type=\"text\" class=\"vremeGT\"  maxlength=\"5\"  minlength=\"5\" placeholder=\"HH:mm\"></td>"
+                + "<td class=\"inputPolje\"><input type=\"text\" class=\"maxPosetilacaGT\" placeholder=\"Max. posetilaca\"></td>"
+                + "<td>0</td>"
+                + "<td colspan=\"3\">"
+                + "<button id=\"kreirajBtn\">Kreiraj</button></td></tr>"
+            );
             if (buduciGT.length === 0) {
                 $("#grupniTreninziTable").append("<tr><td colspan=\"8\">Nemate zakazane treninge!</td>/tr>");
                 return;
@@ -684,8 +756,7 @@
                 trenuntiRed.find("td:eq(5) .maxPosetilacaGT").css("background-color", "#FF8484");
                 boolean = false;
             } else {
-                if (grupniTrening.MaxPosetilaca == null
-                    || grupniTrening.MaxPosetilaca < grupniTrening.Posetioci.length) {
+                if (grupniTrening.MaxPosetilaca == null) {
                     trenuntiRed.find("td:eq(5)").css("background-color", "#FF8484");
                     trenuntiRed.find("td:eq(5) .maxPosetilacaGT").css("background-color", "#FF8484");
                     boolean = false;

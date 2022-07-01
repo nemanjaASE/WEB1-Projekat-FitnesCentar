@@ -207,7 +207,7 @@
     padding-bottom: 20px;
 }
 
-#izmeni, #obrisi, #pregledaj, #pregledaj2{
+#izmeni, #obrisi, #pregledaj, #pregledaj2, #kreirajBtn {
     font-weight: bold;
     font-size: 14px;
     color: crimson;
@@ -217,7 +217,7 @@
     padding: 7px;
 }
 
-    #izmeni:hover, #obrisi:hover, #pregledaj:hover {
+    #izmeni:hover, #obrisi:hover, #pregledaj:hover, #pregledaj2:hover , #kreirajBtn:hover {
         color: black;
     }
 

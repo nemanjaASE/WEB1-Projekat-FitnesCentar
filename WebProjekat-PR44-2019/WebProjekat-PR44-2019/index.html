@@ -25,27 +25,54 @@
             var adresaCheckBtn = false;
             var godinaCheckBtn = false;
 
-            $.ajax({
-                type: 'GET',
-                url: '/api/FitnesCentri/',
-                success: function (data) {
-                    fitnesCentri = data;
-
-                    DodajFitnesCentreUTabelu(fitnesCentri);
-                }
-            })
 
             if (localStorage.getItem("user") === "GOST") {
+                localStorage.setItem("role", 3);
                 $("#nalog").hide();
                 $("#odjavaBtn").hide();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/FitnesCentri/',
+                    success: function (data) {
+                        fitnesCentri = data;
+
+                        DodajFitnesCentreUTabelu(fitnesCentri);
+                    }
+                });
             } else {
+                var korisnickoIme = localStorage.getItem("user");
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Login/',
+                    data: {
+                        korisnickoIme
+                    },
+                    success: function (data) {
+
+                        localStorage.setItem("role", data.Uloga);
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '/api/FitnesCentri/',
+                            success: function (data) {
+                                fitnesCentri = data;
+
+                                DodajFitnesCentreUTabelu(fitnesCentri);
+                            }
+                        });
+                    }
+                });
                 $("#korisnik").html(localStorage.getItem("user"));
                 $("#nalog").show();
                 $("#odjavaBtn").click(function () {
-                    localStorage.setItem("user", "GOST")
+                    localStorage.setItem("user", "GOST");
                     $(location).attr('href', 'login.html');
                 });
             }
+
+            
+
             $(document).on("click", "#sortBtnNaziv", function () {
                 if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
                     SortByName(filteredList, ascSortNaziv, descSortNaziv);
@@ -277,11 +304,20 @@
         function DodajFitnesCentreUTabelu(fitnesCentri) {
             var id = 1;
             for (let key in fitnesCentri) {
-                $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
-                    + "<td>" + fitnesCentri[key].Adresa.Ulica + " " + fitnesCentri[key].Adresa.Broj + " " + fitnesCentri[key].Adresa.Grad + "</td>"
-                    + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
-                    + "<td> <button id=\"detalji\">Detalji</button></td></tr>");
-                id = id + 1;
+                if (localStorage.getItem("role") == 2) {
+                    $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
+                        + "<td>" + fitnesCentri[key].Adresa.Ulica + " " + fitnesCentri[key].Adresa.Broj + " " + fitnesCentri[key].Adresa.Grad + "</td>"
+                        + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
+                        + "<td> <button id=\"detalji\">Izmeni</button></td></tr>");
+                    id = id + 1;
+                }
+                else {
+                    $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
+                        + "<td>" + fitnesCentri[key].Adresa.Ulica + " " + fitnesCentri[key].Adresa.Broj + " " + fitnesCentri[key].Adresa.Grad + "</td>"
+                        + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
+                        + "<td> <button id=\"detalji\">Detalji</button></td></tr>");
+                    id = id + 1;
+                }
             }
         }
 

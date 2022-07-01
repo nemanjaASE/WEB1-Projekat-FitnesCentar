@@ -55,5 +55,39 @@ namespace WebProjekat_PR44_2019.Models
             File.Delete(path);
             File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
         }
+
+        public void DodajGrupniTreningTreneru(string username,string grupniTrening )
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
+            var jsonData = File.ReadAllText(path);
+            var treneriTemp = JsonConvert.DeserializeObject<List<Trener>>(jsonData);
+            foreach (var item in treneriTemp)
+            {
+                if (item.KorisnickoIme == username)
+                {
+                    item.GrupniTrening.Add(grupniTrening);
+                    break;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
+        }
+
+        public void ObrisiGrupniTreningTreneru(string username, string gt)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
+            var jsonData = File.ReadAllText(path);
+            var treneriTemp = JsonConvert.DeserializeObject<List<Trener>>(jsonData);
+            foreach (var item in treneriTemp)
+            {
+                if (item.KorisnickoIme == username)
+                {
+                    item.GrupniTrening.Remove(gt);
+                    break;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
+        }
     }
 }

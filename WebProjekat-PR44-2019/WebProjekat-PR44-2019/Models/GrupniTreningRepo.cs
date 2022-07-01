@@ -23,7 +23,18 @@ namespace WebProjekat_PR44_2019.Models
 
             return dataModel; 
         }
-
+        public GrupniTrening DobaviGrupniTrening(long id)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/grupniTreninzi.json");
+            string jsonString = File.ReadAllText(path);
+            var dataModel = JsonConvert.DeserializeObject<List<GrupniTrening>>(jsonString);
+            foreach (var item in dataModel)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            return null;
+        }
         public void IzmeniGrupniTrening(GrupniTrening gt)
         {
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/grupniTreninzi.json");
@@ -78,15 +89,38 @@ namespace WebProjekat_PR44_2019.Models
                 {
                     if (item.Posetioci.Count() != 0)
                         return false;
-                    else item.IsDeleted = 1;
+                    else
+                    {   
+                        
+                        item.IsDeleted = 1;
                         break;
+                    }
                 }
             }
             File.Delete(path);
             File.WriteAllText(path, JsonConvert.SerializeObject(dataModel));
             return true;
         }
+        public bool AddGrupniTrening(GrupniTrening grupniTrening)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/grupniTreninzi.json");
+            string jsonString = File.ReadAllText(path);
+            var dataModel = JsonConvert.DeserializeObject<List<GrupniTrening>>(jsonString);
+            foreach (var item in dataModel)
+            {
+                if (item.Id == grupniTrening.Id)
+                    return false;
+            }
+            grupniTrening.IsDeleted = 0;
+            grupniTrening.Id = GenerateId();
+            grupniTrening.Posetioci = new List<string>();
+            dataModel.Add(grupniTrening);
 
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(dataModel));
+            return false;
+        }
+        
         private static int GenerateId()
         {
             return Math.Abs(Guid.NewGuid().GetHashCode());

@@ -32,6 +32,7 @@
             $("#cenaJPTFC").val(localStorage.getItem("cenaJTP"));
             $("#cenaGTFC").val(localStorage.getItem("cenaJGT"));
             $("#cenaGT").val(localStorage.getItem("cenaGT"));
+            $("#godinaFC").val(localStorage.getItem("godina"));
 
             var korisnickoIme = localStorage.getItem("user");
 
@@ -117,7 +118,7 @@
             $(document).on("click", "#prijava", function () {
                 var trenuntiRed = $(this).closest("tr");
                 var col1 = trenuntiRed.find("td:eq(0)").text();
-
+                //obrisati
                 let grupniTrening = {
                     Naziv: `${grupniTreninzi[col1 - 1].Naziv}`,
                     DatumIVreme: `${grupniTreninzi[col1 - 1].DatumIVreme}`

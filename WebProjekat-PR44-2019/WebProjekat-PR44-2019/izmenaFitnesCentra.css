@@ -1,0 +1,99 @@
+﻿#izmeniFC {
+    background-color: white;
+    width: 150px;
+    margin-top: 20px;
+    height: 60px;
+    border-radius: 50px;
+    border-color: crimson;
+    border-width: 1px;
+    color: black;
+    font-weight: bold;
+}
+
+    #izmeniFC:hover {
+        background-color: crimson;
+    }
+
+#detaljiTable {
+    padding: 20px;
+    border: 5px solid crimson;
+    border-radius: 20px;
+    margin-left: 8%;
+    margin-top: 5%;
+    text-align: center;
+    font-size: 20px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+    .polje {
+        color: black;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+#detaljiTable td {
+    padding: 15px;
+}
+
+#detaljiFC {
+    text-align: left;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+#nazivFC, #ulicaFC, #vlasnikFC, #godinaFC, #cenaMCFC, #cenaJTFC, #cenaJPTFC, #cenaGTFC, #cenaGT {
+    padding: 2px;
+    height: 30px;
+    border: 0px;
+    color: black;
+    background-color: #d1d1d5;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+    #nazivFC:hover, #ulicaFC:hover, #vlasnikFC:hover, #godinaFC:hover, #cenaMCFC:hover, #cenaJTFC:hover, #cenaJPTFC:hover, #cenaGTFC:hover, #brojFC:hover, #gradFC:hover, #postanskiKodFC:hover {
+        background-color: crimson;
+        color: white;
+    }
+
+#brojFC {
+    margin-left: -100px;
+    padding: 5px;
+    height: 30px;
+    width: 60px;
+    border: 0px;
+    color: black;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+#gradFC {
+    width: 150px;
+    margin-left: -200px;
+    padding: 5px;
+    height: 30px;
+    border: 0px;
+    color: black;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+#postanskiKodFC {
+    width: 80px;
+    margin-left: -150px;
+    padding: 5px;
+    height: 30px;
+    border: 0px;
+    color: black;
+    background-color: #d1d1d1;
+    border-radius: 10px;
+    text-align: center;
+    font-style: italic;
+}

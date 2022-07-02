@@ -41,7 +41,14 @@ namespace WebProjekat_PR44_2019.Controllers
                 if (trener.KorisnickoIme == korisnik.KorisnickoIme
                     && trener.Lozinka == korisnik.Lozinka)
                 {
-                    return Ok(trener);
+                    if (trener.Blokiran == 1)
+                    {
+                        return Unauthorized();
+                    }
+                    else
+                    {
+                        return Ok(trener);
+                    }
                 }
             }
             return StatusCode(HttpStatusCode.BadRequest);
@@ -67,7 +74,13 @@ namespace WebProjekat_PR44_2019.Controllers
             {
                 if (trener.KorisnickoIme == korisnickoIme)
                 {
-                    return Ok(trener);
+                    if(trener.Blokiran == 1)
+                    {
+                        return Unauthorized();
+                    }
+                    else {
+                        return Ok(trener);
+                    }
                 }
             }
             return BadRequest();

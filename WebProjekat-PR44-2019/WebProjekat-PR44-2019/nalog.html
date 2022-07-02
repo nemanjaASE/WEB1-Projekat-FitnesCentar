@@ -28,6 +28,7 @@
             var descSortTip = true;
             var ascSortDatum = false;
             var descSortDatum = true;
+            var fitnesCentar;
 
             if (localStorage.getItem("user") === "GOST") {
                 $(location).attr('href', 'login.html');
@@ -48,7 +49,15 @@
                     korisnickoIme
                 },
                 success: function (data) {
+                    var fcNaziv = data.FitnesCentar;
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/FitnesCentri?naziv=' + fcNaziv, 
+                        success: function (fc) {
 
+                            fitnesCentar = fc;
+                        }
+                    })
                     UpisiPodatkeUPolja(data, id_list, buduciGT, prosliGT);
                 }
             })
@@ -266,7 +275,7 @@
                     TrajanjeTreninga: trajanje,
                     DatumIVreme: datumIVreme,
                     MaxPosetilaca: maxPos,
-                    FitnesCentarr: buduciGT[0].FitnesCentarr
+                    FitnesCentarr: fitnesCentar
                 }
                 if (!CheckGTINput(grupniTrening, trenuntiRed)) {
                     return;

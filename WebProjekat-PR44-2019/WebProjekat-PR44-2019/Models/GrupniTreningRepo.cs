@@ -9,7 +9,6 @@ namespace WebProjekat_PR44_2019.Models
 {
     public class GrupniTreningRepo
     {
-        private List<GrupniTrening> grupniTreninzi;
         public GrupniTreningRepo()
         {
             

@@ -1,35 +1,37 @@
-﻿[
+[
   {
     "Naziv": "Try Hard",
     "Adresa": {
       "Ulica": "Bulevar Oslobođenja",
       "Broj": 2,
       "Grad": "Novi Sad",
-      "PostanskiBroj": 21101
+      "PostanskiBroj": "21101"
     },
-    "GodinaOtvaranja": "2006",
+    "GodinaOtvaranja": "2000",
     "Vlasnik": "marko123",
-    "CenaMC": 10000,
-    "CenaGT": 80000,
-    "CenaJT": 1300,
-    "CenaJGT": 1800,
-    "CenaJTP": 2400
+    "CenaMC": 10000.0,
+    "CenaGT": 80000.0,
+    "CenaJT": 1300.0,
+    "CenaJGT": 1800.0,
+    "CenaJTP": 1400.0,
+    "IsDeleted": 0
   },
   {
-    "Naziv": "Mars",
+    "Naziv": "Mono",
     "Adresa": {
       "Ulica": "Kralja Petra",
       "Broj": 101,
       "Grad": "Novi Sad",
-      "PostanskiBroj": 21101
+      "PostanskiBroj": "21101"
     },
     "GodinaOtvaranja": "2012",
     "Vlasnik": "marko123",
-    "CenaMC": 11000,
-    "CenaGT": 90000,
-    "CenaJT": 1500,
-    "CenaJGT": 2000,
-    "CenaJTP": 2800
+    "CenaMC": 11000.0,
+    "CenaGT": 90000.0,
+    "CenaJT": 1500.0,
+    "CenaJGT": 2000.0,
+    "CenaJTP": 2800.0,
+    "IsDeleted": 0
   },
   {
     "Naziv": "Apolon",
@@ -37,15 +39,16 @@
       "Ulica": "Svetog Save",
       "Broj": 12,
       "Grad": "Srbobran",
-      "PostanskiBroj": 21480
+      "PostanskiBroj": "21480"
     },
     "GodinaOtvaranja": "2010",
     "Vlasnik": "nemanja44",
-    "CenaMC": 8000,
-    "CenaGT": 70000,
-    "CenaJT": 1000,
-    "CenaJGT": 1500,
-    "CenaJTP": 2000
+    "CenaMC": 8000.0,
+    "CenaGT": 70000.0,
+    "CenaJT": 1000.0,
+    "CenaJGT": 1500.0,
+    "CenaJTP": 2000.0,
+    "IsDeleted": 0
   },
   {
     "Naziv": "Mars",
@@ -53,15 +56,16 @@
       "Ulica": "Pap Pavla",
       "Broj": 55,
       "Grad": "Srbobran",
-      "PostanskiBroj": 21480
+      "PostanskiBroj": "21480"
     },
     "GodinaOtvaranja": "2020",
-    "Vlasnik": "marko123",
-    "CenaMC": 6000,
-    "CenaGT": 75000,
-    "CenaJT": 900,
-    "CenaJGT": 1300,
-    "CenaJTP": 1500
+    "Vlasnik": "nemanja44",
+    "CenaMC": 6000.0,
+    "CenaGT": 75000.0,
+    "CenaJT": 900.0,
+    "CenaJGT": 1300.0,
+    "CenaJTP": 1500.0,
+    "IsDeleted": 0
   },
   {
     "Naziv": "Athletic Gym",
@@ -69,15 +73,16 @@
       "Ulica": "Nodilova",
       "Broj": 9,
       "Grad": "Beograd",
-      "PostanskiBroj": 11000
+      "PostanskiBroj": "11000"
     },
-    "GodinaOtvaranja": "2008",
+    "GodinaOtvaranja": "2004",
     "Vlasnik": "marko123",
-    "CenaMC": 7500,
-    "CenaGT": 100000,
-    "CenaJT": 1600,
-    "CenaJGT": 2800,
-    "CenaJTP": 2300
+    "CenaMC": 8000.0,
+    "CenaGT": 85000.0,
+    "CenaJT": 1000.0,
+    "CenaJGT": 1500.0,
+    "CenaJTP": 1300.0,
+    "IsDeleted": 0
   },
   {
     "Naziv": "Beosport",
@@ -85,15 +90,15 @@
       "Ulica": "Mihajla Pupina",
       "Broj": 23,
       "Grad": "Beograd",
-      "PostanskiBroj": 11000
+      "PostanskiBroj": "11000"
     },
-    "GodinaOtvaranja": "2018",
+    "GodinaOtvaranja": "2020",
     "Vlasnik": "marko123",
-    "CenaMC": 7000,
-    "CenaGT": 65000,
-    "CenaJT": 1300,
-    "CenaJGT": 2400,
-    "CenaJTP": 2100
+    "CenaMC": 7000.0,
+    "CenaGT": 2100.0,
+    "CenaJT": 1300.0,
+    "CenaJGT": 2400.0,
+    "CenaJTP": 1400.0,
+    "IsDeleted": 0
   }
 ]
-

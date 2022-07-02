@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Home</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="izmenaFitnesCentra.css">
     <script src="../../Scripts/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -71,14 +72,14 @@
                 });
             }
 
-            
+
 
             $(document).on("click", "#sortBtnNaziv", function () {
                 if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
                     SortByName(filteredList, ascSortNaziv, descSortNaziv);
                 else
                     SortByName(fitnesCentri, ascSortNaziv, descSortNaziv);
-                
+
                 $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja <button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
                 if (nazivCheckBtn == true || adresaCheckBtn == true || godinaCheckBtn == true)
                     DodajFitnesCentreUTabelu(filteredList);
@@ -170,6 +171,7 @@
             $(document).on("click", "#pretragaBtn", function () {
                 filteredList = Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri);
             });
+
             $(document).on("click", "#detalji", function () {
 
                 var trenuntiRed = $(this).closest("tr");
@@ -187,10 +189,100 @@
                 localStorage.setItem("cenaJGT", fitnesCentri[col1 - 1].CenaJGT);
                 localStorage.setItem("cenaJTP", fitnesCentri[col1 - 1].CenaJTP);
                 localStorage.setItem("vlasnik", fitnesCentri[col1 - 1].Vlasnik);
+                localStorage.setItem("godina", fitnesCentri[col1 - 1].GodinaOtvaranja);
 
                 $(location).attr('href', 'detalji.html');
             });
+            $(document).on("click", "#izmenaFCBTN", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+              
+                $("#izmena").empty();
+                $("#izmena").append("<table id=\"detaljiTable\">"
+                    + "<caption id=\"detaljiFC\">IZMENA FITNES CENTRA </caption>"
+                    + "<tr><td class=\"polje\"> Naziv: </td>"
+                    + "<td><input type=\"text\" id=\"nazivFC\" value=\"" + fitnesCentri[col1 - 1].Naziv + "\" readonly></td></tr>"
+                    + "<tr><td class=\"polje\">Adresa:</td>"
+                    + "<td><input type=\"text\" id=\"ulicaFC\"  value=\"" + fitnesCentri[col1 - 1].Adresa.Ulica + "\" readonly></td>"
+                    + "<td><input type=\"text\" id=\"brojFC\"  value=\"" + fitnesCentri[col1 - 1].Adresa.Broj + "\" readonly></td>"
+                    + "<td><input type=\"text\" id=\"gradFC\"  value=\"" + fitnesCentri[col1 - 1].Adresa.Grad + "\" readonly></td>"
+                    + "<td><input type=\"text\" id=\"postanskiKodFC\"  value=\"" + fitnesCentri[col1 - 1].Adresa.PostanskiBroj + "\" readonly></td></tr>"
+                    + "<tr><td class=\"polje\"> Vlasnik: </td>"
+                    + "<td><input type=\"text\" id=\"vlasnikFC\"  value=\"" + fitnesCentri[col1 - 1].Vlasnik + "\" readonly></td>"
+                    + "<td class=\"polje\">God. otvaranja: </td>"
+                    + "<td><input type=\"text\" id=\"godinaFC\"  value=\"" + fitnesCentri[col1 - 1].GodinaOtvaranja + "\"></td></tr>"
+                    + "<tr><td class=\"polje\"> Mesečna članarina: </td>"
+                    + "<td><input type=\"text\" id=\"cenaMCFC\"  value=\"" + fitnesCentri[col1 - 1].CenaMC + "\"></td>"
+                    + "<td class=\"polje\">Jedan trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaJTFC\"  value=\"" + fitnesCentri[col1 - 1].CenaJT + "\"></td></tr>"
+                    + "<tr><td class=\"polje\"> Jedan per.trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaJPTFC\" value=\"" + fitnesCentri[col1 - 1].CenaJTP + "\"></td>"
+                    + "<td class=\"polje\">Grupni trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaGTFC\"  value=\"" + fitnesCentri[col1 - 1].CenaJGT + "\"></td></tr>"
+                    + "<tr><td class=\"polje\">Godišnja članarina: </td>"
+                    + "<td><input type=\"text\" id=\"cenaGT\" value=\"" + fitnesCentri[col1 - 1].CenaGT + "\"></td></tr>"
+                    + "<tr><td colspan =\"5\" ><button id=\"izmeniFC\">Izmeni</button></td></tr>"
+                );
+
+                $("#izmeniFC").focus();
+            });
+            $(document).on("click", "#izmeniFC", function () {
+                var fitnesCentar = {
+                    Naziv: $("#nazivFC").val(),
+                    Adresa: {
+                        Ulica: $("#ulicaFC").val(),
+                        Broj: $("#brojFC").val(),
+                        Grad: $("#gradFC").val(),
+                        PostanskiBroj: $("#postanskiKodFC").val()
+                    },
+                    Vlasnik: $("#vlasnikFC").val(),
+                    GodinaOtvaranja: $("#godinaFC").val(),
+                    CenaMC: $("#cenaMCFC").val(),
+                    CenaGT: $("#cenaGT").val(),
+                    CenaJT: $("#cenaJTFC").val(),
+                    CenaJGT: $("#cenaGTFC").val(),
+                    CenaJTP: $("#cenaJPTFC").val()
+                };
+                if (!CheckFCInput(fitnesCentar))
+                    return;
+                $.ajax({
+                    type: 'PUT',
+                    url: '/api/FitnesCentri',
+                    data: JSON.stringify(fitnesCentar),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    statusCode: {
+                        200: function () {
+                            alert("Uspešno izmenjen fitnes centar!");
+                            $(location).attr('href', 'index.html');
+                        },
+                        400: function () {
+                            alert("Nije moguće izmeniti fitnes centar!");
+                        }
+                    }
+                })
+            });
+
+            $(document).on("click", "#obrisiFCBTN", function () {
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/api/FitnesCentri?naziv=' + fitnesCentri[col1 - 1].Naziv + "&vlasnik=" + localStorage.getItem("user"),
+                    statusCode: {
+                        200: function () {
+                            alert("Uspesno obrisan fitnes centar!");
+                            $(location).attr('href', 'index.html');
+                        },
+                        400: function () {
+                            alert("Nije moguće brisanje fitnes centra");
+                        }
+                    }
+                })
+            });
         });
+
         function Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri) {
             var tempList = [];
             if (nazivCheckBtn == true && adresaCheckBtn == false && godinaCheckBtn == false) {
@@ -203,7 +295,7 @@
             }
             if (nazivCheckBtn == false && adresaCheckBtn == false && godinaCheckBtn == false) {
                 for (let i = 0; i < fitnesCentri.length; i++) {
-                        tempList.push(fitnesCentri[i]);
+                    tempList.push(fitnesCentri[i]);
                 }
             }
             if (nazivCheckBtn == true && adresaCheckBtn == true && godinaCheckBtn == false) {
@@ -232,11 +324,11 @@
                 let grad = val2.split(':')[2];
                 for (let i = 0; i < fitnesCentri.length; i++) {
                     if (fitnesCentri[i].Naziv === val
-                        ||( fitnesCentri[i].Adresa.Ulica === ulica
-                        && fitnesCentri[i].Adresa.Broj == broj
-                        && fitnesCentri[i].Adresa.Grad == grad)
-                        ||( fitnesCentri[i].GodinaOtvaranja >= min
-                        && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                        || (fitnesCentri[i].Adresa.Ulica === ulica
+                            && fitnesCentri[i].Adresa.Broj == broj
+                            && fitnesCentri[i].Adresa.Grad == grad)
+                        || (fitnesCentri[i].GodinaOtvaranja >= min
+                            && fitnesCentri[i].GodinaOtvaranja <= max)) {
                         tempList.push(fitnesCentri[i]);
                     }
                 }
@@ -254,49 +346,49 @@
                     }
                 }
             }
-                if (nazivCheckBtn == false && adresaCheckBtn == false && godinaCheckBtn == true) {
-                    let min = $("#minInput").val();
-                    let max = $("#maxInput").val();
+            if (nazivCheckBtn == false && adresaCheckBtn == false && godinaCheckBtn == true) {
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
 
-                    for (let i = 0; i < fitnesCentri.length; i++) {
-                        if (fitnesCentri[i].GodinaOtvaranja >= min
-                            && fitnesCentri[i].GodinaOtvaranja <= max) {
-                            tempList.push(fitnesCentri[i]);
-                        }
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].GodinaOtvaranja >= min
+                        && fitnesCentri[i].GodinaOtvaranja <= max) {
+                        tempList.push(fitnesCentri[i]);
                     }
                 }
-                    if (nazivCheckBtn == true && adresaCheckBtn == false && godinaCheckBtn == true) {
-                        let val = $("#nazivInput").val();
-                        let min = $("#minInput").val();
-                        let max = $("#maxInput").val();
-                        for (let i = 0; i < fitnesCentri.length; i++) {
-                            if (fitnesCentri[i].Naziv === val
-                                ||( fitnesCentri[i].GodinaOtvaranja >= min
-                                && fitnesCentri[i].GodinaOtvaranja <= max)) {
-                                tempList.push(fitnesCentri[i]);
-                            }
-                        }
+            }
+            if (nazivCheckBtn == true && adresaCheckBtn == false && godinaCheckBtn == true) {
+                let val = $("#nazivInput").val();
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Naziv === val
+                        || (fitnesCentri[i].GodinaOtvaranja >= min
+                            && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                        tempList.push(fitnesCentri[i]);
                     }
+                }
+            }
 
-                    if (nazivCheckBtn == false && adresaCheckBtn == true && godinaCheckBtn == true) {
-                        let val2 = $("#adresaInput").val();
-                        let min = $("#minInput").val();
-                        let max = $("#maxInput").val();
+            if (nazivCheckBtn == false && adresaCheckBtn == true && godinaCheckBtn == true) {
+                let val2 = $("#adresaInput").val();
+                let min = $("#minInput").val();
+                let max = $("#maxInput").val();
 
-                        let ulica = val2.split(':')[0];
-                        let broj = val2.split(':')[1];
-                        let grad = val2.split(':')[2];
-                        for (let i = 0; i < fitnesCentri.length; i++) {
-                            if (fitnesCentri[i].Adresa.Ulica === ulica
-                                && fitnesCentri[i].Adresa.Broj == broj
-                                && fitnesCentri[i].Adresa.Grad == grad
-                                || (fitnesCentri[i].GodinaOtvaranja >= min
-                                && fitnesCentri[i].GodinaOtvaranja <= max)) {
-                                tempList.push(fitnesCentri[i]);
-                            }
-                        }
+                let ulica = val2.split(':')[0];
+                let broj = val2.split(':')[1];
+                let grad = val2.split(':')[2];
+                for (let i = 0; i < fitnesCentri.length; i++) {
+                    if (fitnesCentri[i].Adresa.Ulica === ulica
+                        && fitnesCentri[i].Adresa.Broj == broj
+                        && fitnesCentri[i].Adresa.Grad == grad
+                        || (fitnesCentri[i].GodinaOtvaranja >= min
+                            && fitnesCentri[i].GodinaOtvaranja <= max)) {
+                        tempList.push(fitnesCentri[i]);
                     }
-                
+                }
+            }
+
             $("#fitnesCentriTable").html("<tbody><tr><th></th><th>Naziv <button id=\"sortBtnNaziv\"><i class=\"fa fa-sort\"></i></button></th><th>Adresa <button id=\"sortBtnAdresa\"><i class=\"fa fa-sort\"></i></button></th><th>Godina otvaranja <button id=\"sortBtnGodina\"><i class=\"fa fa-sort\"></i></button></th><th></th></tr></tbody>");
             DodajFitnesCentreUTabelu(tempList);
             return tempList;
@@ -308,8 +400,13 @@
                     $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
                         + "<td>" + fitnesCentri[key].Adresa.Ulica + " " + fitnesCentri[key].Adresa.Broj + " " + fitnesCentri[key].Adresa.Grad + "</td>"
                         + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
-                        + "<td> <button id=\"detalji\">Izmeni</button></td></tr>");
+                        + "<td> <button id=\"izmenaFCBTN\" " + (localStorage.getItem("user") === fitnesCentri[key].Vlasnik ? " " : "hidden") + ">Izmeni</button>"
+                        + "<button id=\"obrisiFCBTN\" " + (localStorage.getItem("user") === fitnesCentri[key].Vlasnik ? " " : "hidden") + ">Obriši</button>"
+                        + "<button id=\"detalji\">Detalji</button>"
+                        + "</td></tr>"
+                        );
                     id = id + 1;
+                  
                 }
                 else {
                     $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
@@ -320,8 +417,93 @@
                 }
             }
         }
+        function CheckFCInput(fitnesCentar) {
+            var boolean = true;
+            var parsed = parseInt(fitnesCentar.GodinaOtvaranja, 10);
+            if (isNaN(parsed)) {
+                $("#godinaFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.GodinaOtvaranja == null ||
+                    fitnesCentar.GodinaOtvaranja.length == 0 ||
+                    parsed < 2000) {
+                    $("#godinaFC").css("background-color", "#FF8484");
+                    boolean = false;
+                }
+                else {
+                    $("#godinaFC").css("background-color", "#d1d1d5");
+                }
+            }
+          
+            parsed = parseInt(fitnesCentar.CenaGT, 10);
+            if (isNaN(parsed)) {
+                $("#cenaGT").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.CenaGT < 0) {
+                    $("#cenaGT").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#cenaGT").css("background-color", "#d1d1d5");
+                }
+            }
 
-        function SortByName(fitnesCentri, ascSortNaziv, descSortNaziv){
+            parsed = parseInt(fitnesCentar.CenaMC, 10);
+            if (isNaN(parsed)) {
+                $("#cenaMCFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.CenaMC < 0) {
+                    $("#cenaMCFC").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#cenaMCFC").css("background-color", "#d1d1d5");
+                }
+            }
+
+            parsed = parseInt(fitnesCentar.CenaJT, 10);
+            if (isNaN(parsed)) {
+                $("#cenaJTFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.CenaJT < 0) {
+                    $("#cenaJTFC").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#cenaJTFC").css("background-color", "#d1d1d5");
+                }
+            }
+
+
+            parsed = parseInt(fitnesCentar.CenaJTP, 10);
+            if (isNaN(parsed)) {
+                $("#cenaJPTFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.CenaJTP < 0) {
+                    $("#cenaJPTFC").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#cenaJPTFC").css("background-color", "#d1d1d5");
+                }
+            }
+
+            parsed = parseInt(fitnesCentar.CenaJGT, 10);
+            if (isNaN(parsed)) {
+                $("#cenaGTFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (fitnesCentar.CenaJGT < 0) {
+                    $("#cenaGTFC").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#cenaGTFC").css("background-color", "#d1d1d5");
+                }
+            }
+            return boolean;
+        }
+
+        function SortByName(fitnesCentri, ascSortNaziv, descSortNaziv) {
             let n = fitnesCentri.length
             for (let i = 0; i < n; i++) {
                 let min = i;
@@ -436,5 +618,10 @@
             </tr>
         </table>
     </div>
+
+    <div id="izmena">
+
+    </div>
+    <br><br><br><br>
 </body>
 </html>

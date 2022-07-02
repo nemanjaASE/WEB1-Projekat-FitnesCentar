@@ -35,17 +35,23 @@
                     beforeSend: function () {
                         $('.loader').show();
                     },
-                    success: function (data) {
-                        $('.loader').hide()
-                        localStorage.setItem("user", korisnik.KorisnickoIme);
-                        $(location).attr('href', 'index.html');
-                    },
-                    error: function (data) {
-                        $('.loader').hide()
-                        $("#errorLogovanje").html("Pogrešno korisničko ime i/ili lozinka!");
+                    statusCode: {
+                        400: function () {
+                            $('.loader').hide();
+                            $("#errorLogovanje").html("Pogrešno korisničko ime i/ili lozinka!");
+                        },
+                        401: function () {
+                            $('.loader').hide();
+                            $("#errorLogovanje").html("Nalog je blokiran!");
+                        },
+                        200: function () {
+                            $('.loader').hide();
+                            localStorage.setItem("user", korisnik.KorisnickoIme);
+                            $(location).attr('href', 'index.html');
+                        }
                     }
-
-                })
+                    
+                });
             });
         })
 

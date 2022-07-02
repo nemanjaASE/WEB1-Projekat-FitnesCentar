@@ -1,4 +1,5 @@
 [
+  
   {
     "Id": 1231231231,
     "Naziv": "Grupni Trening 1",
@@ -12,12 +13,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "02/01/2023 10:10",
@@ -38,12 +40,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "21/08/2022 20:00",
@@ -64,12 +67,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "20/10/2022 20:00",
@@ -90,12 +94,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 80,
     "DatumIVreme": "27/06/2022 21:45",
@@ -116,12 +121,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 80,
     "DatumIVreme": "20/05/2022 21:40",
@@ -142,12 +148,13 @@
         "PostanskiBroj": "21480"
       },
       "GodinaOtvaranja": "2010",
-      "Vlasnik": "marko123",
+      "Vlasnik": "nemanja44",
       "CenaMC": 8000.0,
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 105,
     "DatumIVreme": "20/04/2022 10:00",
@@ -173,7 +180,8 @@
       "CenaGT": 80000.0,
       "CenaJT": 1300.0,
       "CenaJGT": 1800.0,
-      "CenaJTP": 2400.0
+      "CenaJTP": 2400.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 85,
     "DatumIVreme": "01/10/2020 10:00",
@@ -199,7 +207,8 @@
       "CenaGT": 80000.0,
       "CenaJT": 1300.0,
       "CenaJGT": 1800.0,
-      "CenaJTP": 2400.0
+      "CenaJTP": 2400.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 130,
     "DatumIVreme": "02/10/2021 11:00",
@@ -225,7 +234,8 @@
       "CenaGT": 75000.0,
       "CenaJT": 900.0,
       "CenaJGT": 1300.0,
-      "CenaJTP": 1500.0
+      "CenaJTP": 1500.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 100,
     "DatumIVreme": "25/12/2022 11:45",
@@ -251,7 +261,8 @@
       "CenaGT": 75000.0,
       "CenaJT": 900.0,
       "CenaJGT": 1300.0,
-      "CenaJTP": 1500.0
+      "CenaJTP": 1500.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 120,
     "DatumIVreme": "20/09/2022 21:00",
@@ -277,7 +288,8 @@
       "CenaGT": 100000.0,
       "CenaJT": 1600.0,
       "CenaJGT": 2800.0,
-      "CenaJTP": 2300.0
+      "CenaJTP": 2300.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 60,
     "DatumIVreme": "02/10/2022 18:00",
@@ -303,7 +315,8 @@
       "CenaGT": 100000.0,
       "CenaJT": 1600.0,
       "CenaJGT": 2800.0,
-      "CenaJTP": 2300.0
+      "CenaJTP": 2300.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 70,
     "DatumIVreme": "02/07/2022 12:00",
@@ -329,11 +342,93 @@
       "CenaGT": 70000.0,
       "CenaJT": 1000.0,
       "CenaJGT": 1500.0,
-      "CenaJTP": 2000.0
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
     },
     "TrajanjeTreninga": 100,
     "DatumIVreme": "19/07/2022 20:10",
-    "MaxPosetilaca": 100,
+    "MaxPosetilaca": 20,
+    "Posetioci": [],
+    "IsDeleted": 0
+  },
+  {
+    "Id": 1143949670,
+    "Naziv": "Les Trening",
+    "TipTreninga": 1,
+    "FitnesCentarr": {
+      "Naziv": "Apolon",
+      "Adresa": {
+        "Ulica": "Svetog Save",
+        "Broj": 12,
+        "Grad": "Srbobran",
+        "PostanskiBroj": "21480"
+      },
+      "GodinaOtvaranja": "2010",
+      "Vlasnik": "marko123",
+      "CenaMC": 8000.0,
+      "CenaGT": 70000.0,
+      "CenaJT": 1000.0,
+      "CenaJGT": 1500.0,
+      "CenaJTP": 2000.0,
+      "IsDeleted": 0
+    },
+    "TrajanjeTreninga": 65,
+    "DatumIVreme": "28/09/2022 12:10",
+    "MaxPosetilaca": 30,
+    "Posetioci": [],
+    "IsDeleted": 1
+  },
+  {
+    "Id": 842672792,
+    "Naziv": "Trening 22",
+    "TipTreninga": 1,
+    "FitnesCentarr": {
+      "Naziv": "Mars",
+      "Adresa": {
+        "Ulica": "Pap Pavla",
+        "Broj": 55,
+        "Grad": "Srbobran",
+        "PostanskiBroj": "21480"
+      },
+      "GodinaOtvaranja": "2020",
+      "Vlasnik": "nemanja44",
+      "CenaMC": 6000.0,
+      "CenaGT": 75000.0,
+      "CenaJT": 900.0,
+      "CenaJGT": 1300.0,
+      "CenaJTP": 1500.0,
+      "IsDeleted": 0
+    },
+    "TrajanjeTreninga": 10,
+    "DatumIVreme": "12/08/2022 20:10",
+    "MaxPosetilaca": 123,
+    "Posetioci": [],
+    "IsDeleted": 1
+  },
+  {
+    "Id": 1061609949,
+    "Naziv": "Trening",
+    "TipTreninga": 2,
+    "FitnesCentarr": {
+      "Naziv": "Mono",
+      "Adresa": {
+        "Ulica": "Kralja Petra",
+        "Broj": 101,
+        "Grad": "Novi Sad",
+        "PostanskiBroj": "21101"
+      },
+      "GodinaOtvaranja": "2020",
+      "Vlasnik": "nemanja44",
+      "CenaMC": 6000.0,
+      "CenaGT": 75000.0,
+      "CenaJT": 900.0,
+      "CenaJGT": 1300.0,
+      "CenaJTP": 1500.0,
+      "IsDeleted": 0
+    },
+    "TrajanjeTreninga": 13,
+    "DatumIVreme": "31/08/2022 10:10",
+    "MaxPosetilaca": 15,
     "Posetioci": [],
     "IsDeleted": 0
   }

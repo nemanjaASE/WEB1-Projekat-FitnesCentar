@@ -199,6 +199,7 @@
     <Content Include="index.html" />
     <Content Include="IstorijaTreninga.css" />
     <Content Include="IstorijaTreninga.html" />
+    <Content Include="izmenaFitnesCentra.css" />
     <Content Include="login.css" />
     <Content Include="login.html" />
     <Content Include="nalog.css" />

@@ -26,5 +26,7 @@ namespace WebProjekat_PR44_2019.Models
         public double CenaJGT { get; set; }
 
         public double CenaJTP { get; set; }
+
+        public int IsDeleted { get; set; }
     }
 }

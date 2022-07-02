@@ -89,5 +89,23 @@ namespace WebProjekat_PR44_2019.Models
             File.Delete(path);
             File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
         }
+
+        public void ZabraniPristup(string username)
+        {
+
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
+            var jsonData = File.ReadAllText(path);
+            var treneriTemp = JsonConvert.DeserializeObject<List<Trener>>(jsonData);
+            foreach (var item in treneriTemp)
+            {
+                if (item.KorisnickoIme == username)
+                {
+                    item.Blokiran = 1;
+                    break;
+                }
+            }
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
+        }
     }
 }

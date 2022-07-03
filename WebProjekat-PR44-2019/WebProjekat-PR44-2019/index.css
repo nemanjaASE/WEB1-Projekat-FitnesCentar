@@ -181,3 +181,32 @@ input[type='checkbox'] {
     border: 2px solid black;
     border-radius: 10px;
 }
+
+#blokirajTable {
+    margin-left: 5%;
+    margin-top: 2%;
+    min-width: 400px;
+    font-size: 25px;
+}
+
+#blokirajBtn {
+    font-weight: bold;
+    font-size: 16px;
+    color: crimson;
+    background-color: white;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+    #blokirajBtn:hover {
+        color: black;
+    }
+
+#trener {
+    min-width: 200px;
+    height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    border-color: #d1d1d1;
+}

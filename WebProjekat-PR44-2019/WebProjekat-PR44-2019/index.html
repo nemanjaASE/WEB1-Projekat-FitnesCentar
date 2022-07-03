@@ -355,7 +355,7 @@
                     + "<tr><td class=\"polje\">Godišnja članarina: </td>"
                     + "<td><input type=\"text\" id=\"cenaGT\" value=\"\" placeholder=\"Cena godišnje\"></td></tr>"
                     + "<tr><td colspan =\"5\" ><button id=\"kreirajFC\">Kreiraj</button>"
-                    +"</td ></tr > "
+                    + "</td ></tr > "
                 );
 
                 $("#kreirajFC").focus();
@@ -393,7 +393,7 @@
                     + "<tr> <td colspan=\"4\" id=\"errorIzmena\"></td></tr>"
                     + "<tr><td colspan=\"4\"> <button id=\"dodajBtn\">Dodaj</button></td></tr></table>");
 
-                    $("#dodajBtn").focus();
+                $("#dodajBtn").focus();
             });
             $(document).on("click", "#dodajBtn", function () {
                 var initial = $("#datum").val().split('-');
@@ -402,7 +402,7 @@
                 var polTip;
                 if ($("#pol").val() === "MUSKI") {
                     polTip = "Muski";
-                } else if($("#pol").val() === "ZENSKI"){
+                } else if ($("#pol").val() === "ZENSKI") {
                     polTip = "Zenski";
                 }
 
@@ -437,6 +437,22 @@
                     }
                 });
             });
+            $(document).on("click", "#blokirajBtn", function () {
+                var korisnickoIme = ($('#trener').find(":selected").text());
+                if (korisnickoIme == null || korisnickoIme.length == 0) {
+                    return;
+                } else {
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/Trener?trener=' + korisnickoIme,
+                        success: function (data) {
+                            alert("Trener '" + korisnickoIme + "' uspešno blokiran.");
+                            $(location).attr('href', 'index.html');
+                        }
+                    });
+                }
+            });
+
         });
 
         function Search(nazivCheckBtn, adresaCheckBtn, godinaCheckBtn, fitnesCentri) {
@@ -574,6 +590,26 @@
             }
             if (localStorage.getItem("role") == 2) {
                 $("#fitnesCentriTable").append("<tr><td class=\"item\" colspan=\"5\"><button id=\"noviBTN\">Kreiraj novi</button></td></tr>");
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/Trener?vlasnik=' + localStorage.getItem("user"),
+                    success: function (data) {
+
+                        $("#blokirajTrenera").append(
+                            "<table id=\"blokirajTable\">"
+                            + "<tr><td>Trener: </td>"
+                            + "<td><select name=\"trener\" id=\"trener\">"
+                            + "<option value=\"0\"></option>"
+                        );
+                        for (let key in data) {
+                            $("#trener").append(
+                                "<option value=\"" + data[key].KorisnickoIme + "\">" + data[key].KorisnickoIme + "</option>");
+                        }
+                        $("#blokirajTable").append(+ "</select></td>"
+                            + "<td> <button id=\"blokirajBtn\">Blokiraj</button></td></tr></table>");
+                    }
+                });
+              
             }
         }
         function CheckFCInput(fitnesCentar) {
@@ -893,7 +929,9 @@
             </tr>
         </table>
     </div>
+    <div id="blokirajTrenera">
 
+    </div>
     <div id="izmena">
 
     </div>
@@ -903,6 +941,7 @@
     <div id="noviTrener">
 
     </div>
+
     <br><br><br><br>
 </body>
 </html>

@@ -27,6 +27,11 @@
             var tipCheckBtn = false;
             var fcCheckBtn = false;
 
+            if (localStorage.getItem("user") === "GOST" || localStorage.getItem("user") === null) {
+                localStorage.setItem("user", "GOST");
+                $(location).attr('href', 'login.html');
+            }
+
             $("#komentarP").hide();
             $("#komentarTable").hide();
 

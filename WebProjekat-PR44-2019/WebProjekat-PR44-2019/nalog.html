@@ -30,7 +30,8 @@
             var descSortDatum = true;
             var fitnesCentar;
 
-            if (localStorage.getItem("user") === "GOST") {
+            if (localStorage.getItem("user") === "GOST" || localStorage.getItem("user") === null) {
+                localStorage.setItem("user", "GOST");
                 $(location).attr('href', 'login.html');
             }
 

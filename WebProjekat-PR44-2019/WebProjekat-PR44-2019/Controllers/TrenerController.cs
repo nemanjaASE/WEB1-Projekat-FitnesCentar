@@ -14,6 +14,8 @@ namespace WebProjekat_PR44_2019.Controllers
         private static TrenerRepo trenerRepo = new TrenerRepo();
         private static PosetilacRepo posetilacRepo = new PosetilacRepo();
         private static VlasnikRepo vlasnikRepo = new VlasnikRepo();
+        private static FitnesCentriRepo fitnesCentriRepo = new FitnesCentriRepo();
+
         public IHttpActionResult Post(Trener trener)
         {
             if (posetilacRepo.GetPosetilac(trener.KorisnickoIme) == null
@@ -34,6 +36,26 @@ namespace WebProjekat_PR44_2019.Controllers
                 return BadRequest();
             }
         }
+        public List<Trener> Get(string vlasnik)
+        {
+            List<Trener> treneri = trenerRepo.DobaviTrenere();
+            List<Trener> retVal = new List<Trener>();
+            foreach (var item in treneri)
+            {
+                FitnesCentar fitnesCentar = fitnesCentriRepo.DobaviFitnesCentar(item.FitnesCentar);
+                if(item.Blokiran == 0 && fitnesCentar.Vlasnik == vlasnik)
+                {
+                    retVal.Add(item);
+                }
+            }
+            return retVal;
+        }
+        public IHttpActionResult Put(string trener)
+        {
+            trenerRepo.ZabraniPristup(trener);
+            return Ok(trener);
+        }
+
 
         private bool IsValid(Trener trener)
         {
@@ -126,4 +148,5 @@ namespace WebProjekat_PR44_2019.Controllers
             return isValid;
         }
     }
+
 }

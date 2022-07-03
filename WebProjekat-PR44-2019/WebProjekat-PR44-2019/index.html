@@ -594,7 +594,7 @@
                     type: 'GET',
                     url: '/api/Trener?vlasnik=' + localStorage.getItem("user"),
                     success: function (data) {
-
+                        $("#blokirajTrenera").empty();
                         $("#blokirajTrenera").append(
                             "<table id=\"blokirajTable\">"
                             + "<tr><td>Trener: </td>"

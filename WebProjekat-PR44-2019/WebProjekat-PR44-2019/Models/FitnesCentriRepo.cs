@@ -88,5 +88,17 @@ namespace WebProjekat_PR44_2019.Models
             }
             return false;
         }
+
+        public void DodajFitnesCentar(FitnesCentar fitnesCentar)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/fitnesCentri.json");
+            string jsonString = File.ReadAllText(path);
+            var dataModel = JsonConvert.DeserializeObject<List<FitnesCentar>>(jsonString);
+            fitnesCentar.IsDeleted = 0;
+            dataModel.Add(fitnesCentar);
+            
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(dataModel));
+        }
     }
 }

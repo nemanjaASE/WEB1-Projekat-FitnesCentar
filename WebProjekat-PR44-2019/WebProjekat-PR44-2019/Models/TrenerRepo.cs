@@ -107,5 +107,19 @@ namespace WebProjekat_PR44_2019.Models
             File.Delete(path);
             File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
         }
+
+        public void DodajTrenera(Trener trener)
+        {
+            string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
+            var jsonData = File.ReadAllText(path);
+            var treneriTemp = JsonConvert.DeserializeObject<List<Trener>>(jsonData);
+            trener.Blokiran = 0;
+            trener.GrupniTrening = new List<string>();
+            trener.Uloga = Uloga.Trener;
+            treneriTemp.Add(trener);
+
+            File.Delete(path);
+            File.WriteAllText(path, JsonConvert.SerializeObject(treneriTemp));
+        }
     }
 }

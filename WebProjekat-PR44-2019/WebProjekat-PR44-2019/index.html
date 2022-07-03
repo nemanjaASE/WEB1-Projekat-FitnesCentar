@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>Home</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="dodajTrenera.css">
     <link rel="stylesheet" href="izmenaFitnesCentra.css">
     <script src="../../Scripts/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet"
@@ -196,8 +197,10 @@
             $(document).on("click", "#izmenaFCBTN", function () {
                 var trenuntiRed = $(this).closest("tr");
                 var col1 = trenuntiRed.find("td:eq(0)").text();
-              
+
                 $("#izmena").empty();
+                $("#dodavanje").empty();
+                $("#noviTrener").empty();
                 $("#izmena").append("<table id=\"detaljiTable\">"
                     + "<caption id=\"detaljiFC\">IZMENA FITNES CENTRA </caption>"
                     + "<tr><td class=\"polje\"> Naziv: </td>"
@@ -226,6 +229,7 @@
 
                 $("#izmeniFC").focus();
             });
+
             $(document).on("click", "#izmeniFC", function () {
                 var fitnesCentar = {
                     Naziv: $("#nazivFC").val(),
@@ -243,8 +247,10 @@
                     CenaJGT: $("#cenaGTFC").val(),
                     CenaJTP: $("#cenaJPTFC").val()
                 };
+
                 if (!CheckFCInput(fitnesCentar))
                     return;
+
                 $.ajax({
                     type: 'PUT',
                     url: '/api/FitnesCentri',
@@ -263,6 +269,44 @@
                 })
             });
 
+            $(document).on("click", "#kreirajFC", function () {
+                var fitnesCentar = {
+                    Naziv: $("#nazivFC").val(),
+                    Adresa: {
+                        Ulica: $("#ulicaFC").val(),
+                        Broj: $("#brojFC").val(),
+                        Grad: $("#gradFC").val(),
+                        PostanskiBroj: $("#postanskiKodFC").val()
+                    },
+                    Vlasnik: $("#vlasnikFC").val(),
+                    GodinaOtvaranja: $("#godinaFC").val(),
+                    CenaMC: $("#cenaMCFC").val(),
+                    CenaGT: $("#cenaGT").val(),
+                    CenaJT: $("#cenaJTFC").val(),
+                    CenaJGT: $("#cenaGTFC").val(),
+                    CenaJTP: $("#cenaJPTFC").val()
+                };
+
+                if (!CheckFCInput(fitnesCentar))
+                    return;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/FitnesCentri?naziv=' + fitnesCentar.Naziv,
+                    data: JSON.stringify(fitnesCentar),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    statusCode: {
+                        200: function () {
+                            alert("Uspešno dodat fitnes centar!");
+                            $(location).attr('href', 'index.html');
+                        },
+                        400: function () {
+                            alert("Nije moguće dodati fitnes centar!");
+                        }
+                    }
+                })
+            });
             $(document).on("click", "#obrisiFCBTN", function () {
                 var trenuntiRed = $(this).closest("tr");
                 var col1 = trenuntiRed.find("td:eq(0)").text();
@@ -280,6 +324,118 @@
                         }
                     }
                 })
+            });
+
+            $(document).on("click", "#noviBTN", function () {
+
+                $("#dodavanje").empty();
+                $("#izmena").empty();
+                $("#noviTrener").empty();
+                $("#dodavanje").append("<table id=\"detaljiTable\">"
+                    + "<caption id=\"detaljiFC\">NOVI FITNES CENTAR </caption>"
+                    + "<tr><td class=\"polje\"> Naziv: </td>"
+                    + "<td><input type=\"text\" id=\"nazivFC\" value=\"\" placeholder=\"Naziv\"></td></tr>"
+                    + "<tr><td class=\"polje\">Adresa:</td>"
+                    + "<td><input type=\"text\" id=\"ulicaFC\"  value=\"\" placeholder=\"Ulica\"></td>"
+                    + "<td><input type=\"text\" id=\"brojFC\"  value=\"\" placeholder=\"Broj\"></td>"
+                    + "<td><input type=\"text\" id=\"gradFC\"  value=\"\" placeholder=\"Grad\"></td>"
+                    + "<td><input type=\"text\" id=\"postanskiKodFC\"  value=\"\" placeholder=\"Poštanski br.\"></td></tr>"
+                    + "<tr><td class=\"polje\"> Vlasnik: </td>"
+                    + "<td><input type=\"text\" id=\"vlasnikFC\"  value=\"" + localStorage.getItem("user") + "\" readonly></td>"
+                    + "<td class=\"polje\">God. otvaranja: </td>"
+                    + "<td><input type=\"text\" id=\"godinaFC\"  value=\"\" placeholder=\"God. otvaranja\"></td></tr>"
+                    + "<tr><td class=\"polje\"> Mesečna članarina: </td>"
+                    + "<td><input type=\"text\" id=\"cenaMCFC\"  value=\"\" placeholder=\"Cena mesеčno\"></td>"
+                    + "<td class=\"polje\">Jedan trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaJTFC\"  value=\"\" placeholder=\"Cena jednog tr.\"></td></tr>"
+                    + "<tr><td class=\"polje\"> Jedan per.trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaJPTFC\" value=\"\" placeholder=\"Cena personalnog tr.\"></td>"
+                    + "<td class=\"polje\">Grupni trening: </td>"
+                    + "<td><input type=\"text\" id=\"cenaGTFC\"  value=\"\" placeholder=\"Cena grupnog tr.\"></td></tr>"
+                    + "<tr><td class=\"polje\">Godišnja članarina: </td>"
+                    + "<td><input type=\"text\" id=\"cenaGT\" value=\"\" placeholder=\"Cena godišnje\"></td></tr>"
+                    + "<tr><td colspan =\"5\" ><button id=\"kreirajFC\">Kreiraj</button>"
+                    +"</td ></tr > "
+                );
+
+                $("#kreirajFC").focus();
+            });
+
+            $(document).on("click", "#dodajTreneraBTN", function () {
+                $("#dodavanje").empty();
+                $("#izmena").empty();
+                $("#noviTrener").empty();
+
+                var trenuntiRed = $(this).closest("tr");
+                var col1 = trenuntiRed.find("td:eq(0)").text();
+                localStorage.setItem("fc", fitnesCentri[col1 - 1].Naziv);
+
+                $("#noviTrener").append("<table id=\"nalogTable\">"
+                    + "<caption id=\"nalogCaption\">NOVI TRENER ZA:  " + fitnesCentri[col1 - 1].Naziv + "</caption>"
+                    + "<tr><td class=\"polje\"> Korisničko ime: </td>"
+                    + "<td><input type=\"text\" id=\"username\" value=\"\" placeholder=\"Korisničko ime\"></td>"
+                    + "<td class=\"polje\">Lozinka: </td>"
+                    + "<td><input type=\"password\" id=\"sifra\" placeholder=\"Šifra\"></td></tr>"
+                    + "<tr> <td class=\"polje\">Ime: </td>"
+                    + "<td><input type=\"text\" id=\"ime\" placeholder=\"Ime\"></td>"
+                    + "<td class=\"polje\">Prezime: </td>"
+                    + "<td><input type=\"text\" id=\"prezime\" placeholder=\"Prezime\"></td></tr>"
+                    + "<tr><td class=\"polje\">E-mail: </td>"
+                    + "<td><input type=\"text\" id=\"email\" placeholder=\"E-mail\"></td>"
+                    + "<td class=\"polje\">Datum rođenja: </td>"
+                    + "<td><input type=\"date\" id=\"datum\" placeholder=\"dd/mm/yyyy\" min=\"1980-01-01\" max=\"2004-01-01\"></td></tr>"
+                    + "<tr><td class=\"polje\">Uloga: </td>"
+                    + "<td><input type=\"text\" id=\"uloga\" value=\"TRENER\" readonly></td>"
+                    + "<td class=\"polje\">Pol: </td>"
+                    + "<td> <select name=\"pol\" id=\"pol\">"
+                    + "<option value=\"MUSKI\">MUŠKI</option>"
+                    + "<option value=\"ZENSKI\">ŽENSKI</option></select></td></tr>"
+                    + "<tr> <td colspan=\"4\" id=\"errorIzmena\"></td></tr>"
+                    + "<tr><td colspan=\"4\"> <button id=\"dodajBtn\">Dodaj</button></td></tr></table>");
+
+                    $("#dodajBtn").focus();
+            });
+            $(document).on("click", "#dodajBtn", function () {
+                var initial = $("#datum").val().split('-');
+                var toInput = [initial[2], initial[1], initial[0]].join('/');
+
+                var polTip;
+                if ($("#pol").val() === "MUSKI") {
+                    polTip = "Muski";
+                } else if($("#pol").val() === "ZENSKI"){
+                    polTip = "Zenski";
+                }
+
+                var trener = {
+                    FitnesCentar: localStorage.getItem("fc"),
+                    KorisnickoIme: $("#username").val(),
+                    Lozinka: $("#sifra").val(),
+                    Ime: $("#ime").val(),
+                    Prezime: $("#prezime").val(),
+                    Email: $("#email").val(),
+                    DatumRodjenja: toInput,
+                    Pol: polTip
+                };
+
+                if (!CheckTrenerInput(trener))
+                    return;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/trener',
+                    data: JSON.stringify(trener),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    statusCode: {
+                        200: function () {
+                            alert("Uspešno dodat trener!");
+                            $(location).attr('href', 'index.html');
+                        },
+                        400: function () {
+                            alert("Nije moguće dodati trenera!");
+                        }
+                    }
+                });
             });
         });
 
@@ -402,11 +558,11 @@
                         + "<td>" + fitnesCentri[key].GodinaOtvaranja + "</td>"
                         + "<td> <button id=\"izmenaFCBTN\" " + (localStorage.getItem("user") === fitnesCentri[key].Vlasnik ? " " : "hidden") + ">Izmeni</button>"
                         + "<button id=\"obrisiFCBTN\" " + (localStorage.getItem("user") === fitnesCentri[key].Vlasnik ? " " : "hidden") + ">Obriši</button>"
+                        + "<button id=\"dodajTreneraBTN\"" + (localStorage.getItem("user") === fitnesCentri[key].Vlasnik ? " " : "hidden") + ">Dodaj trenera</button>"
                         + "<button id=\"detalji\">Detalji</button>"
-                        + "</td></tr>"
-                        );
+                        + "</td>>"
+                    );
                     id = id + 1;
-                  
                 }
                 else {
                     $("#fitnesCentriTable").append("<tr class=\"item\"><td>" + id + "</td><td>" + fitnesCentri[key].Naziv + "</td>"
@@ -416,25 +572,94 @@
                     id = id + 1;
                 }
             }
+            if (localStorage.getItem("role") == 2) {
+                $("#fitnesCentriTable").append("<tr><td class=\"item\" colspan=\"5\"><button id=\"noviBTN\">Kreiraj novi</button></td></tr>");
+            }
         }
         function CheckFCInput(fitnesCentar) {
             var boolean = true;
-            var parsed = parseInt(fitnesCentar.GodinaOtvaranja, 10);
-            if (isNaN(parsed)) {
-                $("#godinaFC").css("background-color", "#FF8484");
+
+            if (fitnesCentar.Naziv == null ||
+                fitnesCentar.Naziv.length == 0) {
+                $("#nazivFC").css("background-color", "#FF8484");
                 boolean = false;
             } else {
-                if (fitnesCentar.GodinaOtvaranja == null ||
-                    fitnesCentar.GodinaOtvaranja.length == 0 ||
-                    parsed < 2000) {
-                    $("#godinaFC").css("background-color", "#FF8484");
+                $("#nazivFC").css("background-color", "#d1d1d5");
+            }
+
+            if (fitnesCentar.Adresa.Ulica == null) {
+                $("#ulicaFC").css("background-color", "#FF8484");
+                $("#gradFC").css("background-color", "#FF8484");
+                $("#brojFC").css("background-color", "#FF8484");
+                $("#postanskiKodFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                $("#ulicaFC").css("background-color", "white");
+                $("#gradFC").css("background-color", "white");
+                $("#brojFC").css("background-color", "white");
+                $("#postanskiKodFC").css("background-color", "#d1d1d5");
+            }
+
+            if (fitnesCentar.Adresa.Ulica == null ||
+                fitnesCentar.Adresa.Ulica.length == 0) {
+                $("#ulicaFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                $("#ulicaFC").css("background-color", "#d1d1d5");
+            }
+
+            var parsed = parseInt(fitnesCentar.Adresa.Broj, 10);
+            if (isNaN(parsed)) {
+                $("#brojFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                if (parsed <= 0) {
+                    $("#brojFC").css("background-color", "#FF8484");
                     boolean = false;
                 }
                 else {
-                    $("#godinaFC").css("background-color", "#d1d1d5");
+                    $("#brojFC").css("background-color", "#d1d1d5");
                 }
             }
-          
+
+            if (fitnesCentar.Adresa.Grad == null ||
+                fitnesCentar.Adresa.Grad.length == 0) {
+                $("#gradFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                $("#gradFC").css("background-color", "#d1d1d5");
+            }
+
+            if (fitnesCentar.Adresa.PostanskiBroj == null ||
+                fitnesCentar.Adresa.PostanskiBroj.length != 5) {
+                $("#postanskiKodFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+                $("#postanskiKodFC").css("background-color", "#d1d1d5");
+            }
+
+            if (fitnesCentar.GodinaOtvaranja.length != 4) {
+                $("#godinaFC").css("background-color", "#FF8484");
+                boolean = false;
+            } else {
+
+                parsed = parseInt(fitnesCentar.GodinaOtvaranja, 10);
+                if (isNaN(parsed)) {
+                    $("#godinaFC").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    if (fitnesCentar.GodinaOtvaranja == null ||
+                        fitnesCentar.GodinaOtvaranja.length == 0 ||
+                        parsed < 2000) {
+                        $("#godinaFC").css("background-color", "#FF8484");
+                        boolean = false;
+                    }
+                    else {
+                        $("#godinaFC").css("background-color", "#d1d1d5");
+                    }
+                }
+            }
+
             parsed = parseInt(fitnesCentar.CenaGT, 10);
             if (isNaN(parsed)) {
                 $("#cenaGT").css("background-color", "#FF8484");
@@ -502,6 +727,56 @@
             }
             return boolean;
         }
+        function CheckTrenerInput(trener) {
+            var boolean = true
+
+            if (trener.KorisnickoIme === null || trener.KorisnickoIme.length === 0) {
+                $("#username").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#username").css("background-color", "#d1d1d5");
+            }
+            if (trener.Lozinka === null || trener.Lozinka.length === 0) {
+                $("#sifra").css("background-color", "#FF8484");
+                boolean = false
+            }
+            else {
+                $("#sifra").css("background-color", "#d1d1d5");
+            }
+            if (trener.Ime === null || trener.Ime.length === 0) {
+                $("#ime").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#ime").css("background-color", "#d1d1d5");
+            }
+            if (trener.Prezime === null || trener.Prezime.length === 0) {
+                $("#prezime").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#prezime").css("background-color", "#d1d1d5");
+            }
+            if (trener.Email === null || trener.Email.length === 0) {
+                $("#email").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                var mail_format = /\S+@\S+\.\S+/;
+                if (!(mail_format.test(trener.Email))) {
+                    $("#email").css("background-color", "#FF8484");
+                    boolean = false;
+                } else {
+                    $("#email").css("background-color", "#d1d1d5");
+                }
+            }
+            if (trener.DatumRodjenja.length == 0 || trener.DatumRodjenja === "//") {
+                $("#datum").css("background-color", "#FF8484");
+                boolean = false
+            } else {
+                $("#datum").css("background-color", "#d1d1d5");
+            }
+
+            return boolean;
+        }
+
 
         function SortByName(fitnesCentri, ascSortNaziv, descSortNaziv) {
             let n = fitnesCentri.length
@@ -620,6 +895,12 @@
     </div>
 
     <div id="izmena">
+
+    </div>
+    <div id="dodavanje">
+
+    </div>
+    <div id="noviTrener">
 
     </div>
     <br><br><br><br>

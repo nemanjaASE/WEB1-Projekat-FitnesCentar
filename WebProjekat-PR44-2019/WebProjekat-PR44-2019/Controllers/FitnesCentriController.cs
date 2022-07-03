@@ -72,6 +72,18 @@ namespace WebProjekat_PR44_2019.Controllers
                 return BadRequest();
         }
 
+        public IHttpActionResult Post(string naziv, FitnesCentar fitnesCentar)
+        {
+            if (!CheckFitnesCentarInput(fitnesCentar))
+                return BadRequest();
+
+            if (repo.DobaviFitnesCentar(naziv) != null)
+                return BadRequest();
+
+            repo.DodajFitnesCentar(fitnesCentar);
+            return Ok(fitnesCentar);
+        }
+
         public IHttpActionResult Delete(string naziv,string vlasnik)
         {
             List<GrupniTrening> grupniTreninzi = grupniRepo.DobaviGrupneTreninge();
@@ -123,6 +135,41 @@ namespace WebProjekat_PR44_2019.Controllers
             else{
                 return BadRequest();
             }
+        }
+
+        private bool CheckFitnesCentarInput(FitnesCentar fitnesCentar)
+        {
+            bool isValid = true;
+            if (fitnesCentar == null)
+                isValid = false;
+            else if (fitnesCentar.Naziv == null || fitnesCentar.Naziv.Length == 0)
+                isValid = false;
+            else if (fitnesCentar.Vlasnik == null || fitnesCentar.Vlasnik.Length == 0)
+                isValid = false;
+            else if (fitnesCentar.GodinaOtvaranja == null || fitnesCentar.GodinaOtvaranja.Length != 4)
+                isValid = false;
+            else if (fitnesCentar.Adresa == null)
+                isValid = false;
+            else if (fitnesCentar.Adresa.Ulica == null || fitnesCentar.Adresa.Ulica.Length == 0)
+                isValid = false;
+            else if (fitnesCentar.Adresa.PostanskiBroj == null || fitnesCentar.Adresa.PostanskiBroj.Length != 5)
+                isValid = false;
+            else if (fitnesCentar.Adresa.Grad == null || fitnesCentar.Adresa.Grad.Length == 0)
+                isValid = false;
+            else if (fitnesCentar.Adresa.Broj <= 0)
+                isValid = false;
+            else if (fitnesCentar.CenaGT < 0)
+                isValid = false;
+            else if (fitnesCentar.CenaJGT < 0)
+                isValid = false;
+            else if (fitnesCentar.CenaJT < 0)
+                isValid = false;
+            else if (fitnesCentar.CenaJTP < 0)
+                isValid = false;
+            else if (fitnesCentar.CenaMC < 0)
+                isValid = false;
+
+            return isValid;
         }
     }
 }

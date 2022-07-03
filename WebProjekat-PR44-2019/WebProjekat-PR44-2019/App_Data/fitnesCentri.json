@@ -100,5 +100,22 @@
     "CenaJGT": 2400.0,
     "CenaJTP": 1400.0,
     "IsDeleted": 0
+  },
+  {
+    "Naziv": "Atlas",
+    "Adresa": {
+      "Ulica": "Drinska",
+      "Broj": 25,
+      "Grad": "Novi Sad",
+      "PostanskiBroj": "21000"
+    },
+    "GodinaOtvaranja": "2019",
+    "Vlasnik": "marko123",
+    "CenaMC": 25000.0,
+    "CenaGT": 100000.0,
+    "CenaJT": 1000.0,
+    "CenaJGT": 1700.0,
+    "CenaJTP": 1400.0,
+    "IsDeleted": 1
   }
 ]

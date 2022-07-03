@@ -27,7 +27,9 @@
             var adresaCheckBtn = false;
             var godinaCheckBtn = false;
 
-
+            if (localStorage.getItem("user") === null) {
+                localStorage.setItem("user", "GOST");
+            }
             if (localStorage.getItem("user") === "GOST") {
                 localStorage.setItem("role", 3);
                 $("#nalog").hide();

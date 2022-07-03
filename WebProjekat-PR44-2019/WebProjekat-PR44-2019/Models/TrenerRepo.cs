@@ -13,6 +13,7 @@ namespace WebProjekat_PR44_2019.Models
         {
             
         }
+
         public Trener GetTrener(string korisnickoIme)
         {
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
@@ -25,6 +26,7 @@ namespace WebProjekat_PR44_2019.Models
             }
             return null;
         }
+
         public List<Trener> DobaviTrenere()
         {
             string path = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/treneri.json");
@@ -48,6 +50,7 @@ namespace WebProjekat_PR44_2019.Models
                     item.Email = trener.Email;
                     item.DatumRodjenja = trener.DatumRodjenja;
                     item.Pol = trener.Pol;
+                    item.Uloga = Uloga.Trener;
                     break;
                 }
             }

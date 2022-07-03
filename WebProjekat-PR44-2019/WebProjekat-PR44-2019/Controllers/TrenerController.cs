@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 using WebProjekat_PR44_2019.Models;
 
@@ -81,11 +82,7 @@ namespace WebProjekat_PR44_2019.Controllers
             {
                 isValid = false;
             }
-            try
-            {
-                MailAddress address = new MailAddress(trener.Email);
-            }
-            catch (Exception)
+            if (!EmailIsValid(trener.Email))
             {
                 isValid = false;
             }
@@ -147,6 +144,13 @@ namespace WebProjekat_PR44_2019.Controllers
             }
             return isValid;
         }
+        private bool EmailIsValid(string email)
+        {
+            string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
+
+            return Regex.IsMatch(email, regex, RegexOptions.IgnoreCase);
+        }
+
     }
 
 }

@@ -1,1 +1,93 @@
-[{"Blokiran":0,"FitnesCentar":"Apolon","GrupniTrening":["Grupni Trening 1","Grupni Trening 2","Grupni Trening 3","Grupni Trening 4","Grupni Trening 5","Body Pump Grupni"],"KorisnickoIme":"trenerYoge","Lozinka":"qwerty","Ime":"Adam","Prezime":"Jovanovic","Email":"adam123@gmail.com","Pol":"Muski","DatumRodjenja":"19/01/2000","Uloga":1},{"Blokiran":0,"FitnesCentar":"Mono","GrupniTrening":[],"KorisnickoIme":"trener","Lozinka":"123","Ime":"Marko","Prezime":"Marković","Email":"marko555@gmail.com","Pol":"Muski","DatumRodjenja":"01/10/1995","Uloga":0},{"Blokiran":0,"FitnesCentar":"Mono","GrupniTrening":[],"KorisnickoIme":"trener2","Lozinka":"123","Ime":"Milan","Prezime":"ivanovic","Email":"ivanovic125@gmail.com","Pol":"Muski","DatumRodjenja":"10/11/1990","Uloga":1},{"Blokiran":0,"FitnesCentar":"Try Hard","GrupniTrening":["Try Hard Yoga"],"KorisnickoIme":"noviTrener","Lozinka":"123","Ime":"Andrija","Prezime":"Andrić","Email":"andrija987@gmail.com","Pol":"Muski","DatumRodjenja":"26/01/2000","Uloga":1}]
+[
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Apolon",
+    "GrupniTrening": [ "Grupni Trening 1", "Grupni Trening 2", "Grupni Trening 3", "Grupni Trening 4", "Grupni Trening 5", "Body Pump Grupni" ],
+    "KorisnickoIme": "trenerYoge",
+    "Lozinka": "qwerty",
+    "Ime": "Adam",
+    "Prezime": "Jovanovic",
+    "Email": "adam123@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "19/01/2000",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Mono",
+    "GrupniTrening": [],
+    "KorisnickoIme": "trener",
+    "Lozinka": "123",
+    "Ime": "Marko",
+    "Prezime": "Marković",
+    "Email": "marko555@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "01/10/1995",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Mono",
+    "GrupniTrening": [],
+    "KorisnickoIme": "trener2",
+    "Lozinka": "123",
+    "Ime": "Milan",
+    "Prezime": "ivanovic",
+    "Email": "ivanovic125@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "10/11/1990",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Try Hard",
+    "GrupniTrening": [ "Try Hard Yoga" ],
+    "KorisnickoIme": "noviTrener",
+    "Lozinka": "123",
+    "Ime": "Andrija",
+    "Prezime": "Andrić",
+    "Email": "andrija987@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "26/01/2000",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Mars",
+    "GrupniTrening": [],
+    "KorisnickoIme": "marsTrener",
+    "Lozinka": "nikolica",
+    "Ime": "Nikola",
+    "Prezime": "Nikolić",
+    "Email": "nikola@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "03/12/2002",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Athletic Gym",
+    "GrupniTrening": [ "Athletic Gym Yoga" ],
+    "KorisnickoIme": "athTrener",
+    "Lozinka": "123",
+    "Ime": "Milovan",
+    "Prezime": "Milovanovic",
+    "Email": "123@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "01/02/1989",
+    "Uloga": 1
+  },
+  {
+    "Blokiran": 0,
+    "FitnesCentar": "Beosport",
+    "GrupniTrening": [],
+    "KorisnickoIme": "beoTrener",
+    "Lozinka": "abc",
+    "Ime": "Goran",
+    "Prezime": "Marković",
+    "Email": "abc@gmail.com",
+    "Pol": "Muski",
+    "DatumRodjenja": "09/12/2003",
+    "Uloga": 1
+  }
+]
